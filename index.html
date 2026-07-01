@@ -272,6 +272,30 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
             <div>{{ ft_addr }}</div>
             <div>{{ ft_license }}</div>
           </div>
+          <!-- FOLLOW US — only LinkedIn shown for now; replace href with the company page once created -->
+          <div style="margin-top:22px">
+            <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_follow }}</div>
+            <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+              <a href="#" aria-label="LinkedIn" class="mag" style="width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);display:grid;place-items:center;font-size:16px"><i data-lucide="linkedin"></i></a>
+              <!-- Additional channels — kept in markup but hidden until launch -->
+              <a href="#" aria-label="Facebook" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><i data-lucide="facebook"></i></a>
+              <a href="#" aria-label="Instagram" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><i data-lucide="instagram"></i></a>
+              <a href="#" aria-label="X" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><i data-lucide="twitter"></i></a>
+              <a href="#" aria-label="YouTube" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><i data-lucide="youtube"></i></a>
+              <a href="#" aria-label="TikTok" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><i data-lucide="music"></i></a>
+            </div>
+          </div>
+          <!-- PAYMENT ACCEPTED — added but hidden for now; enable by removing display:none -->
+          <div style="display:none;margin-top:22px">
+            <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_payment }}</div>
+            <div class="mono-ltr" style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap">
+              <span style="padding:5px 9px;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Amex</span>
+              <span style="padding:5px 9px;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Mastercard</span>
+              <span style="padding:5px 9px;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Visa</span>
+              <span style="padding:5px 9px;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Apple&nbsp;Pay</span>
+              <span style="padding:5px 9px;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Samsung&nbsp;Pay</span>
+            </div>
+          </div>
         </div>
         <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colCompany }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#about" class="navlink">{{ nav_about }}</a><a href="#services" class="navlink">{{ nav_services }}</a><a href="#tech" class="navlink">{{ nav_tech }}</a></div></div>
         <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colLegal }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="privacy.html" class="navlink">{{ ft_lnk_privacy }}</a><a href="terms.html" class="navlink">{{ ft_lnk_terms }}</a><a href="disclaimer.html" class="navlink">{{ ft_lnk_disclaimer }}</a></div></div>
@@ -452,10 +476,14 @@ class Component extends DCLogic {
         tech_sub: 'We standardize on proven, open technologies — chosen for performance, maintainability, and long-term support.',
         stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','Automated Data Parsers','Custom API Integrations'],
         tech_projEyebrow: 'Featured Projects', tech_projH3: 'Systems in production',
-        proj1_tag: 'analytics engine', proj1_title: 'Advanced Analytics Engine',
-        proj1_desc: 'A comprehensive standalone software module designed to process high-volume market data, calculate complex exposure metrics (e.g., GEX profiling), and visualize structural data through an intuitive web interface.',
-        proj2_tag: 'automation', proj2_title: 'Automated Information Parsers',
-        proj2_desc: 'Custom-built automated bots and web-scraping architectures designed to aggregate, filter, and deliver real-time news and research data across messaging platforms securely and efficiently.',
+        proj1_tag: 'analytics engine', proj1_title: 'Gex Analyzer Core',
+        proj1_desc: 'A proprietary multi-layered analytical model designed for complex options construction and selection. The module processes high-frequency data to calculate Gamma Exposure (GEX) context, integrating SABR models.',
+        proj2_tag: 'data pipeline', proj2_title: 'Institutional Data Pipeline',
+        proj2_desc: 'A robust, automated data engineering pipeline built to aggregate and normalize heterogeneous financial data. The system is engineered to pull heavy data streams securely, utilizing reliable REST API infrastructure, including the latest stable EOD endpoints, ensuring zero data loss during high-load market hours.',
+        proj3_tag: 'automation', proj3_title: 'Automated Parsing & Delivery Engines',
+        proj3_desc: 'Custom-built event-driven automated bots designed for continuous web parsing and real-time information delivery. The architecture securely filters, structures, and instantly distributes aggregated market research and news updates directly to corporate messaging platforms (e.g., Telegram).',
+        proj4_tag: 'local AI', proj4_title: 'Autonomous AI Deployment',
+        proj4_desc: 'Configuration and deployment of autonomous, locally hosted Large Language Models (LLMs) to ensure strict data privacy. The environment is optimized for secure, offline code auditing, complex logic translation, and script refactoring without exposing proprietary code to public cloud APIs.',
         ct_eyebrow: '04 — Contact',
         ct_h2: 'Request a technical consultation',
         ct_sub: 'Tell us about your systems and objectives. Our engineering team will respond within one business day.',
@@ -476,7 +504,8 @@ class Component extends DCLogic {
         ft_colCompany: 'Company', ft_colLegal: 'Legal', ft_colContact: 'Contact',
         ft_lnk_privacy: 'Privacy Policy', ft_lnk_terms: 'Terms of Use', ft_lnk_disclaimer: 'Disclaimer',
         ft_copyright: '© 2026 TradesAdvisor Group FZ-LLC. All Rights Reserved.',
-        ft_tagline: 'An independent software vendor — we do not provide financial, investment, or advisory services.'
+        ft_tagline: 'An independent software vendor — we do not provide financial, investment, or advisory services.',
+        ft_follow: 'Follow Us', ft_payment: 'Payment Accepted'
       },
       ru: {
         nav_about: 'О компании', nav_services: 'Услуги', nav_tech: 'Технологии', nav_contact: 'Контакты',
@@ -510,10 +539,14 @@ class Component extends DCLogic {
         tech_sub: 'Мы используем проверенные открытые технологии, выбранные за производительность, удобство сопровождения и долгосрочную поддержку.',
         stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','Автопарсеры данных','Интеграции API'],
         tech_projEyebrow: 'Избранные проекты', tech_projH3: 'Системы в эксплуатации',
-        proj1_tag: 'аналитический движок', proj1_title: 'Продвинутый аналитический движок',
-        proj1_desc: 'Комплексный автономный программный модуль для обработки больших объёмов рыночных данных, расчёта сложных метрик экспозиции (например, GEX-профилирование) и визуализации структурных данных через удобный веб-интерфейс.',
-        proj2_tag: 'автоматизация', proj2_title: 'Автоматизированные парсеры информации',
-        proj2_desc: 'Специально созданные автоматизированные боты и архитектуры веб-скрапинга для агрегации, фильтрации и доставки новостей и исследовательских данных в реальном времени через мессенджеры — безопасно и эффективно.',
+        proj1_tag: 'аналитический движок', proj1_title: 'Gex Analyzer Core',
+        proj1_desc: 'Собственная многоуровневая аналитическая модель для построения и подбора сложных опционных конструкций. Модуль обрабатывает высокочастотные данные для расчёта контекста гамма-экспозиции (GEX) с интеграцией моделей SABR.',
+        proj2_tag: 'конвейер данных', proj2_title: 'Институциональный конвейер данных',
+        proj2_desc: 'Надёжный автоматизированный конвейер инженерии данных для агрегации и нормализации разнородных финансовых данных. Система безопасно загружает тяжёлые потоки данных через надёжную REST API-инфраструктуру, включая актуальные стабильные EOD-endpoint’ы, обеспечивая нулевые потери данных в часы высокой нагрузки.',
+        proj3_tag: 'автоматизация', proj3_title: 'Автоматизированные парсинг и доставка',
+        proj3_desc: 'Специально созданные событийно-ориентированные боты для непрерывного веб-парсинга и доставки информации в реальном времени. Архитектура безопасно фильтрует, структурирует и мгновенно распределяет агрегированные рыночные исследования и новости прямо в корпоративные мессенджеры (например, Telegram).',
+        proj4_tag: 'локальный ИИ', proj4_title: 'Автономное развёртывание ИИ',
+        proj4_desc: 'Настройка и развёртывание автономных, локально размещённых больших языковых моделей (LLM) для строгой конфиденциальности данных. Среда оптимизирована для безопасного офлайн-аудита кода, перевода сложной логики и рефакторинга скриптов без передачи проприетарного кода в публичные облачные API.',
         ct_eyebrow: '04 — Контакты',
         ct_h2: 'Запросить техническую консультацию',
         ct_sub: 'Расскажите о ваших системах и задачах. Наша инженерная команда ответит в течение одного рабочего дня.',
@@ -534,7 +567,8 @@ class Component extends DCLogic {
         ft_colCompany: 'Компания', ft_colLegal: 'Юридическое', ft_colContact: 'Контакты',
         ft_lnk_privacy: 'Политика конфиденциальности', ft_lnk_terms: 'Условия использования', ft_lnk_disclaimer: 'Дисклеймер',
         ft_copyright: '© 2026 TradesAdvisor Group FZ-LLC. Все права защищены.',
-        ft_tagline: 'Независимый разработчик ПО — мы не оказываем финансовых, инвестиционных или консультационных услуг.'
+        ft_tagline: 'Независимый разработчик ПО — мы не оказываем финансовых, инвестиционных или консультационных услуг.',
+        ft_follow: 'Мы в соцсетях', ft_payment: 'Принимаем к оплате'
       },
       ar: {
         nav_about: 'من نحن', nav_services: 'الخدمات', nav_tech: 'التقنيات', nav_contact: 'تواصل',
@@ -568,10 +602,14 @@ class Component extends DCLogic {
         tech_sub: 'نعتمد تقنيات مفتوحة ومُثبتة، مختارة من أجل الأداء وسهولة الصيانة والدعم طويل الأمد.',
         stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','محلّلات بيانات آلية','تكاملات API مخصّصة'],
         tech_projEyebrow: 'مشاريع مختارة', tech_projH3: 'أنظمة قيد التشغيل',
-        proj1_tag: 'محرّك تحليلات', proj1_title: 'محرّك تحليلات متقدّم',
-        proj1_desc: 'وحدة برمجية مستقلة وشاملة مصمّمة لمعالجة كميات كبيرة من بيانات السوق، وحساب مقاييس انكشاف معقّدة (مثل تحليل GEX)، وعرض البيانات الهيكلية عبر واجهة ويب سهلة الاستخدام.',
-        proj2_tag: 'أتمتة', proj2_title: 'محلّلات معلومات آلية',
-        proj2_desc: 'روبوتات آلية وبنى استخلاص ويب مُخصّصة مصمّمة لتجميع وتصفية وتسليم الأخبار وبيانات الأبحاث لحظيًا عبر منصّات المراسلة بأمان وكفاءة.',
+        proj1_tag: 'محرّك تحليلات', proj1_title: 'Gex Analyzer Core',
+        proj1_desc: 'نموذج تحليلي متعدّد الطبقات خاص مصمّم لبناء واختيار تراكيب خيارات معقّدة. تعالج الوحدة البيانات عالية التردّد لحساب سياق انكشاف غاما (GEX) مع دمج نماذج SABR.',
+        proj2_tag: 'خط بيانات', proj2_title: 'خط بيانات مؤسسي',
+        proj2_desc: 'خط أنابيب قوي وآلي لهندسة البيانات، مبني لتجميع وتوحيد بيانات مالية غير متجانسة. صُمّم النظام لسحب تدفّقات بيانات ضخمة بأمان عبر بنية REST API موثوقة، بما في ذلك أحدث نقاط النهاية المستقرّة EOD، مع ضمان عدم فقدان البيانات في ساعات الذروة.',
+        proj3_tag: 'أتمتة', proj3_title: 'محرّكات التحليل والتسليم الآلية',
+        proj3_desc: 'روبوتات آلية مبنية خصيصًا ومدفوعة بالأحداث للتحليل المستمر للويب وتسليم المعلومات لحظيًا. تقوم البنية بتصفية وهيكلة وتوزيع أبحاث السوق والأخبار المجمّعة فورًا إلى منصّات المراسلة المؤسسية (مثل Telegram) بأمان.',
+        proj4_tag: 'ذكاء محلي', proj4_title: 'نشر ذكاء اصطناعي مستقل',
+        proj4_desc: 'تهيئة ونشر نماذج لغوية كبيرة (LLMs) مستقلّة ومستضافة محليًا لضمان خصوصية صارمة للبيانات. البيئة مُحسّنة لتدقيق الشيفرة بأمان دون اتصال، وترجمة المنطق المعقّد، وإعادة هيكلة السكربتات دون كشف الشيفرة الخاصة لواجهات السحابة العامة.',
         ct_eyebrow: '04 — تواصل',
         ct_h2: 'اطلب استشارة تقنية',
         ct_sub: 'أخبرنا عن أنظمتك وأهدافك. سيردّ فريقنا الهندسي خلال يوم عمل واحد.',
@@ -592,7 +630,8 @@ class Component extends DCLogic {
         ft_colCompany: 'الشركة', ft_colLegal: 'قانوني', ft_colContact: 'تواصل',
         ft_lnk_privacy: 'سياسة الخصوصية', ft_lnk_terms: 'شروط الاستخدام', ft_lnk_disclaimer: 'إخلاء المسؤولية',
         ft_copyright: '© 2026 TradesAdvisor Group FZ-LLC. جميع الحقوق محفوظة.',
-        ft_tagline: 'مزوّد برمجيات مستقل — لا نقدّم خدمات مالية أو استثمارية أو استشارية.'
+        ft_tagline: 'مزوّد برمجيات مستقل — لا نقدّم خدمات مالية أو استثمارية أو استشارية.',
+        ft_follow: 'تابعنا', ft_payment: 'طرق الدفع المقبولة'
       }
     };
   }
@@ -621,7 +660,9 @@ class Component extends DCLogic {
       stack: d.stack,
       projects: [
         { icon: 'activity', tag: d.proj1_tag, title: d.proj1_title, desc: d.proj1_desc, tech: ['Python','DuckDB','Streamlit'] },
-        { icon: 'bot', tag: d.proj2_tag, title: d.proj2_title, desc: d.proj2_desc, tech: ['Python','Pandas','APIs'] }
+        { icon: 'git-branch', tag: d.proj2_tag, title: d.proj2_title, desc: d.proj2_desc, tech: ['Python','Pandas','API Integration'] },
+        { icon: 'bot', tag: d.proj3_tag, title: d.proj3_title, desc: d.proj3_desc, tech: ['Python','Automation','Web Scraping','Message APIs'] },
+        { icon: 'cpu', tag: d.proj4_tag, title: d.proj4_title, desc: d.proj4_desc, tech: ['Ollama','LLMs','Hardware Optimization'] }
       ]
     };
   }
