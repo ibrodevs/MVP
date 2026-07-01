@@ -8,7 +8,7 @@
 html{scroll-behavior:smooth}
 body{
   background:var(--bg);color:var(--text);
-  font-family:'Inter','IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  font-family:'Inter','IBM Plex Sans','IBM Plex Sans Arabic',system-ui,-apple-system,sans-serif;
   line-height:1.65;-webkit-font-smoothing:antialiased;
   background-image:radial-gradient(1000px 500px at 80% -10%, rgba(59,130,246,0.10), transparent 60%);
   min-height:100vh;
@@ -41,3 +41,11 @@ footer .wrap{padding:28px 24px;display:flex;justify-content:space-between;flex-w
   font-size:13px;color:var(--faint)}
 footer a{color:var(--muted);text-decoration:none;margin-left:18px;transition:color .2s}
 footer a:hover{color:var(--text)}
+.langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.langseg button{padding:7px 9px;font-size:11.5px;font-weight:600;background:transparent;color:var(--muted);border:none;cursor:pointer;font-family:'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.03em;transition:color .2s,background .2s}
+.langseg button:hover{color:var(--text)}
+.langseg[data-lang="en"] .lb-en,.langseg[data-lang="ru"] .lb-ru,.langseg[data-lang="ar"] .lb-ar{background:var(--text);color:var(--bg)}
+.navcluster{display:flex;align-items:center;gap:14px}
+[dir="rtl"] ul{padding-left:0;padding-right:22px}
+[dir="rtl"] h2 .n{margin-right:0;margin-left:8px}
+[dir="rtl"] footer a{margin-left:0;margin-right:18px}

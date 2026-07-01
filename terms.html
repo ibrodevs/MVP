@@ -6,49 +6,83 @@
 <title>Terms of Use — TradesAdvisor Group FZ-LLC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="legal.css">
 </head>
 <body>
 <header>
   <div class="wrap">
     <a class="brand" href="index.html" style="text-decoration:none;color:inherit"><span class="logo"><span></span></span>Trades<em>Advisor</em></a>
-    <a class="back" href="index.html">← Back to home</a>
+    <div class="navcluster">
+      <div class="langseg" data-lang="en">
+        <button class="lb-en" onclick="__setLang('en')" aria-label="English">EN</button>
+        <button class="lb-ru" onclick="__setLang('ru')" aria-label="Русский">RU</button>
+        <button class="lb-ar" onclick="__setLang('ar')" aria-label="العربية">AR</button>
+      </div>
+      <a class="back" id="l-back" href="index.html">← Back to home</a>
+    </div>
   </div>
 </header>
 <main>
   <div class="wrap">
-    <div class="eyebrow">Legal</div>
-    <h1>Terms of Use</h1>
-    <div class="updated">TradesAdvisor Group FZ-LLC · Meydan Free Zone, Dubai, UAE</div>
-
-    <h2><span class="n">1.</span>Acceptance of Terms</h2>
-    <p>By accessing and using the services provided by TradesAdvisor Group FZ-LLC (hereinafter referred to as &ldquo;TradesAdvisor&rdquo; or &ldquo;Company&rdquo;), you agree to be bound by these Terms of Use.</p>
-
-    <h2><span class="n">2.</span>Provided Services</h2>
-    <p>TradesAdvisor provides educational software, data analytics, market research, and algorithmic IT tools. We strictly supply technological infrastructure, mathematical models, and educational content. We do not provide investment consulting services, personalized financial advice, or direct trading signals.</p>
-
-    <h2><span class="n">3.</span>User Responsibilities</h2>
-    <p>Users agree to use the platform and its services responsibly, in compliance with all applicable laws, and strictly not engage in any illegal activities or misuse of the provided software.</p>
-
-    <h2><span class="n">4.</span>Intellectual Property</h2>
-    <p>All content, software, code, and analytical models provided by TradesAdvisor are the exclusive intellectual property of the Company and may not be reproduced, distributed, or modified without explicit written permission.</p>
-
-    <h2><span class="n">5.</span>Limitation of Liability</h2>
-    <p>TradesAdvisor acts solely as a data and educational software provider. The Company is not liable for any financial losses, damages, or missed opportunities incurred as a result of using its software, analytics, or services.</p>
-
-    <h2><span class="n">6.</span>User Liability</h2>
-    <p>The user bears sole responsibility for all decisions and assumes full financial responsibility for the results of any actions taken based on the educational material or data feeds provided.</p>
-
-    <h2><span class="n">7.</span>Governing Law</h2>
-    <p>These Terms of Use are governed by and construed in accordance with the laws of the United Arab Emirates, specifically as applied in the Emirate of Dubai.</p>
+    <div class="eyebrow" id="l-eyebrow">Legal</div>
+    <h1 id="l-title">Terms of Use</h1>
+    <div class="updated" id="l-meta"></div>
+    <div id="l-body"></div>
   </div>
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 TradesAdvisor Group FZ-LLC. All Rights Reserved.</span>
-    <span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></span>
+    <span id="l-copy"></span>
+    <span><a href="privacy.html" id="l-lp">Privacy Policy</a><a href="terms.html" id="l-lt">Terms of Use</a><a href="disclaimer.html" id="l-ld">Disclaimer</a></span>
   </div>
 </footer>
+<script>
+window.__PAGE = {
+  type: 'sections',
+  data: {
+    en: {
+      title: 'Terms of Use',
+      meta: 'TradesAdvisor Group FZ-LLC · Meydan Free Zone, Dubai, UAE',
+      sections: [
+        { n: '1.', h: 'Acceptance of Terms', p: 'By accessing and using the services provided by TradesAdvisor Group FZ-LLC (hereinafter referred to as &ldquo;TradesAdvisor&rdquo; or &ldquo;Company&rdquo;), you agree to be bound by these Terms of Use.' },
+        { n: '2.', h: 'Provided Services', p: 'TradesAdvisor provides educational software, data analytics, market research, and algorithmic IT tools. We strictly supply technological infrastructure, mathematical models, and educational content. We do not provide investment consulting services, personalized financial advice, or direct trading signals.' },
+        { n: '3.', h: 'User Responsibilities', p: 'Users agree to use the platform and its services responsibly, in compliance with all applicable laws, and strictly not engage in any illegal activities or misuse of the provided software.' },
+        { n: '4.', h: 'Intellectual Property', p: 'All content, software, code, and analytical models provided by TradesAdvisor are the exclusive intellectual property of the Company and may not be reproduced, distributed, or modified without explicit written permission.' },
+        { n: '5.', h: 'Limitation of Liability', p: 'TradesAdvisor acts solely as a data and educational software provider. The Company is not liable for any financial losses, damages, or missed opportunities incurred as a result of using its software, analytics, or services.' },
+        { n: '6.', h: 'User Liability', p: 'The user bears sole responsibility for all decisions and assumes full financial responsibility for the results of any actions taken based on the educational material or data feeds provided.' },
+        { n: '7.', h: 'Governing Law', p: 'These Terms of Use are governed by and construed in accordance with the laws of the United Arab Emirates, specifically as applied in the Emirate of Dubai.' }
+      ]
+    },
+    ru: {
+      title: 'Условия использования',
+      meta: 'TradesAdvisor Group FZ-LLC · Свободная зона Meydan, Дубай, ОАЭ',
+      sections: [
+        { n: '1.', h: 'Принятие условий', p: 'Получая доступ к услугам TradesAdvisor Group FZ-LLC (далее — «TradesAdvisor» или «Компания») и используя их, вы соглашаетесь соблюдать настоящие Условия использования.' },
+        { n: '2.', h: 'Предоставляемые услуги', p: 'TradesAdvisor предоставляет образовательное программное обеспечение, аналитику данных, рыночные исследования и алгоритмические ИТ-инструменты. Мы поставляем исключительно технологическую инфраструктуру, математические модели и образовательный контент. Мы не оказываем услуги инвестиционного консультирования, персональные финансовые советы или прямые торговые сигналы.' },
+        { n: '3.', h: 'Обязанности пользователя', p: 'Пользователи обязуются использовать платформу и её услуги ответственно, в соответствии со всеми применимыми законами, и категорически не участвовать в незаконной деятельности и не допускать нецелевого использования предоставляемого ПО.' },
+        { n: '4.', h: 'Интеллектуальная собственность', p: 'Весь контент, программное обеспечение, код и аналитические модели, предоставляемые TradesAdvisor, являются исключительной интеллектуальной собственностью Компании и не могут воспроизводиться, распространяться или изменяться без явного письменного разрешения.' },
+        { n: '5.', h: 'Ограничение ответственности', p: 'TradesAdvisor выступает исключительно как поставщик данных и образовательного программного обеспечения. Компания не несёт ответственности за любые финансовые убытки, ущерб или упущенные возможности, возникшие в результате использования её ПО, аналитики или услуг.' },
+        { n: '6.', h: 'Ответственность пользователя', p: 'Пользователь несёт единоличную ответственность за все решения и полную финансовую ответственность за результаты любых действий, предпринятых на основе предоставленных образовательных материалов или потоков данных.' },
+        { n: '7.', h: 'Применимое право', p: 'Настоящие Условия использования регулируются и толкуются в соответствии с законодательством Объединённых Арабских Эмиратов, в частности в применении на территории эмирата Дубай.' }
+      ]
+    },
+    ar: {
+      title: 'شروط الاستخدام',
+      meta: 'TradesAdvisor Group FZ-LLC · منطقة ميدان الحرة، دبي، الإمارات',
+      sections: [
+        { n: '1.', h: 'قبول الشروط', p: 'بوصولك إلى الخدمات التي تقدّمها TradesAdvisor Group FZ-LLC (المشار إليها فيما بعد بـ«TradesAdvisor» أو «الشركة») واستخدامك لها، فإنك توافق على الالتزام بشروط الاستخدام هذه.' },
+        { n: '2.', h: 'الخدمات المقدَّمة', p: 'تقدّم TradesAdvisor برمجيات تعليمية وتحليلات بيانات وأبحاث سوق وأدوات تقنية خوارزمية. ونحن نوفّر حصريًا البنية التقنية والنماذج الرياضية والمحتوى التعليمي. لا نقدّم خدمات استشارات استثمارية أو نصائح مالية شخصية أو إشارات تداول مباشرة.' },
+        { n: '3.', h: 'مسؤوليات المستخدم', p: 'يوافق المستخدمون على استخدام المنصّة وخدماتها بمسؤولية وبما يتوافق مع جميع القوانين المعمول بها، وعلى عدم الانخراط إطلاقًا في أي أنشطة غير قانونية أو إساءة استخدام البرمجيات المقدّمة.' },
+        { n: '4.', h: 'الملكية الفكرية', p: 'جميع المحتوى والبرمجيات والشيفرة والنماذج التحليلية التي تقدّمها TradesAdvisor هي ملكية فكرية حصرية للشركة، ولا يجوز نسخها أو توزيعها أو تعديلها دون إذن كتابي صريح.' },
+        { n: '5.', h: 'تحديد المسؤولية', p: 'تعمل TradesAdvisor حصريًا كمزوّد للبيانات والبرمجيات التعليمية. ولا تتحمّل الشركة المسؤولية عن أي خسائر مالية أو أضرار أو فرص ضائعة تنتج عن استخدام برمجياتها أو تحليلاتها أو خدماتها.' },
+        { n: '6.', h: 'مسؤولية المستخدم', p: 'يتحمّل المستخدم وحده المسؤولية عن جميع القرارات والمسؤولية المالية الكاملة عن نتائج أي إجراءات تُتَّخذ بناءً على المواد التعليمية أو تدفّقات البيانات المقدّمة.' },
+        { n: '7.', h: 'القانون الحاكم', p: 'تخضع شروط الاستخدام هذه لقوانين دولة الإمارات العربية المتحدة وتُفسَّر وفقًا لها، وتحديدًا كما تُطبَّق في إمارة دبي.' }
+      ]
+    }
+  }
+};
+</script>
+<script src="legal.js"></script>
 </body>
 </html>

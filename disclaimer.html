@@ -6,38 +6,80 @@
 <title>Disclaimer — TradesAdvisor Group FZ-LLC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="legal.css">
 </head>
 <body>
 <header>
   <div class="wrap">
     <a class="brand" href="index.html" style="text-decoration:none;color:inherit"><span class="logo"><span></span></span>Trades<em>Advisor</em></a>
-    <a class="back" href="index.html">← Back to home</a>
+    <div class="navcluster">
+      <div class="langseg" data-lang="en">
+        <button class="lb-en" onclick="__setLang('en')" aria-label="English">EN</button>
+        <button class="lb-ru" onclick="__setLang('ru')" aria-label="Русский">RU</button>
+        <button class="lb-ar" onclick="__setLang('ar')" aria-label="العربية">AR</button>
+      </div>
+      <a class="back" id="l-back" href="index.html">← Back to home</a>
+    </div>
   </div>
 </header>
 <main>
   <div class="wrap">
-    <div class="eyebrow">Legal</div>
-    <h1>Disclaimer</h1>
-    <div class="updated">TradesAdvisor Group FZ-LLC · Meydan Free Zone, Dubai, UAE</div>
-
-    <p class="lead"><strong>TradesAdvisor is NOT a registered investment advisor, broker, or financial institution.</strong></p>
-
-    <ul>
-      <li>All provided information, data feeds, and software tools are for educational and informational purposes only and do not constitute financial advice.</li>
-      <li>Users should consult a qualified financial advisor before making any investment decisions.</li>
-      <li>We do not manage client assets, portfolios, or hold client funds. We strictly provide market research and educational analytics.</li>
-      <li>All automated actions or algorithmic executions are strictly performed on the client&rsquo;s own brokerage accounts, triggered by parameters and algorithms configured solely by the client.</li>
-      <li>Past performance of any analytical model does not guarantee future results.</li>
-    </ul>
+    <div class="eyebrow" id="l-eyebrow">Legal</div>
+    <h1 id="l-title">Disclaimer</h1>
+    <div class="updated" id="l-meta"></div>
+    <div id="l-body"></div>
   </div>
 </main>
 <footer>
   <div class="wrap">
-    <span>© 2026 TradesAdvisor Group FZ-LLC. All Rights Reserved.</span>
-    <span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></span>
+    <span id="l-copy"></span>
+    <span><a href="privacy.html" id="l-lp">Privacy Policy</a><a href="terms.html" id="l-lt">Terms of Use</a><a href="disclaimer.html" id="l-ld">Disclaimer</a></span>
   </div>
 </footer>
+<script>
+window.__PAGE = {
+  type: 'disclaimer',
+  data: {
+    en: {
+      title: 'Disclaimer',
+      meta: 'TradesAdvisor Group FZ-LLC · Meydan Free Zone, Dubai, UAE',
+      lead: 'TradesAdvisor is NOT a registered investment advisor, broker, or financial institution.',
+      items: [
+        'All provided information, data feeds, and software tools are for educational and informational purposes only and do not constitute financial advice.',
+        'Users should consult a qualified financial advisor before making any investment decisions.',
+        'We do not manage client assets, portfolios, or hold client funds. We strictly provide market research and educational analytics.',
+        'All automated actions or algorithmic executions are strictly performed on the client&rsquo;s own brokerage accounts, triggered by parameters and algorithms configured solely by the client.',
+        'Past performance of any analytical model does not guarantee future results.'
+      ]
+    },
+    ru: {
+      title: 'Дисклеймер',
+      meta: 'TradesAdvisor Group FZ-LLC · Свободная зона Meydan, Дубай, ОАЭ',
+      lead: 'TradesAdvisor НЕ является зарегистрированным инвестиционным консультантом, брокером или финансовой организацией.',
+      items: [
+        'Вся предоставляемая информация, потоки данных и программные инструменты предназначены исключительно для образовательных и информационных целей и не являются финансовой консультацией.',
+        'Перед принятием любых инвестиционных решений пользователям следует проконсультироваться с квалифицированным финансовым консультантом.',
+        'Мы не управляем активами и портфелями клиентов и не храним средства клиентов. Мы предоставляем исключительно рыночные исследования и образовательную аналитику.',
+        'Любые автоматические действия или алгоритмические исполнения выполняются строго на собственных брокерских счетах клиента и инициируются параметрами и алгоритмами, настроенными исключительно самим клиентом.',
+        'Прошлые результаты любой аналитической модели не гарантируют будущих результатов.'
+      ]
+    },
+    ar: {
+      title: 'إخلاء المسؤولية',
+      meta: 'TradesAdvisor Group FZ-LLC · منطقة ميدان الحرة، دبي، الإمارات',
+      lead: 'TradesAdvisor ليست مستشارًا استثماريًا مسجّلاً ولا وسيطًا ولا مؤسسة مالية.',
+      items: [
+        'جميع المعلومات وتدفّقات البيانات وأدوات البرمجيات المقدّمة هي لأغراض تعليمية وإعلامية فقط ولا تشكّل نصيحة مالية.',
+        'ينبغي على المستخدمين استشارة مستشار مالي مؤهّل قبل اتخاذ أي قرارات استثمارية.',
+        'نحن لا ندير أصول العملاء أو محافظهم ولا نحتفظ بأموالهم. ونقدّم حصريًا أبحاث السوق والتحليلات التعليمية.',
+        'تُنفَّذ جميع الإجراءات الآلية أو عمليات التنفيذ الخوارزمية حصريًا على حسابات الوساطة الخاصة بالعميل، وتُشغَّل بواسطة معايير وخوارزميات يضبطها العميل وحده.',
+        'الأداء السابق لأي نموذج تحليلي لا يضمن النتائج المستقبلية.'
+      ]
+    }
+  }
+};
+</script>
+<script src="legal.js"></script>
 </body>
 </html>

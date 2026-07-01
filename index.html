@@ -317,8 +317,9 @@ class Component extends DCLogic {
     return this.state.theme ?? (this.props.theme === 'light' ? 'light' : 'dark');
   }
   get lang() {
-    return this.state.lang ?? 'en';
+    return this.state.lang ?? this._storedLang() ?? 'en';
   }
+  _storedLang() { try { return localStorage.getItem('ta_lang'); } catch (e) { return null; } }
 
   componentDidMount() {
     this._icons();
@@ -425,9 +426,10 @@ class Component extends DCLogic {
     this.setState({ theme: this.theme === 'light' ? 'dark' : 'light' });
   };
 
-  setEn = () => this.setState({ lang: 'en' });
-  setRu = () => this.setState({ lang: 'ru' });
-  setAr = () => this.setState({ lang: 'ar' });
+  _setLang = (l) => { try { localStorage.setItem('ta_lang', l); } catch (e) {} this.setState({ lang: l }); };
+  setEn = () => this._setLang('en');
+  setRu = () => this._setLang('ru');
+  setAr = () => this._setLang('ar');
 
   onSubmit = (e) => {
     e.preventDefault();
