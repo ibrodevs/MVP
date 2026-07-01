@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TradesAdvisor Group FZ-LLC — Advanced Software Solutions &amp; Data Architecture</title>
+<meta name="description" content="TradesAdvisor Group FZ-LLC is an independent software vendor and educational technology provider specializing in custom software development, database architecture, and quantitative data engineering. We do not provide financial advisory services.">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -10,7 +12,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -48,35 +50,44 @@
   .field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
   input,textarea,button{font-family:inherit}
   a{text-decoration:none;color:inherit}
+  .langseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+  .langseg button{padding:7px 9px;font-size:11.5px;font-weight:600;background:transparent;color:var(--muted);border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;letter-spacing:.03em;transition:color .2s,background .2s}
+  .langseg button:hover{color:var(--text)}
+  .langseg[data-lang="en"] .lb-en,.langseg[data-lang="ru"] .lb-ru,.langseg[data-lang="ar"] .lb-ar{background:var(--text);color:var(--bg)}
+  [dir="rtl"] .mono-ltr{direction:ltr}
   @media(max-width:900px){.hide-md{display:none!important}}
 </style>
 </helmet>
-<div data-theme="{{ themeAttr }}" style="position:relative;font-family:'Inter','IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .5s,color .5s">
+<div dir="{{ dir }}" data-theme="{{ themeAttr }}" style="position:relative;font-family:'Inter','IBM Plex Sans','IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .5s,color .5s">
 
   <canvas ref="{{ bgRef }}" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
   <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(1200px 600px at 78% -8%, var(--glow), transparent 60%)"></div>
 
   <!-- NAV -->
   <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb, var(--bg) 72%, transparent);border-bottom:1px solid var(--line)">
-    <nav style="max-width:1280px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <nav style="max-width:1280px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px">
       <a href="#top" style="display:flex;align-items:center;gap:11px">
         <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent)">
           <div style="width:9px;height:9px;border-radius:2px;background:var(--bg)"></div>
         </div>
-        <span style="font-weight:600;letter-spacing:-.01em;font-size:16px">Axiom<span style="color:var(--muted);font-weight:500"> Systems</span></span>
+        <span class="mono-ltr" style="font-weight:600;letter-spacing:-.01em;font-size:16px">Trades<span style="color:var(--muted);font-weight:500">Advisor</span></span>
       </a>
-      <div class="hide-md" style="display:flex;align-items:center;gap:32px;font-size:14px;color:var(--muted)">
-        <a href="#about" class="navlink">About</a>
-        <a href="#services" class="navlink">Services</a>
-        <a href="#stack" class="navlink">Stack</a>
-        <a href="#work" class="navlink">Work</a>
-        <a href="#process" class="navlink">Process</a>
+      <div class="hide-md" style="display:flex;align-items:center;gap:30px;font-size:14px;color:var(--muted)">
+        <a href="#about" class="navlink">{{ nav_about }}</a>
+        <a href="#services" class="navlink">{{ nav_services }}</a>
+        <a href="#tech" class="navlink">{{ nav_tech }}</a>
+        <a href="#contact" class="navlink">{{ nav_contact }}</a>
       </div>
-      <div style="display:flex;align-items:center;gap:14px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="langseg mono-ltr" data-lang="{{ langAttr }}">
+          <button class="lb-en" onClick="{{ setEn }}" aria-label="English">EN</button>
+          <button class="lb-ru" onClick="{{ setRu }}" aria-label="Русский">RU</button>
+          <button class="lb-ar" onClick="{{ setAr }}" aria-label="العربية">AR</button>
+        </div>
         <button onClick="{{ toggleTheme }}" aria-label="Toggle color theme" class="mag" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);display:grid;place-items:center;cursor:pointer;font-size:16px">
           <i data-lucide="{{ themeIcon }}"></i>
         </button>
-        <a href="#contact" class="mag" style="font-size:14px;font-weight:500;padding:10px 18px;border-radius:10px;background:var(--text);color:var(--bg);box-shadow:0 10px 24px -12px rgba(0,0,0,.5)">Request Consultation</a>
+        <a href="#contact" class="mag hide-md" style="font-size:14px;font-weight:500;padding:10px 18px;border-radius:10px;background:var(--text);color:var(--bg);box-shadow:0 10px 24px -12px rgba(0,0,0,.5);white-space:nowrap">{{ cta }}</a>
       </div>
     </nav>
   </header>
@@ -86,26 +97,26 @@
     <!-- HERO -->
     <section style="padding:120px 0 96px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center">
       <div class="reveal">
-        <div style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border:1px solid var(--line);border-radius:100px;background:var(--panel);font-size:12.5px;color:var(--muted);font-family:'IBM Plex Mono',monospace">
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border:1px solid var(--line);border-radius:100px;background:var(--panel);font-size:12.5px;color:var(--muted);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">
           <span style="width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulseDot 2.4s infinite"></span>
-          Enterprise Engineering · Dubai, UAE
+          {{ hero_badge }}
         </div>
-        <h1 style="margin-top:26px;font-size:clamp(38px,5vw,62px);line-height:1.03;letter-spacing:-.035em;font-weight:700">Advanced Software Solutions &amp; Data Architecture</h1>
-        <p style="margin-top:24px;font-size:18px;line-height:1.6;color:var(--muted);max-width:540px">Custom engineering, quantitative data analysis, and algorithmic system development for corporate environments. We design the databases, pipelines, and platforms enterprises run on.</p>
+        <h1 style="margin-top:26px;font-size:clamp(38px,5vw,62px);line-height:1.03;letter-spacing:-.035em;font-weight:700">{{ hero_h1 }}</h1>
+        <p style="margin-top:24px;font-size:18px;line-height:1.6;color:var(--muted);max-width:540px">{{ hero_sub }}</p>
         <div style="margin-top:34px;display:flex;gap:14px;flex-wrap:wrap">
-          <a href="#contact" class="mag" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;padding:14px 24px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04121f;box-shadow:0 16px 40px -16px var(--accent)">Request Consultation <i data-lucide="arrow-right"></i></a>
-          <a href="#services" class="mag" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:500;padding:14px 24px;border-radius:12px;background:var(--panel);border:1px solid var(--line);color:var(--text)">Explore Services</a>
+          <a href="#contact" class="mag" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;padding:14px 24px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04121f;box-shadow:0 16px 40px -16px var(--accent)">{{ cta }} <i data-lucide="arrow-right"></i></a>
+          <a href="#services" class="mag" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:500;padding:14px 24px;border-radius:12px;background:var(--panel);border:1px solid var(--line);color:var(--text)">{{ cta2 }}</a>
         </div>
         <div style="margin-top:44px;display:flex;gap:36px;flex-wrap:wrap">
-          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">99.98%</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono',monospace">uptime SLA</div></div>
-          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">12+ yrs</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono',monospace">in production</div></div>
-          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">SOC 2</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Type II</div></div>
+          <div><div class="mono-ltr" style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s1n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s1l }}</div></div>
+          <div><div class="mono-ltr" style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s2n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s2l }}</div></div>
+          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s3n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s3l }}</div></div>
         </div>
       </div>
 
       <!-- code / architecture panel -->
       <div class="reveal" style="animation-delay:.12s">
-        <div style="border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh);overflow:hidden">
+        <div class="mono-ltr" style="border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh);overflow:hidden;text-align:left">
           <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--panel2) 70%,transparent)">
             <span style="width:11px;height:11px;border-radius:50%;background:#374151"></span>
             <span style="width:11px;height:11px;border-radius:50%;background:#374151"></span>
@@ -132,32 +143,24 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
       </div>
     </section>
 
-    <!-- LOGO / TRUST STRIP -->
-    <section class="reveal" style="padding:8px 0 40px">
-      <div style="text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Trusted for mission-critical systems across</div>
-      <div style="margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:40px 56px;opacity:.75;font-weight:600;letter-spacing:-.01em;font-size:17px;color:var(--muted)">
-        <span>Banking</span><span>Logistics</span><span>Telecom</span><span>Public Sector</span><span>Energy</span><span>Higher Education</span>
-      </div>
-    </section>
-
     <!-- ABOUT -->
     <section id="about" style="padding:88px 0;border-top:1px solid var(--line)">
       <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start">
         <div class="reveal">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">01 — About</div>
-          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">An engineering-first software company</h2>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">{{ about_eyebrow }}</div>
+          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">{{ about_h2 }}</h2>
         </div>
         <div class="reveal" style="animation-delay:.1s">
-          <p style="font-size:18px;line-height:1.65;color:var(--muted)">Axiom Systems builds enterprise software, database architectures, and cloud infrastructure for organizations that depend on data at scale. Our teams ship production Python, design analytical platforms, and modernize legacy systems end to end.</p>
+          <p style="font-size:18px;line-height:1.65;color:var(--muted)">{{ about_lead }}</p>
           <div style="margin-top:26px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--panel);display:flex;gap:14px;align-items:flex-start">
             <i data-lucide="shield-check" style="color:var(--teal);font-size:20px;margin-top:2px"></i>
-            <p style="font-size:14.5px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Scope of practice.</strong> We are a software engineering firm. We do not provide investment advisory, portfolio management, or asset management services of any kind.</p>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">{{ about_impLabel }}</strong> {{ about_impBody }}</p>
           </div>
           <div style="margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Database architecture</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">OLTP &amp; OLAP · schema design</div></div>
-            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Cloud systems</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">AWS · Azure · Kubernetes</div></div>
-            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Enterprise software</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">Custom platforms &amp; APIs</div></div>
-            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Educational technology</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">Learning &amp; assessment tools</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">{{ about_t1t }}</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">{{ about_t1d }}</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">{{ about_t2t }}</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">{{ about_t2d }}</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">{{ about_t3t }}</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">{{ about_t3d }}</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">{{ about_t4t }}</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">{{ about_t4d }}</div></div>
           </div>
         </div>
       </div>
@@ -166,12 +169,12 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
     <!-- SERVICES -->
     <section id="services" style="padding:88px 0;border-top:1px solid var(--line)">
       <div class="reveal" style="max-width:640px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">02 — Services</div>
-        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">Full-lifecycle engineering capability</h2>
-        <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted)">From architecture to deployment and long-term maintenance — delivered by senior engineers under enterprise governance.</p>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">{{ svc_eyebrow }}</div>
+        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">{{ svc_h2 }}</h2>
+        <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted)">{{ svc_sub }}</p>
       </div>
       <div style="margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-        <sc-for list="{{ services }}" as="s" hint-placeholder-count="9">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
           <div class="reveal lift" style="padding:26px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh)">
             <div style="width:44px;height:44px;border-radius:12px;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);font-size:21px"><i data-lucide="{{ s.icon }}"></i></div>
             <h3 style="margin-top:18px;font-size:18px;font-weight:600;letter-spacing:-.01em">{{ s.title }}</h3>
@@ -181,63 +184,41 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
       </div>
     </section>
 
-    <!-- STACK -->
-    <section id="stack" style="padding:88px 0;border-top:1px solid var(--line)">
+    <!-- TECHNOLOGY & PORTFOLIO -->
+    <section id="tech" style="padding:88px 0;border-top:1px solid var(--line)">
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center">
         <div class="reveal">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">03 — Technology</div>
-          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">A modern, data-native stack</h2>
-          <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted)">We standardize on proven, open technologies — chosen for performance, maintainability, and long-term support.</p>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">{{ tech_eyebrow }}</div>
+          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">{{ tech_h2 }}</h2>
+          <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted)">{{ tech_sub }}</p>
         </div>
         <div class="reveal" style="animation-delay:.1s;display:flex;flex-wrap:wrap;gap:11px">
-          <sc-for list="{{ stack }}" as="t" hint-placeholder-count="16">
-            <span class="mag" style="display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border:1px solid var(--line);border-radius:11px;background:var(--panel);font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--muted)"><span style="width:7px;height:7px;border-radius:2px;background:var(--accent2)"></span>{{ t }}</span>
+          <sc-for list="{{ stack }}" as="t" hint-placeholder-count="7">
+            <span class="mag" style="display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border:1px solid var(--line);border-radius:11px;background:var(--panel);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:13.5px;color:var(--muted)"><span style="width:7px;height:7px;border-radius:2px;background:var(--accent2)"></span>{{ t }}</span>
           </sc-for>
         </div>
       </div>
-    </section>
 
-    <!-- WORK -->
-    <section id="work" style="padding:88px 0;border-top:1px solid var(--line)">
-      <div class="reveal" style="max-width:640px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">04 — Featured Work</div>
-        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">Systems in production</h2>
+      <div class="reveal" style="margin-top:64px;max-width:640px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">{{ tech_projEyebrow }}</div>
+        <h3 style="margin-top:14px;font-size:clamp(24px,3vw,34px);line-height:1.1;letter-spacing:-.03em;font-weight:700">{{ tech_projH3 }}</h3>
       </div>
-      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+      <div style="margin-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="2">
           <div class="reveal lift" style="border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--card-sh);overflow:hidden">
             <div style="height:132px;position:relative;background:repeating-linear-gradient(90deg,var(--line2) 0 1px,transparent 1px 26px),repeating-linear-gradient(0deg,var(--line2) 0 1px,transparent 1px 26px),linear-gradient(135deg,var(--bg2),var(--panel2));display:grid;place-items:center;border-bottom:1px solid var(--line)">
               <i data-lucide="{{ p.icon }}" style="font-size:34px;color:var(--accent2);opacity:.9"></i>
-              <span style="position:absolute;top:12px;left:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)">{{ p.tag }}</span>
+              <span style="position:absolute;top:12px;inset-inline-start:14px;font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:11px;color:var(--faint)">{{ p.tag }}</span>
             </div>
             <div style="padding:22px">
               <h3 style="font-size:17.5px;font-weight:600;letter-spacing:-.01em">{{ p.title }}</h3>
               <p style="margin-top:9px;font-size:14px;line-height:1.6;color:var(--muted)">{{ p.desc }}</p>
               <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
                 <sc-for list="{{ p.tech }}" as="tt" hint-placeholder-count="3">
-                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--faint);padding:4px 9px;border:1px solid var(--line);border-radius:6px">{{ tt }}</span>
+                  <span class="mono-ltr" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--faint);padding:4px 9px;border:1px solid var(--line);border-radius:6px">{{ tt }}</span>
                 </sc-for>
               </div>
             </div>
-          </div>
-        </sc-for>
-      </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section id="process" style="padding:88px 0;border-top:1px solid var(--line)">
-      <div class="reveal" style="max-width:640px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">05 — Why Companies Choose Us</div>
-        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">A disciplined delivery model</h2>
-      </div>
-      <div style="margin-top:48px;position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
-        <div class="hide-md" style="position:absolute;top:26px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,var(--line),var(--line),transparent)"></div>
-        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
-          <div class="reveal" style="position:relative">
-            <div style="width:52px;height:52px;border-radius:14px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);font-size:22px;position:relative;z-index:1;box-shadow:var(--card-sh)"><i data-lucide="{{ st.icon }}"></i></div>
-            <div style="margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--faint)">{{ st.num }}</div>
-            <h3 style="margin-top:6px;font-size:16px;font-weight:600">{{ st.title }}</h3>
-            <p style="margin-top:8px;font-size:13.5px;line-height:1.55;color:var(--muted)">{{ st.desc }}</p>
           </div>
         </sc-for>
       </div>
@@ -247,47 +228,58 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
     <section id="contact" style="padding:88px 0;border-top:1px solid var(--line)">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start">
         <div class="reveal">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">06 — Contact</div>
-          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">Request a technical consultation</h2>
-          <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted);max-width:440px">Tell us about your systems and objectives. A principal engineer will respond within one business day.</p>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">{{ ct_eyebrow }}</div>
+          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">{{ ct_h2 }}</h2>
+          <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted);max-width:440px">{{ ct_sub }}</p>
           <div style="margin-top:34px;display:flex;flex-direction:column;gap:20px">
-            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2)"><i data-lucide="mail"></i></div><div><div style="font-size:13px;color:var(--faint)">Email</div><div style="font-weight:500">engineering@axiomsystems.io</div></div></div>
-            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2)"><i data-lucide="map-pin"></i></div><div><div style="font-size:13px;color:var(--faint)">Office</div><div style="font-weight:500">One Central, DWTC · Dubai, UAE</div></div></div>
-            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2)"><i data-lucide="clock"></i></div><div><div style="font-size:13px;color:var(--faint)">Hours</div><div style="font-weight:500">Sun–Thu · 09:00–18:00 GST</div></div></div>
+            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="mail"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_emailLabel }}</div><div class="mono-ltr" style="font-weight:500">hello@tradesadvisor.com</div></div></div>
+            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="map-pin"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_officeLabel }}</div><div style="font-weight:500">{{ ct_officeValue }}</div></div></div>
+            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="clock"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_hoursLabel }}</div><div style="font-weight:500">{{ ct_hoursValue }}</div></div></div>
           </div>
         </div>
         <form onSubmit="{{ onSubmit }}" class="reveal" style="animation-delay:.1s;padding:28px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh);display:flex;flex-direction:column;gap:16px">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Full name</span><input class="field" required placeholder="Jane Doe" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
-            <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Work email</span><input class="field" type="email" required placeholder="jane@company.com" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
+            <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">{{ ct_name }}</span><input name="name" class="field" required placeholder="{{ ct_ph_name }}" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
+            <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">{{ ct_email }}</span><input name="email" class="field" type="email" required placeholder="jane@company.com" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
           </div>
-          <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Company</span><input class="field" placeholder="Company name" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
-          <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Project scope</span><textarea class="field" rows="4" placeholder="Databases, data pipelines, platform modernization…" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></label>
+          <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">{{ ct_subject }}</span><input name="subject" class="field" placeholder="{{ ct_ph_subject }}" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
+          <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">{{ ct_message }}</span><textarea name="message" class="field" rows="4" required placeholder="{{ ct_ph_message }}" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></label>
           <button type="submit" class="mag" style="margin-top:4px;padding:14px;border-radius:11px;border:none;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04121f;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 16px 40px -16px var(--accent)">{{ submitLabel }}</button>
-          <p style="font-size:12px;color:var(--faint);text-align:center;line-height:1.5">By submitting you agree to our processing of the information above for the purpose of responding to your inquiry.</p>
+          <p style="font-size:12px;color:var(--faint);text-align:center;line-height:1.5">{{ ct_note }}</p>
         </form>
       </div>
     </section>
   </main>
 
+  <!-- DISCLAIMER STRIP -->
+  <div style="position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 32px 48px">
+    <div style="border-top:1px solid var(--line);padding-top:22px;font-size:12px;line-height:1.7;color:var(--faint)">
+      <strong style="color:var(--muted);font-weight:600">{{ dis_label }}</strong> {{ dis_body }} <a href="disclaimer.html" style="color:var(--accent2);text-decoration:underline">{{ dis_readfull }}</a>.
+    </div>
+  </div>
+
   <!-- FOOTER -->
-  <footer style="position:relative;z-index:1;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg2) 80%,transparent);margin-top:40px">
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg2) 80%,transparent)">
     <div style="max-width:1280px;margin:0 auto;padding:56px 32px 30px">
-      <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px">
         <div>
           <div style="display:flex;align-items:center;gap:11px">
             <div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center"><div style="width:8px;height:8px;border-radius:2px;background:var(--bg)"></div></div>
-            <span style="font-weight:600">Axiom Systems</span>
+            <span class="mono-ltr" style="font-weight:600">TradesAdvisor Group FZ-LLC</span>
           </div>
-          <p style="margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:280px">Enterprise software development, database architecture, and data engineering. Registered in the Dubai World Trade Centre free zone.</p>
+          <p style="margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:300px">{{ ft_desc }}</p>
+          <div style="margin-top:16px;font-size:12.5px;line-height:1.9;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">
+            <div>{{ ft_addr }}</div>
+            <div>{{ ft_license }}</div>
+          </div>
         </div>
-        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Company</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#about" class="navlink">About</a><a href="#services" class="navlink">Services</a><a href="#work" class="navlink">Work</a></div></div>
-        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Legal</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#" class="navlink">Privacy Policy</a><a href="#" class="navlink">Terms of Use</a><a href="#" class="navlink">Disclaimer</a></div></div>
-        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Contact</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><span>engineering@axiomsystems.io</span><span>One Central, DWTC</span><span>Dubai, UAE</span></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colCompany }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#about" class="navlink">{{ nav_about }}</a><a href="#services" class="navlink">{{ nav_services }}</a><a href="#tech" class="navlink">{{ nav_tech }}</a></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colLegal }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="privacy.html" class="navlink">{{ ft_lnk_privacy }}</a><a href="terms.html" class="navlink">{{ ft_lnk_terms }}</a><a href="disclaimer.html" class="navlink">{{ ft_lnk_disclaimer }}</a></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colContact }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><span class="mono-ltr">hello@tradesadvisor.com</span><span>{{ ft_addrShort }}</span></div></div>
       </div>
       <div style="margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--faint)">
-        <span>© 2026 Axiom Systems FZ-LLC. All rights reserved.</span>
-        <span style="font-family:'IBM Plex Mono',monospace">Axiom Systems is a software engineering firm and does not provide financial, investment, or advisory services.</span>
+        <span>{{ ft_copyright }}</span>
+        <span>{{ ft_tagline }}</span>
       </div>
     </div>
   </footer>
@@ -295,22 +287,34 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;}}">
 class Component extends DCLogic {
-  state = { theme: null, submitLabel: 'Send inquiry' };
+  state = { theme: null, lang: null, sending: false };
 
   get theme() {
     return this.state.theme ?? (this.props.theme === 'light' ? 'light' : 'dark');
+  }
+  get lang() {
+    return this.state.lang ?? 'en';
   }
 
   componentDidMount() {
     this._icons();
     this._reveal();
     this._bg();
+    this._applyDir();
   }
-  componentDidUpdate() { this._icons(); }
+  componentDidUpdate() { this._icons(); this._applyDir(); }
   componentWillUnmount() {
     cancelAnimationFrame(this._raf);
     if (this._io) this._io.disconnect();
     window.removeEventListener('resize', this._onResize);
+  }
+
+  _applyDir() {
+    try {
+      const el = document.documentElement;
+      el.setAttribute('lang', this.lang);
+      el.setAttribute('dir', this.lang === 'ar' ? 'rtl' : 'ltr');
+    } catch (e) {}
   }
 
   _icons() {
@@ -397,47 +401,227 @@ class Component extends DCLogic {
     this.setState({ theme: this.theme === 'light' ? 'dark' : 'light' });
   };
 
+  setEn = () => this.setState({ lang: 'en' });
+  setRu = () => this.setState({ lang: 'ru' });
+  setAr = () => this.setState({ lang: 'ar' });
+
   onSubmit = (e) => {
     e.preventDefault();
-    this.setState({ submitLabel: 'Received — we\u2019ll be in touch ✓' });
-    setTimeout(() => this.setState({ submitLabel: 'Send inquiry' }), 3200);
+    const data = new FormData(e.target);
+    const name = (data.get('name') || '').toString().trim();
+    const email = (data.get('email') || '').toString().trim();
+    const subject = (data.get('subject') || '').toString().trim() || 'Consultation request';
+    const message = (data.get('message') || '').toString().trim();
+    const body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
+    window.location.href = 'mailto:hello@tradesadvisor.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    this.setState({ sending: true });
+    setTimeout(() => this.setState({ sending: false }), 3200);
   };
+
+  _dict() {
+    return {
+      en: {
+        nav_about: 'About', nav_services: 'Services', nav_tech: 'Technology', nav_contact: 'Contact',
+        cta: 'Request Consultation', cta2: 'View Services',
+        hero_badge: 'Software Engineering & Data Architecture · Dubai, UAE',
+        hero_h1: 'Advanced Software Solutions & Data Architecture',
+        hero_sub: 'Custom engineering, quantitative data analysis, and algorithmic system development for corporate environments.',
+        hero_s1n: '5+ yrs', hero_s1l: 'domain expertise',
+        hero_s2n: 'Python', hero_s2l: 'data engineering',
+        hero_s3n: 'Meydan', hero_s3l: 'Free Zone, Dubai',
+        about_eyebrow: '01 — About Us',
+        about_h2: 'A specialized software & data engineering firm',
+        about_lead: 'We are a specialized IT consulting and software development firm with over 5 years of domain expertise in quantitative analytics and data engineering. Our mission is to build robust, scalable applications and database architectures that help businesses process complex data sets.',
+        about_impLabel: 'Important.',
+        about_impBody: 'We are an independent software vendor and educational technology provider. We do not offer financial advisory services, and we do not manage client portfolios or assets. Our focus is strictly on designing the software infrastructure and analytical tools that empower our clients’ internal operations.',
+        about_t1t: 'Independent software vendor', about_t1d: 'Custom applications & APIs',
+        about_t2t: 'Database architecture', about_t2d: 'Secure, scalable data environments',
+        about_t3t: 'Quantitative analytics', about_t3d: 'Analytical models & tooling',
+        about_t4t: 'Educational technology', about_t4d: 'Research & learning software',
+        svc_eyebrow: '02 — Core Services',
+        svc_h2: 'Architecture, code, and customization',
+        svc_sub: 'Software design, database architecture, and code development for data-intensive corporate environments.',
+        svc1_title: 'Custom Application Development',
+        svc1_desc: 'Designing and deploying complex analytical systems from scratch. Expertise in creating multi-layered calculation models (including Monte Carlo simulations and advanced pricing matrices) tailored to client environments.',
+        svc2_title: 'Data Engineering & API Integration',
+        svc2_desc: 'Structuring secure database environments and configuring seamless data pipelines. We specialize in Python-based automation, data aggregation from stable institutional API endpoints, and efficient data parsing.',
+        svc3_title: 'Software Customization & Maintenance',
+        svc3_desc: 'Modifying existing enterprise software to ensure seamless functionality within specific client infrastructures. Writing, testing, and implementing code updates, patches, and automated delivery systems.',
+        tech_eyebrow: '03 — Technology & Portfolio',
+        tech_h2: 'A modern, data-native stack',
+        tech_sub: 'We standardize on proven, open technologies — chosen for performance, maintainability, and long-term support.',
+        stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','Automated Data Parsers','Custom API Integrations'],
+        tech_projEyebrow: 'Featured Projects', tech_projH3: 'Systems in production',
+        proj1_tag: 'analytics engine', proj1_title: 'Advanced Analytics Engine',
+        proj1_desc: 'A comprehensive standalone software module designed to process high-volume market data, calculate complex exposure metrics (e.g., GEX profiling), and visualize structural data through an intuitive web interface.',
+        proj2_tag: 'automation', proj2_title: 'Automated Information Parsers',
+        proj2_desc: 'Custom-built automated bots and web-scraping architectures designed to aggregate, filter, and deliver real-time news and research data across messaging platforms securely and efficiently.',
+        ct_eyebrow: '04 — Contact',
+        ct_h2: 'Request a technical consultation',
+        ct_sub: 'Tell us about your systems and objectives. Our engineering team will respond within one business day.',
+        ct_emailLabel: 'Email', ct_officeLabel: 'Registered Office',
+        ct_officeValue: 'Meydan Free Zone, Meydan Hotel, Nad Al Sheba, Dubai, UAE',
+        ct_hoursLabel: 'Hours', ct_hoursValue: 'Sun–Thu · 09:00–18:00 GST',
+        ct_name: 'Name', ct_email: 'Email', ct_subject: 'Subject', ct_message: 'Message',
+        ct_ph_name: 'Jane Doe', ct_ph_subject: 'How can we help?',
+        ct_ph_message: 'Tell us about your systems, data, and objectives…',
+        ct_note: 'By submitting you agree to our processing of the information above for the purpose of responding to your inquiry.',
+        submit: 'Send Message', submit_sending: 'Opening your email client… ✓',
+        dis_label: 'Disclaimer.',
+        dis_body: 'TradesAdvisor is NOT a registered investment advisor, broker, or financial institution. We do not manage client assets, portfolios, or hold client funds. We strictly provide market research and educational analytics.',
+        dis_readfull: 'Read full disclaimer',
+        ft_desc: 'Independent software vendor and educational technology provider. Custom software development, database architecture, and data engineering.',
+        ft_addr: 'Meydan Free Zone, Nad Al Sheba, Dubai, UAE', ft_addrShort: 'Meydan Free Zone, Dubai, UAE',
+        ft_license: 'License No.: [to be assigned]',
+        ft_colCompany: 'Company', ft_colLegal: 'Legal', ft_colContact: 'Contact',
+        ft_lnk_privacy: 'Privacy Policy', ft_lnk_terms: 'Terms of Use', ft_lnk_disclaimer: 'Disclaimer',
+        ft_copyright: '© 2026 TradesAdvisor Group FZ-LLC. All Rights Reserved.',
+        ft_tagline: 'An independent software vendor — we do not provide financial, investment, or advisory services.'
+      },
+      ru: {
+        nav_about: 'О компании', nav_services: 'Услуги', nav_tech: 'Технологии', nav_contact: 'Контакты',
+        cta: 'Запросить консультацию', cta2: 'Смотреть услуги',
+        hero_badge: 'Разработка ПО и архитектура данных · Дубай, ОАЭ',
+        hero_h1: 'Передовые программные решения и архитектура данных',
+        hero_sub: 'Индивидуальная разработка, количественный анализ данных и создание алгоритмических систем для корпоративной среды.',
+        hero_s1n: '5+ лет', hero_s1l: 'отраслевой опыт',
+        hero_s2n: 'Python', hero_s2l: 'инженерия данных',
+        hero_s3n: 'Meydan', hero_s3l: 'Свободная зона, Дубай',
+        about_eyebrow: '01 — О компании',
+        about_h2: 'Специализированная компания по разработке ПО и инженерии данных',
+        about_lead: 'Мы — специализированная компания в сфере ИТ-консалтинга и разработки ПО с более чем 5-летним профильным опытом в области количественной аналитики и инженерии данных. Наша миссия — создавать надёжные масштабируемые приложения и архитектуры баз данных, помогающие бизнесу обрабатывать сложные наборы данных.',
+        about_impLabel: 'Важно.',
+        about_impBody: 'Мы являемся независимым поставщиком программного обеспечения и образовательных технологий. Мы не оказываем услуги финансового консультирования и не управляем портфелями или активами клиентов. Наша деятельность строго ограничена проектированием программной инфраструктуры и аналитических инструментов, поддерживающих внутренние операции наших клиентов.',
+        about_t1t: 'Независимый разработчик ПО', about_t1d: 'Заказные приложения и API',
+        about_t2t: 'Архитектура баз данных', about_t2d: 'Безопасные масштабируемые среды данных',
+        about_t3t: 'Количественная аналитика', about_t3d: 'Аналитические модели и инструменты',
+        about_t4t: 'Образовательные технологии', about_t4d: 'ПО для исследований и обучения',
+        svc_eyebrow: '02 — Основные услуги',
+        svc_h2: 'Архитектура, код и кастомизация',
+        svc_sub: 'Проектирование ПО, архитектура баз данных и разработка кода для корпоративных сред с интенсивной обработкой данных.',
+        svc1_title: 'Разработка заказных приложений',
+        svc1_desc: 'Проектирование и внедрение сложных аналитических систем с нуля. Опыт создания многоуровневых расчётных моделей (включая моделирование Монте-Карло и продвинутые матрицы ценообразования) под среду клиента.',
+        svc2_title: 'Инженерия данных и интеграция API',
+        svc2_desc: 'Построение безопасных сред баз данных и настройка бесшовных конвейеров данных. Мы специализируемся на автоматизации на Python, агрегации данных из стабильных институциональных API и эффективном парсинге данных.',
+        svc3_title: 'Кастомизация и сопровождение ПО',
+        svc3_desc: 'Доработка существующего корпоративного ПО для бесшовной работы в конкретной инфраструктуре клиента. Написание, тестирование и внедрение обновлений кода, патчей и систем автоматической доставки.',
+        tech_eyebrow: '03 — Технологии и кейсы',
+        tech_h2: 'Современный стек, ориентированный на данные',
+        tech_sub: 'Мы используем проверенные открытые технологии, выбранные за производительность, удобство сопровождения и долгосрочную поддержку.',
+        stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','Автопарсеры данных','Интеграции API'],
+        tech_projEyebrow: 'Избранные проекты', tech_projH3: 'Системы в эксплуатации',
+        proj1_tag: 'аналитический движок', proj1_title: 'Продвинутый аналитический движок',
+        proj1_desc: 'Комплексный автономный программный модуль для обработки больших объёмов рыночных данных, расчёта сложных метрик экспозиции (например, GEX-профилирование) и визуализации структурных данных через удобный веб-интерфейс.',
+        proj2_tag: 'автоматизация', proj2_title: 'Автоматизированные парсеры информации',
+        proj2_desc: 'Специально созданные автоматизированные боты и архитектуры веб-скрапинга для агрегации, фильтрации и доставки новостей и исследовательских данных в реальном времени через мессенджеры — безопасно и эффективно.',
+        ct_eyebrow: '04 — Контакты',
+        ct_h2: 'Запросить техническую консультацию',
+        ct_sub: 'Расскажите о ваших системах и задачах. Наша инженерная команда ответит в течение одного рабочего дня.',
+        ct_emailLabel: 'Эл. почта', ct_officeLabel: 'Юридический адрес',
+        ct_officeValue: 'Свободная зона Meydan, Meydan Hotel, Над-Аль-Шеба, Дубай, ОАЭ',
+        ct_hoursLabel: 'Часы работы', ct_hoursValue: 'Вс–Чт · 09:00–18:00 GST',
+        ct_name: 'Имя', ct_email: 'Эл. почта', ct_subject: 'Тема', ct_message: 'Сообщение',
+        ct_ph_name: 'Иван Иванов', ct_ph_subject: 'Чем можем помочь?',
+        ct_ph_message: 'Расскажите о ваших системах, данных и задачах…',
+        ct_note: 'Отправляя форму, вы соглашаетесь на обработку указанных данных для ответа на ваш запрос.',
+        submit: 'Отправить', submit_sending: 'Открываем почтовый клиент… ✓',
+        dis_label: 'Дисклеймер.',
+        dis_body: 'TradesAdvisor НЕ является зарегистрированным инвестиционным консультантом, брокером или финансовой организацией. Мы не управляем активами и портфелями клиентов и не храним средства клиентов. Мы предоставляем исключительно исследования рынка и образовательную аналитику.',
+        dis_readfull: 'Полный текст дисклеймера',
+        ft_desc: 'Независимый поставщик ПО и образовательных технологий. Заказная разработка ПО, архитектура баз данных и инженерия данных.',
+        ft_addr: 'Свободная зона Meydan, Над-Аль-Шеба, Дубай, ОАЭ', ft_addrShort: 'Свободная зона Meydan, Дубай, ОАЭ',
+        ft_license: 'Лицензия №: [будет присвоен]',
+        ft_colCompany: 'Компания', ft_colLegal: 'Юридическое', ft_colContact: 'Контакты',
+        ft_lnk_privacy: 'Политика конфиденциальности', ft_lnk_terms: 'Условия использования', ft_lnk_disclaimer: 'Дисклеймер',
+        ft_copyright: '© 2026 TradesAdvisor Group FZ-LLC. Все права защищены.',
+        ft_tagline: 'Независимый разработчик ПО — мы не оказываем финансовых, инвестиционных или консультационных услуг.'
+      },
+      ar: {
+        nav_about: 'من نحن', nav_services: 'الخدمات', nav_tech: 'التقنيات', nav_contact: 'تواصل',
+        cta: 'اطلب استشارة', cta2: 'استعرض الخدمات',
+        hero_badge: 'هندسة البرمجيات وبنية البيانات · دبي، الإمارات',
+        hero_h1: 'حلول برمجية متقدّمة وبنية بيانات',
+        hero_sub: 'هندسة مخصّصة وتحليل كمّي للبيانات وتطوير أنظمة خوارزمية لبيئات الشركات.',
+        hero_s1n: '+5 سنوات', hero_s1l: 'خبرة متخصّصة',
+        hero_s2n: 'Python', hero_s2l: 'هندسة البيانات',
+        hero_s3n: 'ميدان', hero_s3l: 'المنطقة الحرة، دبي',
+        about_eyebrow: '01 — من نحن',
+        about_h2: 'شركة متخصّصة في هندسة البرمجيات والبيانات',
+        about_lead: 'نحن شركة متخصّصة في استشارات تقنية المعلومات وتطوير البرمجيات، بخبرة تتجاوز 5 سنوات في التحليلات الكمّية وهندسة البيانات. مهمتنا بناء تطبيقات قوية وقابلة للتوسّع وبنى قواعد بيانات تساعد الشركات على معالجة مجموعات البيانات المعقّدة.',
+        about_impLabel: 'ملاحظة مهمة.',
+        about_impBody: 'نحن مزوّد مستقل للبرمجيات وتقنيات التعليم. لا نقدّم خدمات استشارات مالية، ولا ندير محافظ العملاء أو أصولهم. ينحصر عملنا في تصميم البنية البرمجية والأدوات التحليلية التي تدعم العمليات الداخلية لعملائنا.',
+        about_t1t: 'مزوّد برمجيات مستقل', about_t1d: 'تطبيقات وواجهات برمجية مخصّصة',
+        about_t2t: 'بنية قواعد البيانات', about_t2d: 'بيئات بيانات آمنة وقابلة للتوسّع',
+        about_t3t: 'تحليلات كمّية', about_t3d: 'نماذج وأدوات تحليلية',
+        about_t4t: 'تقنيات تعليمية', about_t4d: 'برمجيات للبحث والتعلّم',
+        svc_eyebrow: '02 — الخدمات الأساسية',
+        svc_h2: 'البنية والبرمجة والتخصيص',
+        svc_sub: 'تصميم البرمجيات وبنية قواعد البيانات وتطوير الشيفرة لبيئات الشركات كثيفة البيانات.',
+        svc1_title: 'تطوير التطبيقات المخصّصة',
+        svc1_desc: 'تصميم وتنفيذ أنظمة تحليلية معقّدة من الصفر. خبرة في بناء نماذج حسابية متعدّدة الطبقات (بما في ذلك محاكاة مونت كارلو ومصفوفات التسعير المتقدّمة) مصمّمة وفق بيئة العميل.',
+        svc2_title: 'هندسة البيانات وتكامل الواجهات البرمجية',
+        svc2_desc: 'بناء بيئات قواعد بيانات آمنة وإعداد مسارات بيانات سلسة. نتخصّص في الأتمتة عبر Python، وتجميع البيانات من واجهات برمجية مؤسسية مستقرّة، وتحليل البيانات بكفاءة.',
+        svc3_title: 'تخصيص البرمجيات وصيانتها',
+        svc3_desc: 'تعديل البرمجيات المؤسسية القائمة لضمان عملها بسلاسة ضمن بنية العميل. كتابة واختبار وتطبيق تحديثات الشيفرة والتصحيحات وأنظمة التسليم الآلي.',
+        tech_eyebrow: '03 — التقنيات والأعمال',
+        tech_h2: 'حزمة تقنية حديثة قائمة على البيانات',
+        tech_sub: 'نعتمد تقنيات مفتوحة ومُثبتة، مختارة من أجل الأداء وسهولة الصيانة والدعم طويل الأمد.',
+        stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','محلّلات بيانات آلية','تكاملات API مخصّصة'],
+        tech_projEyebrow: 'مشاريع مختارة', tech_projH3: 'أنظمة قيد التشغيل',
+        proj1_tag: 'محرّك تحليلات', proj1_title: 'محرّك تحليلات متقدّم',
+        proj1_desc: 'وحدة برمجية مستقلة وشاملة مصمّمة لمعالجة كميات كبيرة من بيانات السوق، وحساب مقاييس انكشاف معقّدة (مثل تحليل GEX)، وعرض البيانات الهيكلية عبر واجهة ويب سهلة الاستخدام.',
+        proj2_tag: 'أتمتة', proj2_title: 'محلّلات معلومات آلية',
+        proj2_desc: 'روبوتات آلية وبنى استخلاص ويب مُخصّصة مصمّمة لتجميع وتصفية وتسليم الأخبار وبيانات الأبحاث لحظيًا عبر منصّات المراسلة بأمان وكفاءة.',
+        ct_eyebrow: '04 — تواصل',
+        ct_h2: 'اطلب استشارة تقنية',
+        ct_sub: 'أخبرنا عن أنظمتك وأهدافك. سيردّ فريقنا الهندسي خلال يوم عمل واحد.',
+        ct_emailLabel: 'البريد الإلكتروني', ct_officeLabel: 'المكتب المسجّل',
+        ct_officeValue: 'منطقة ميدان الحرة، فندق ميدان، ند الشبا، دبي، الإمارات',
+        ct_hoursLabel: 'ساعات العمل', ct_hoursValue: 'الأحد–الخميس · 09:00–18:00 بتوقيت الخليج',
+        ct_name: 'الاسم', ct_email: 'البريد الإلكتروني', ct_subject: 'الموضوع', ct_message: 'الرسالة',
+        ct_ph_name: 'الاسم الكامل', ct_ph_subject: 'كيف يمكننا المساعدة؟',
+        ct_ph_message: 'أخبرنا عن أنظمتك وبياناتك وأهدافك…',
+        ct_note: 'بإرسالك النموذج فإنك توافق على معالجة المعلومات أعلاه بغرض الرد على استفسارك.',
+        submit: 'إرسال الرسالة', submit_sending: 'يتم فتح بريدك… ✓',
+        dis_label: 'إخلاء مسؤولية.',
+        dis_body: 'TradesAdvisor ليست مستشارًا استثماريًا مسجّلاً ولا وسيطًا ولا مؤسسة مالية. لا ندير أصول العملاء أو محافظهم ولا نحتفظ بأموالهم. نقدّم حصريًا أبحاث السوق والتحليلات التعليمية.',
+        dis_readfull: 'اقرأ إخلاء المسؤولية كاملاً',
+        ft_desc: 'مزوّد مستقل للبرمجيات وتقنيات التعليم. تطوير برمجيات مخصّص وبنية قواعد بيانات وهندسة بيانات.',
+        ft_addr: 'منطقة ميدان الحرة، ند الشبا، دبي، الإمارات', ft_addrShort: 'منطقة ميدان الحرة، دبي، الإمارات',
+        ft_license: 'رقم الرخصة: [يُحدَّد لاحقًا]',
+        ft_colCompany: 'الشركة', ft_colLegal: 'قانوني', ft_colContact: 'تواصل',
+        ft_lnk_privacy: 'سياسة الخصوصية', ft_lnk_terms: 'شروط الاستخدام', ft_lnk_disclaimer: 'إخلاء المسؤولية',
+        ft_copyright: '© 2026 TradesAdvisor Group FZ-LLC. جميع الحقوق محفوظة.',
+        ft_tagline: 'مزوّد برمجيات مستقل — لا نقدّم خدمات مالية أو استثمارية أو استشارية.'
+      }
+    };
+  }
 
   renderVals() {
     const theme = this.theme;
+    const lang = this.lang;
+    const D = this._dict();
+    const d = D[lang] || D.en;
     return {
+      ...d,
       themeAttr: theme,
       themeIcon: theme === 'light' ? 'moon' : 'sun',
       toggleTheme: this.toggleTheme,
+      setEn: this.setEn, setRu: this.setRu, setAr: this.setAr,
+      langAttr: lang,
+      dir: lang === 'ar' ? 'rtl' : 'ltr',
       onSubmit: this.onSubmit,
-      submitLabel: this.state.submitLabel,
+      submitLabel: this.state.sending ? d.submit_sending : d.submit,
       bgRef: (el) => { this.refs = this.refs || {}; this.refs.bgRef = el; },
       services: [
-        { icon: 'code-2', title: 'Custom Software Development', desc: 'Bespoke platforms and internal tools engineered to your domain, built to last and to scale.' },
-        { icon: 'database', title: 'Database Architecture', desc: 'Relational and columnar schema design, indexing, partitioning, and query optimization.' },
-        { icon: 'cloud', title: 'Cloud Engineering', desc: 'Infrastructure-as-code on AWS and Azure with observability, autoscaling, and cost control.' },
-        { icon: 'terminal', title: 'Python Automation', desc: 'Reliable batch and event-driven automation for data-intensive back-office operations.' },
-        { icon: 'webhook', title: 'API Integration', desc: 'REST and GraphQL services, connectors, and gateways with contract testing and versioning.' },
-        { icon: 'workflow', title: 'Data Processing', desc: 'High-throughput ETL and streaming pipelines over partitioned, columnar data stores.' },
-        { icon: 'bar-chart-3', title: 'Analytics Platforms', desc: 'Quantitative analytical systems, dashboards, and reporting layers for large datasets.' },
-        { icon: 'refresh-ccw', title: 'System Modernization', desc: 'Incremental migration of legacy systems with zero-downtime cutover strategies.' },
-        { icon: 'life-buoy', title: 'Software Maintenance', desc: 'SLA-backed support, monitoring, and continuous hardening of production systems.' }
+        { icon: 'code-2', title: d.svc1_title, desc: d.svc1_desc },
+        { icon: 'database', title: d.svc2_title, desc: d.svc2_desc },
+        { icon: 'refresh-ccw', title: d.svc3_title, desc: d.svc3_desc }
       ],
-      stack: ['Python','NumPy','Pandas','DuckDB','FastAPI','Django','PostgreSQL','Docker','Redis','AWS','Azure','Linux','Git','Streamlit','REST APIs','GraphQL'],
+      stack: d.stack,
       projects: [
-        { icon: 'activity', tag: 'analytics', title: 'Analytics Engine', desc: 'A columnar analytical engine computing percentile metrics across billions of events in sub-second queries.', tech: ['DuckDB','FastAPI','Arrow'] },
-        { icon: 'layers', tag: 'processing', title: 'Information Processing Platform', desc: 'Document ingestion, normalization, and enrichment pipeline with a governed metadata catalog.', tech: ['Python','PostgreSQL','Redis'] },
-        { icon: 'cog', tag: 'automation', title: 'Automation Framework', desc: 'A configurable orchestration framework for scheduled and event-driven back-office workflows.', tech: ['Airflow','Docker','Python'] },
-        { icon: 'network', tag: 'data', title: 'Data Aggregation System', desc: 'Multi-source aggregation service reconciling heterogeneous feeds into a unified warehouse model.', tech: ['Pandas','Postgres','AWS'] },
-        { icon: 'flask-conical', tag: 'research', title: 'Research Platform', desc: 'Interactive environment for quantitative teams to build, version, and share analytical notebooks.', tech: ['Streamlit','NumPy','K8s'] },
-        { icon: 'route', tag: 'gateway', title: 'API Gateway', desc: 'Unified gateway with authentication, rate limiting, and schema validation across internal services.', tech: ['GraphQL','FastAPI','Redis'] }
-      ],
-      steps: [
-        { num: 'STEP 01', icon: 'compass', title: 'Discovery', desc: 'Requirements, constraints, and system landscape mapped with your teams.' },
-        { num: 'STEP 02', icon: 'pen-tool', title: 'Architecture', desc: 'Data models, service boundaries, and infrastructure designed for scale.' },
-        { num: 'STEP 03', icon: 'upload-cloud', title: 'Deployment', desc: 'Automated CI/CD delivery with staged rollouts and observability.' },
-        { num: 'STEP 04', icon: 'wrench', title: 'Maintenance', desc: 'Continuous hardening, tuning, and dependency management post-launch.' },
-        { num: 'STEP 05', icon: 'headphones', title: 'Support', desc: 'SLA-backed engineering support and an ongoing improvement roadmap.' }
+        { icon: 'activity', tag: d.proj1_tag, title: d.proj1_title, desc: d.proj1_desc, tech: ['Python','DuckDB','Streamlit'] },
+        { icon: 'bot', tag: d.proj2_tag, title: d.proj2_title, desc: d.proj2_desc, tech: ['Python','Pandas','APIs'] }
       ]
     };
   }

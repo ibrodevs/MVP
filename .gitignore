@@ -2,3 +2,4 @@
 .thumbnail
 .vercel
 node_modules
+*.docx
