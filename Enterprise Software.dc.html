@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#050B16}
+  :root{
+    --bg:#050B16; --bg2:#071321; --panel:#0C1729; --panel2:#0e1a2e;
+    --line:rgba(255,255,255,0.08); --line2:rgba(255,255,255,0.05);
+    --text:#F4F7FB; --muted:#94A3B8; --faint:#5b6b82;
+    --accent:#3B82F6; --accent2:#22D3EE; --teal:#14B8A6;
+    --glow:rgba(59,130,246,0.14);
+    --card-sh:0 1px 0 rgba(255,255,255,0.03) inset, 0 20px 40px -24px rgba(0,0,0,0.7);
+  }
+  [data-theme="light"]{
+    --bg:#FFFFFF; --bg2:#F6F8FB; --panel:#FFFFFF; --panel2:#F4F7FB;
+    --line:rgba(15,28,48,0.09); --line2:rgba(15,28,48,0.05);
+    --text:#0B1524; --muted:#55637A; --faint:#8996A9;
+    --accent:#2563EB; --accent2:#0E7490; --teal:#0F766E;
+    --glow:rgba(37,99,235,0.10);
+    --card-sh:0 1px 2px rgba(15,28,48,0.04), 0 24px 48px -32px rgba(15,28,48,0.22);
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @keyframes flow{to{stroke-dashoffset:-1000}}
+  @keyframes pulseDot{0%,100%{opacity:.35}50%{opacity:1}}
+  .reveal{opacity:0}
+  .reveal.in{animation:fadeUp .9s cubic-bezier(.16,.84,.44,1) forwards}
+  [data-lucide]{width:1em;height:1em}
+  .lift{transition:transform .5s cubic-bezier(.16,.84,.44,1),box-shadow .5s,border-color .5s,background .5s}
+  .lift:hover{transform:translateY(-4px)}
+  .navlink{position:relative;transition:color .3s}
+  .navlink:hover{color:var(--text)}
+  .mag{transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .4s,background .3s,border-color .3s}
+  .mag:hover{transform:translateY(-2px)}
+  ::selection{background:rgba(59,130,246,.28)}
+  .field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
+  input,textarea,button{font-family:inherit}
+  a{text-decoration:none;color:inherit}
+  @media(max-width:900px){.hide-md{display:none!important}}
+</style>
+</helmet>
+<div data-theme="{{ themeAttr }}" style="position:relative;font-family:'Inter','IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .5s,color .5s">
+
+  <canvas ref="{{ bgRef }}" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(1200px 600px at 78% -8%, var(--glow), transparent 60%)"></div>
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb, var(--bg) 72%, transparent);border-bottom:1px solid var(--line)">
+    <nav style="max-width:1280px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;gap:11px">
+        <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent)">
+          <div style="width:9px;height:9px;border-radius:2px;background:var(--bg)"></div>
+        </div>
+        <span style="font-weight:600;letter-spacing:-.01em;font-size:16px">Axiom<span style="color:var(--muted);font-weight:500"> Systems</span></span>
+      </a>
+      <div class="hide-md" style="display:flex;align-items:center;gap:32px;font-size:14px;color:var(--muted)">
+        <a href="#about" class="navlink">About</a>
+        <a href="#services" class="navlink">Services</a>
+        <a href="#stack" class="navlink">Stack</a>
+        <a href="#work" class="navlink">Work</a>
+        <a href="#process" class="navlink">Process</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <button onClick="{{ toggleTheme }}" aria-label="Toggle color theme" class="mag" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);display:grid;place-items:center;cursor:pointer;font-size:16px">
+          <i data-lucide="{{ themeIcon }}"></i>
+        </button>
+        <a href="#contact" class="mag" style="font-size:14px;font-weight:500;padding:10px 18px;border-radius:10px;background:var(--text);color:var(--bg);box-shadow:0 10px 24px -12px rgba(0,0,0,.5)">Request Consultation</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" style="position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 32px">
+
+    <!-- HERO -->
+    <section style="padding:120px 0 96px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center">
+      <div class="reveal">
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border:1px solid var(--line);border-radius:100px;background:var(--panel);font-size:12.5px;color:var(--muted);font-family:'IBM Plex Mono',monospace">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulseDot 2.4s infinite"></span>
+          Enterprise Engineering · Dubai, UAE
+        </div>
+        <h1 style="margin-top:26px;font-size:clamp(38px,5vw,62px);line-height:1.03;letter-spacing:-.035em;font-weight:700">Advanced Software Solutions &amp; Data Architecture</h1>
+        <p style="margin-top:24px;font-size:18px;line-height:1.6;color:var(--muted);max-width:540px">Custom engineering, quantitative data analysis, and algorithmic system development for corporate environments. We design the databases, pipelines, and platforms enterprises run on.</p>
+        <div style="margin-top:34px;display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#contact" class="mag" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;padding:14px 24px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04121f;box-shadow:0 16px 40px -16px var(--accent)">Request Consultation <i data-lucide="arrow-right"></i></a>
+          <a href="#services" class="mag" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:500;padding:14px 24px;border-radius:12px;background:var(--panel);border:1px solid var(--line);color:var(--text)">Explore Services</a>
+        </div>
+        <div style="margin-top:44px;display:flex;gap:36px;flex-wrap:wrap">
+          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">99.98%</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono',monospace">uptime SLA</div></div>
+          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">12+ yrs</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono',monospace">in production</div></div>
+          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">SOC 2</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono',monospace">Type II</div></div>
+        </div>
+      </div>
+
+      <!-- code / architecture panel -->
+      <div class="reveal" style="animation-delay:.12s">
+        <div style="border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--panel2) 70%,transparent)">
+            <span style="width:11px;height:11px;border-radius:50%;background:#374151"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#374151"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#374151"></span>
+            <span style="margin-left:8px;font-size:12px;color:var(--faint);font-family:'IBM Plex Mono',monospace">pipeline/ingest.py</span>
+            <span style="margin-left:auto;font-size:11px;color:var(--teal);font-family:'IBM Plex Mono',monospace">● running</span>
+          </div>
+          <pre style="margin:0;padding:20px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.85;color:var(--muted);overflow:auto"><span style="color:var(--faint)"># async ETL over partitioned columnar store</span>
+<span style="color:#c084fc">import</span> duckdb, pyarrow <span style="color:#c084fc">as</span> pa
+<span style="color:#c084fc">from</span> fastapi <span style="color:#c084fc">import</span> APIRouter
+
+router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>)
+
+<span style="color:#c084fc">async def</span> <span style="color:var(--accent2)">aggregate</span>(scope: <span style="color:#c084fc">str</span>) -&gt; pa.Table:
+    con = duckdb.connect(<span style="color:var(--teal)">":memory:"</span>)
+    <span style="color:#c084fc">return</span> con.execute(<span style="color:var(--teal)">"""
+        SELECT region, p95(latency_ms)
+        FROM events WHERE scope = ?
+        GROUP BY region"""</span>, [scope]).arrow()</pre>
+          <div style="display:flex;gap:20px;padding:13px 20px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--faint)">
+            <span style="color:var(--teal)">✓ 24 tests</span><span>·</span><span>p95 42ms</span><span>·</span><span>build 3.1s</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGO / TRUST STRIP -->
+    <section class="reveal" style="padding:8px 0 40px">
+      <div style="text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Trusted for mission-critical systems across</div>
+      <div style="margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:40px 56px;opacity:.75;font-weight:600;letter-spacing:-.01em;font-size:17px;color:var(--muted)">
+        <span>Banking</span><span>Logistics</span><span>Telecom</span><span>Public Sector</span><span>Energy</span><span>Higher Education</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="padding:88px 0;border-top:1px solid var(--line)">
+      <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start">
+        <div class="reveal">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">01 — About</div>
+          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">An engineering-first software company</h2>
+        </div>
+        <div class="reveal" style="animation-delay:.1s">
+          <p style="font-size:18px;line-height:1.65;color:var(--muted)">Axiom Systems builds enterprise software, database architectures, and cloud infrastructure for organizations that depend on data at scale. Our teams ship production Python, design analytical platforms, and modernize legacy systems end to end.</p>
+          <div style="margin-top:26px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--panel);display:flex;gap:14px;align-items:flex-start">
+            <i data-lucide="shield-check" style="color:var(--teal);font-size:20px;margin-top:2px"></i>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Scope of practice.</strong> We are a software engineering firm. We do not provide investment advisory, portfolio management, or asset management services of any kind.</p>
+          </div>
+          <div style="margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Database architecture</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">OLTP &amp; OLAP · schema design</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Cloud systems</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">AWS · Azure · Kubernetes</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Enterprise software</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">Custom platforms &amp; APIs</div></div>
+            <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">Educational technology</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">Learning &amp; assessment tools</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" style="padding:88px 0;border-top:1px solid var(--line)">
+      <div class="reveal" style="max-width:640px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">02 — Services</div>
+        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">Full-lifecycle engineering capability</h2>
+        <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted)">From architecture to deployment and long-term maintenance — delivered by senior engineers under enterprise governance.</p>
+      </div>
+      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="9">
+          <div class="reveal lift" style="padding:26px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh)">
+            <div style="width:44px;height:44px;border-radius:12px;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);font-size:21px"><i data-lucide="{{ s.icon }}"></i></div>
+            <h3 style="margin-top:18px;font-size:18px;font-weight:600;letter-spacing:-.01em">{{ s.title }}</h3>
+            <p style="margin-top:9px;font-size:14px;line-height:1.6;color:var(--muted)">{{ s.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" style="padding:88px 0;border-top:1px solid var(--line)">
+      <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center">
+        <div class="reveal">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">03 — Technology</div>
+          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">A modern, data-native stack</h2>
+          <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted)">We standardize on proven, open technologies — chosen for performance, maintainability, and long-term support.</p>
+        </div>
+        <div class="reveal" style="animation-delay:.1s;display:flex;flex-wrap:wrap;gap:11px">
+          <sc-for list="{{ stack }}" as="t" hint-placeholder-count="16">
+            <span class="mag" style="display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border:1px solid var(--line);border-radius:11px;background:var(--panel);font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--muted)"><span style="width:7px;height:7px;border-radius:2px;background:var(--accent2)"></span>{{ t }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" style="padding:88px 0;border-top:1px solid var(--line)">
+      <div class="reveal" style="max-width:640px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">04 — Featured Work</div>
+        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">Systems in production</h2>
+      </div>
+      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+          <div class="reveal lift" style="border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--card-sh);overflow:hidden">
+            <div style="height:132px;position:relative;background:repeating-linear-gradient(90deg,var(--line2) 0 1px,transparent 1px 26px),repeating-linear-gradient(0deg,var(--line2) 0 1px,transparent 1px 26px),linear-gradient(135deg,var(--bg2),var(--panel2));display:grid;place-items:center;border-bottom:1px solid var(--line)">
+              <i data-lucide="{{ p.icon }}" style="font-size:34px;color:var(--accent2);opacity:.9"></i>
+              <span style="position:absolute;top:12px;left:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)">{{ p.tag }}</span>
+            </div>
+            <div style="padding:22px">
+              <h3 style="font-size:17.5px;font-weight:600;letter-spacing:-.01em">{{ p.title }}</h3>
+              <p style="margin-top:9px;font-size:14px;line-height:1.6;color:var(--muted)">{{ p.desc }}</p>
+              <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ p.tech }}" as="tt" hint-placeholder-count="3">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--faint);padding:4px 9px;border:1px solid var(--line);border-radius:6px">{{ tt }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" style="padding:88px 0;border-top:1px solid var(--line)">
+      <div class="reveal" style="max-width:640px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">05 — Why Companies Choose Us</div>
+        <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">A disciplined delivery model</h2>
+      </div>
+      <div style="margin-top:48px;position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+        <div class="hide-md" style="position:absolute;top:26px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,var(--line),var(--line),transparent)"></div>
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+          <div class="reveal" style="position:relative">
+            <div style="width:52px;height:52px;border-radius:14px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);font-size:22px;position:relative;z-index:1;box-shadow:var(--card-sh)"><i data-lucide="{{ st.icon }}"></i></div>
+            <div style="margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--faint)">{{ st.num }}</div>
+            <h3 style="margin-top:6px;font-size:16px;font-weight:600">{{ st.title }}</h3>
+            <p style="margin-top:8px;font-size:13.5px;line-height:1.55;color:var(--muted)">{{ st.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="padding:88px 0;border-top:1px solid var(--line)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start">
+        <div class="reveal">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent2);letter-spacing:.05em">06 — Contact</div>
+          <h2 style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">Request a technical consultation</h2>
+          <p style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted);max-width:440px">Tell us about your systems and objectives. A principal engineer will respond within one business day.</p>
+          <div style="margin-top:34px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2)"><i data-lucide="mail"></i></div><div><div style="font-size:13px;color:var(--faint)">Email</div><div style="font-weight:500">engineering@axiomsystems.io</div></div></div>
+            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2)"><i data-lucide="map-pin"></i></div><div><div style="font-size:13px;color:var(--faint)">Office</div><div style="font-weight:500">One Central, DWTC · Dubai, UAE</div></div></div>
+            <div style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2)"><i data-lucide="clock"></i></div><div><div style="font-size:13px;color:var(--faint)">Hours</div><div style="font-weight:500">Sun–Thu · 09:00–18:00 GST</div></div></div>
+          </div>
+        </div>
+        <form onSubmit="{{ onSubmit }}" class="reveal" style="animation-delay:.1s;padding:28px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--panel),var(--bg2));box-shadow:var(--card-sh);display:flex;flex-direction:column;gap:16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Full name</span><input class="field" required placeholder="Jane Doe" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
+            <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Work email</span><input class="field" type="email" required placeholder="jane@company.com" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Company</span><input class="field" placeholder="Company name" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
+          <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">Project scope</span><textarea class="field" rows="4" placeholder="Databases, data pipelines, platform modernization…" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></label>
+          <button type="submit" class="mag" style="margin-top:4px;padding:14px;border-radius:11px;border:none;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04121f;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 16px 40px -16px var(--accent)">{{ submitLabel }}</button>
+          <p style="font-size:12px;color:var(--faint);text-align:center;line-height:1.5">By submitting you agree to our processing of the information above for the purpose of responding to your inquiry.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="position:relative;z-index:1;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg2) 80%,transparent);margin-top:40px">
+    <div style="max-width:1280px;margin:0 auto;padding:56px 32px 30px">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px">
+            <div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center"><div style="width:8px;height:8px;border-radius:2px;background:var(--bg)"></div></div>
+            <span style="font-weight:600">Axiom Systems</span>
+          </div>
+          <p style="margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:280px">Enterprise software development, database architecture, and data engineering. Registered in the Dubai World Trade Centre free zone.</p>
+        </div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Company</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#about" class="navlink">About</a><a href="#services" class="navlink">Services</a><a href="#work" class="navlink">Work</a></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Legal</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#" class="navlink">Privacy Policy</a><a href="#" class="navlink">Terms of Use</a><a href="#" class="navlink">Disclaimer</a></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono',monospace">Contact</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><span>engineering@axiomsystems.io</span><span>One Central, DWTC</span><span>Dubai, UAE</span></div></div>
+      </div>
+      <div style="margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--faint)">
+        <span>© 2026 Axiom Systems FZ-LLC. All rights reserved.</span>
+        <span style="font-family:'IBM Plex Mono',monospace">Axiom Systems is a software engineering firm and does not provide financial, investment, or advisory services.</span>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;}}">
+class Component extends DCLogic {
+  state = { theme: null, submitLabel: 'Send inquiry' };
+
+  get theme() {
+    return this.state.theme ?? (this.props.theme === 'light' ? 'light' : 'dark');
+  }
+
+  componentDidMount() {
+    this._icons();
+    this._reveal();
+    this._bg();
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    if (this._io) this._io.disconnect();
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  _icons() {
+    if (window.lucide) { try { window.lucide.createIcons(); } catch (e) {} }
+    else setTimeout(() => this._icons(), 120);
+  }
+
+  _reveal() {
+    const els = Array.from(document.querySelectorAll('.reveal'));
+    const showAll = () => els.forEach(el => el.classList.add('in'));
+    let fired = false;
+    try {
+      this._io = new IntersectionObserver((entries) => {
+        fired = true;
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); this._io.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      els.forEach(el => this._io.observe(el));
+    } catch (e) { showAll(); return; }
+    // Fallback: if IO never fires (some embedded/iframe environments), reveal everything.
+    setTimeout(() => { if (!fired) showAll(); }, 400);
+  }
+
+  _bg() {
+    const cv = this.refs && this.refs.bgRef;
+    if (!cv) return;
+    const ctx = cv.getContext('2d');
+    let w, h, dpr, nodes;
+    const isLight = () => this.theme === 'light';
+    const build = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = w * dpr; cv.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.max(28, Math.min(64, Math.floor(w * h / 26000)));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.14, vy: (Math.random() - 0.5) * 0.14,
+        r: Math.random() * 1.4 + 0.6
+      }));
+    };
+    this._onResize = build; build();
+    window.addEventListener('resize', this._onResize);
+    const draw = () => {
+      const light = isLight();
+      ctx.clearRect(0, 0, w, h);
+      // moving grid
+      const gs = 46;
+      const t = Date.now() * 0.006;
+      const off = (t % gs);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = light ? 'rgba(15,28,48,0.035)' : 'rgba(120,160,220,0.045)';
+      for (let x = -gs + off; x < w; x += gs) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+      for (let y = -gs + off; y < h; y += gs) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+      // nodes + links
+      for (const n of nodes) {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+      }
+      const maxD = 132;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < maxD) {
+            const o = (1 - d / maxD) * (light ? 0.22 : 0.3);
+            ctx.strokeStyle = light ? `rgba(37,99,235,${o * 0.7})` : `rgba(59,130,246,${o})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      for (const n of nodes) {
+        ctx.fillStyle = light ? 'rgba(37,99,235,0.5)' : 'rgba(34,211,238,0.7)';
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+      }
+      this._raf = requestAnimationFrame(draw);
+    };
+    draw();
+  }
+
+  toggleTheme = () => {
+    this.setState({ theme: this.theme === 'light' ? 'dark' : 'light' });
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.setState({ submitLabel: 'Received — we\u2019ll be in touch ✓' });
+    setTimeout(() => this.setState({ submitLabel: 'Send inquiry' }), 3200);
+  };
+
+  renderVals() {
+    const theme = this.theme;
+    return {
+      themeAttr: theme,
+      themeIcon: theme === 'light' ? 'moon' : 'sun',
+      toggleTheme: this.toggleTheme,
+      onSubmit: this.onSubmit,
+      submitLabel: this.state.submitLabel,
+      bgRef: (el) => { this.refs = this.refs || {}; this.refs.bgRef = el; },
+      services: [
+        { icon: 'code-2', title: 'Custom Software Development', desc: 'Bespoke platforms and internal tools engineered to your domain, built to last and to scale.' },
+        { icon: 'database', title: 'Database Architecture', desc: 'Relational and columnar schema design, indexing, partitioning, and query optimization.' },
+        { icon: 'cloud', title: 'Cloud Engineering', desc: 'Infrastructure-as-code on AWS and Azure with observability, autoscaling, and cost control.' },
+        { icon: 'terminal', title: 'Python Automation', desc: 'Reliable batch and event-driven automation for data-intensive back-office operations.' },
+        { icon: 'webhook', title: 'API Integration', desc: 'REST and GraphQL services, connectors, and gateways with contract testing and versioning.' },
+        { icon: 'workflow', title: 'Data Processing', desc: 'High-throughput ETL and streaming pipelines over partitioned, columnar data stores.' },
+        { icon: 'bar-chart-3', title: 'Analytics Platforms', desc: 'Quantitative analytical systems, dashboards, and reporting layers for large datasets.' },
+        { icon: 'refresh-ccw', title: 'System Modernization', desc: 'Incremental migration of legacy systems with zero-downtime cutover strategies.' },
+        { icon: 'life-buoy', title: 'Software Maintenance', desc: 'SLA-backed support, monitoring, and continuous hardening of production systems.' }
+      ],
+      stack: ['Python','NumPy','Pandas','DuckDB','FastAPI','Django','PostgreSQL','Docker','Redis','AWS','Azure','Linux','Git','Streamlit','REST APIs','GraphQL'],
+      projects: [
+        { icon: 'activity', tag: 'analytics', title: 'Analytics Engine', desc: 'A columnar analytical engine computing percentile metrics across billions of events in sub-second queries.', tech: ['DuckDB','FastAPI','Arrow'] },
+        { icon: 'layers', tag: 'processing', title: 'Information Processing Platform', desc: 'Document ingestion, normalization, and enrichment pipeline with a governed metadata catalog.', tech: ['Python','PostgreSQL','Redis'] },
+        { icon: 'cog', tag: 'automation', title: 'Automation Framework', desc: 'A configurable orchestration framework for scheduled and event-driven back-office workflows.', tech: ['Airflow','Docker','Python'] },
+        { icon: 'network', tag: 'data', title: 'Data Aggregation System', desc: 'Multi-source aggregation service reconciling heterogeneous feeds into a unified warehouse model.', tech: ['Pandas','Postgres','AWS'] },
+        { icon: 'flask-conical', tag: 'research', title: 'Research Platform', desc: 'Interactive environment for quantitative teams to build, version, and share analytical notebooks.', tech: ['Streamlit','NumPy','K8s'] },
+        { icon: 'route', tag: 'gateway', title: 'API Gateway', desc: 'Unified gateway with authentication, rate limiting, and schema validation across internal services.', tech: ['GraphQL','FastAPI','Redis'] }
+      ],
+      steps: [
+        { num: 'STEP 01', icon: 'compass', title: 'Discovery', desc: 'Requirements, constraints, and system landscape mapped with your teams.' },
+        { num: 'STEP 02', icon: 'pen-tool', title: 'Architecture', desc: 'Data models, service boundaries, and infrastructure designed for scale.' },
+        { num: 'STEP 03', icon: 'upload-cloud', title: 'Deployment', desc: 'Automated CI/CD delivery with staged rollouts and observability.' },
+        { num: 'STEP 04', icon: 'wrench', title: 'Maintenance', desc: 'Continuous hardening, tuning, and dependency management post-launch.' },
+        { num: 'STEP 05', icon: 'headphones', title: 'Support', desc: 'SLA-backed engineering support and an ongoing improvement roadmap.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
