@@ -110,7 +110,6 @@
         <div style="margin-top:44px;display:flex;gap:36px;flex-wrap:wrap">
           <div><div class="mono-ltr" style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s1n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s1l }}</div></div>
           <div><div class="mono-ltr" style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s2n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s2l }}</div></div>
-          <div><div style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s3n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s3l }}</div></div>
         </div>
       </div>
 
@@ -449,12 +448,12 @@ class Component extends DCLogic {
       en: {
         nav_about: 'About', nav_services: 'Services', nav_tech: 'Technology', nav_contact: 'Contact',
         cta: 'Request Consultation', cta2: 'View Services',
-        hero_badge: 'Software Engineering & Data Architecture · API, UAE',
+        hero_badge: 'Software Engineering & Data Architecture',
         hero_h1: 'Advanced Software Solutions & Data Architecture',
         hero_sub: 'Custom engineering, quantitative data analysis, and algorithmic system development for corporate environments.',
         hero_s1n: '5+ yrs', hero_s1l: 'domain expertise',
         hero_s2n: 'Python', hero_s2l: 'data engineering',
-        hero_s3n: 'Meydan', hero_s3l: 'Free Zone, API',
+        hero_s3n: '', hero_s3l: '',
         about_eyebrow: '01 — About Us',
         about_h2: 'A specialized software & data engineering firm',
         about_lead: 'We are a specialized IT consulting and software development firm with over 5 years of domain expertise in quantitative analytics and data engineering. Our mission is to build robust, scalable applications and database architectures that help businesses process complex data sets.',
@@ -501,7 +500,7 @@ class Component extends DCLogic {
         dis_body: 'TradesAdvisor is NOT a registered investment advisor, broker, or financial institution. We do not manage client assets, portfolios, or hold client funds. We strictly provide market research and educational analytics.',
         dis_readfull: 'Read full disclaimer',
         ft_desc: 'Independent software vendor and educational technology provider. Custom software development, database architecture, and data engineering.',
-        ft_addr: 'Meydan Free Zone, Nad Al Sheba, API, UAE', ft_addrShort: 'Meydan Free Zone, API, UAE',
+        ft_addr: 'Meydan Free Zone, Nad Al Sheba, API, UAE', ft_addrShort: 'API, UAE',
         ft_license: 'License No.: [to be assigned]',
         ft_colCompany: 'Company', ft_colLegal: 'Legal', ft_colContact: 'Contact',
         ft_lnk_privacy: 'Privacy Policy', ft_lnk_terms: 'Terms of Use', ft_lnk_disclaimer: 'Disclaimer',
@@ -512,12 +511,12 @@ class Component extends DCLogic {
       ru: {
         nav_about: 'О компании', nav_services: 'Услуги', nav_tech: 'Технологии', nav_contact: 'Контакты',
         cta: 'Запросить консультацию', cta2: 'Смотреть услуги',
-        hero_badge: 'Разработка ПО и архитектура данных · Дубай, ОАЭ',
+        hero_badge: 'Разработка ПО и архитектура данных',
         hero_h1: 'Передовые программные решения и архитектура данных',
         hero_sub: 'Индивидуальная разработка, количественный анализ данных и создание алгоритмических систем для корпоративной среды.',
         hero_s1n: '5+ лет', hero_s1l: 'отраслевой опыт',
         hero_s2n: 'Python', hero_s2l: 'инженерия данных',
-        hero_s3n: 'Meydan', hero_s3l: 'Свободная зона, Дубай',
+        hero_s3n: '', hero_s3l: '',
         about_eyebrow: '01 — О компании',
         about_h2: 'Специализированная компания по разработке ПО и инженерии данных',
         about_lead: 'Мы — специализированная компания в сфере ИТ-консалтинга и разработки ПО с более чем 5-летним профильным опытом в области количественной аналитики и инженерии данных. Наша миссия — создавать надёжные масштабируемые приложения и архитектуры баз данных, помогающие бизнесу обрабатывать сложные наборы данных.',
@@ -564,7 +563,7 @@ class Component extends DCLogic {
         dis_body: 'TradesAdvisor НЕ является зарегистрированным инвестиционным консультантом, брокером или финансовой организацией. Мы не управляем активами и портфелями клиентов и не храним средства клиентов. Мы предоставляем исключительно исследования рынка и образовательную аналитику.',
         dis_readfull: 'Полный текст дисклеймера',
         ft_desc: 'Независимый поставщик ПО и образовательных технологий. Заказная разработка ПО, архитектура баз данных и инженерия данных.',
-        ft_addr: 'Свободная зона Meydan, Над-Аль-Шеба, Дубай, ОАЭ', ft_addrShort: 'Свободная зона Meydan, Дубай, ОАЭ',
+        ft_addr: 'Свободная зона Meydan, Над-Аль-Шеба, Дубай, ОАЭ', ft_addrShort: 'API, UAE',
         ft_license: 'Лицензия №: [будет присвоен]',
         ft_colCompany: 'Компания', ft_colLegal: 'Юридическое', ft_colContact: 'Контакты',
         ft_lnk_privacy: 'Политика конфиденциальности', ft_lnk_terms: 'Условия использования', ft_lnk_disclaimer: 'Дисклеймер',
@@ -575,12 +574,12 @@ class Component extends DCLogic {
       ar: {
         nav_about: 'من نحن', nav_services: 'الخدمات', nav_tech: 'التقنيات', nav_contact: 'تواصل',
         cta: 'اطلب استشارة', cta2: 'استعرض الخدمات',
-        hero_badge: 'هندسة البرمجيات وبنية البيانات · دبي، الإمارات',
+        hero_badge: 'هندسة البرمجيات وبنية البيانات',
         hero_h1: 'حلول برمجية متقدّمة وبنية بيانات',
         hero_sub: 'هندسة مخصّصة وتحليل كمّي للبيانات وتطوير أنظمة خوارزمية لبيئات الشركات.',
         hero_s1n: '+5 سنوات', hero_s1l: 'خبرة متخصّصة',
         hero_s2n: 'Python', hero_s2l: 'هندسة البيانات',
-        hero_s3n: 'ميدان', hero_s3l: 'المنطقة الحرة، دبي',
+        hero_s3n: '', hero_s3l: '',
         about_eyebrow: '01 — من نحن',
         about_h2: 'شركة متخصّصة في هندسة البرمجيات والبيانات',
         about_lead: 'نحن شركة متخصّصة في استشارات تقنية المعلومات وتطوير البرمجيات، بخبرة تتجاوز 5 سنوات في التحليلات الكمّية وهندسة البيانات. مهمتنا بناء تطبيقات قوية وقابلة للتوسّع وبنى قواعد بيانات تساعد الشركات على معالجة مجموعات البيانات المعقّدة.',
@@ -627,7 +626,7 @@ class Component extends DCLogic {
         dis_body: 'TradesAdvisor ليست مستشارًا استثماريًا مسجّلاً ولا وسيطًا ولا مؤسسة مالية. لا ندير أصول العملاء أو محافظهم ولا نحتفظ بأموالهم. نقدّم حصريًا أبحاث السوق والتحليلات التعليمية.',
         dis_readfull: 'اقرأ إخلاء المسؤولية كاملاً',
         ft_desc: 'مزوّد مستقل للبرمجيات وتقنيات التعليم. تطوير برمجيات مخصّص وبنية قواعد بيانات وهندسة بيانات.',
-        ft_addr: 'منطقة ميدان الحرة، ند الشبا، دبي، الإمارات', ft_addrShort: 'منطقة ميدان الحرة، دبي، الإمارات',
+        ft_addr: 'منطقة ميدان الحرة، ند الشبا، دبي، الإمارات', ft_addrShort: 'API, UAE',
         ft_license: 'رقم الرخصة: [يُحدَّد لاحقًا]',
         ft_colCompany: 'الشركة', ft_colLegal: 'قانوني', ft_colContact: 'تواصل',
         ft_lnk_privacy: 'سياسة الخصوصية', ft_lnk_terms: 'شروط الاستخدام', ft_lnk_disclaimer: 'إخلاء المسؤولية',
