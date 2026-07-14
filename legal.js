@@ -11,9 +11,9 @@
   function pick() { return norm(fromUrl() || stored() || 'en'); }
 
   var COMMON = {
-    en: { legal: 'Legal', back: '← Back to home', privacy: 'Privacy Policy', terms: 'Terms of Use', disclaimer: 'Disclaimer', copyright: '© 2026 TradesAdvisor Group FZ-LLC. All Rights Reserved.' },
-    ru: { legal: 'Юридическое', back: '← На главную', privacy: 'Политика конфиденциальности', terms: 'Условия использования', disclaimer: 'Дисклеймер', copyright: '© 2026 TradesAdvisor Group FZ-LLC. Все права защищены.' },
-    ar: { legal: 'قانوني', back: '→ العودة إلى الرئيسية', privacy: 'سياسة الخصوصية', terms: 'شروط الاستخدام', disclaimer: 'إخلاء المسؤولية', copyright: '© 2026 TradesAdvisor Group FZ-LLC. جميع الحقوق محفوظة.' }
+    en: { legal: 'Legal', back: '← Back to home', privacy: 'Privacy Policy', terms: 'Terms of Use', disclaimer: 'Disclaimer', company: 'Benchmark Technology Engineering L.L.C-FZ', copyright: '© 2026 Benchmark Technology Engineering L.L.C-FZ. All Rights Reserved.' },
+    ru: { legal: 'Юридическое', back: '← На главную', privacy: 'Политика конфиденциальности', terms: 'Условия использования', disclaimer: 'Дисклеймер', company: 'Benchmark Technology Engineering L.L.C-FZ', copyright: '© 2026 Benchmark Technology Engineering L.L.C-FZ. Все права защищены.' },
+    ar: { legal: 'قانوني', back: '→ العودة إلى الرئيسية', privacy: 'سياسة الخصوصية', terms: 'شروط الاستخدام', disclaimer: 'إخلاء المسؤولية', company: 'هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة', copyright: '© 2026 هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة. جميع الحقوق محفوظة.' }
   };
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
@@ -32,10 +32,10 @@
     var segs = document.querySelectorAll('.langseg');
     for (var i = 0; i < segs.length; i++) segs[i].setAttribute('data-lang', lang);
 
-    txt('l-back', c.back); txt('l-eyebrow', c.legal); txt('l-copy', c.copyright);
+    txt('l-brand', c.company); txt('l-back', c.back); txt('l-eyebrow', c.legal); txt('l-copy', c.copyright);
     txt('l-lp', c.privacy); txt('l-lt', c.terms); txt('l-ld', c.disclaimer);
     txt('l-title', d.title); txt('l-meta', d.meta);
-    if (d.title) document.title = d.title + ' — TradesAdvisor Group FZ-LLC';
+    if (d.title) document.title = d.title + ' — ' + c.company;
 
     var body = document.getElementById('l-body');
     if (!body) return;

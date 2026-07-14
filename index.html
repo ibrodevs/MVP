@@ -70,7 +70,7 @@
         <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent)">
           <div style="width:9px;height:9px;border-radius:2px;background:var(--bg)"></div>
         </div>
-        <span class="mono-ltr" style="font-weight:600;letter-spacing:-.01em;font-size:16px">Benchmark Technology Engineering L.L.C-FZ</span>
+        <span style="font-weight:600;letter-spacing:-.01em;font-size:16px">{{ companyName }}</span>
       </a>
       <div class="hide-md" style="display:flex;align-items:center;gap:30px;font-size:14px;color:var(--muted)">
         <a href="#about" class="navlink">{{ nav_about }}</a>
@@ -264,7 +264,7 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
         <div>
           <div style="display:flex;align-items:center;gap:11px">
             <div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center"><div style="width:8px;height:8px;border-radius:2px;background:var(--bg)"></div></div>
-            <span class="mono-ltr" style="font-weight:600">Benchmark Technology Engineering L.L.C-FZ</span>
+            <span style="font-weight:600">{{ companyName }}</span>
           </div>
           <p style="margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:300px">{{ ft_desc }}</p>
           <div style="margin-top:16px;font-size:12.5px;line-height:1.9;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">
@@ -446,6 +446,7 @@ class Component extends DCLogic {
   _dict() {
     return {
       en: {
+        companyName: 'Benchmark Technology Engineering L.L.C-FZ',
         nav_about: 'About', nav_services: 'Services', nav_tech: 'Technology', nav_contact: 'Contact',
         cta: 'Request Consultation', cta2: 'View Services',
         hero_badge: 'Software Engineering & Data Architecture',
@@ -489,7 +490,7 @@ class Component extends DCLogic {
         ct_h2: 'Request a technical consultation',
         ct_sub: 'Tell us about your systems and objectives. Our engineering team will respond within one business day.',
         ct_emailLabel: 'Email', ct_officeLabel: 'Registered Office',
-        ct_officeValue: 'Meydan Free Zone, Meydan Hotel, Nad Al Sheba, API, UAE',
+        ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
         ct_hoursLabel: 'Hours', ct_hoursValue: 'Sun–Thu · 09:00–18:00 GST',
         ct_name: 'Name', ct_email: 'Email', ct_subject: 'Subject', ct_message: 'Message',
         ct_ph_name: 'Jane Doe', ct_ph_subject: 'How can we help?',
@@ -500,7 +501,7 @@ class Component extends DCLogic {
         dis_body: 'Benchmark Technology Engineering L.L.C-FZ is NOT a registered investment advisor, broker, or financial institution. We do not manage client assets, portfolios, or hold client funds. We strictly provide market research and educational analytics.',
         dis_readfull: 'Read full disclaimer',
         ft_desc: 'Independent software vendor and educational technology provider. Custom software development, database architecture, and data engineering.',
-        ft_addr: 'Meydan Free Zone, Nad Al Sheba, API, UAE', ft_addrShort: 'API, UAE',
+        ft_addr: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E', ft_addrShort: 'Dubai, U.A.E',
         ft_license: 'License No.: [to be assigned]',
         ft_colCompany: 'Company', ft_colLegal: 'Legal', ft_colContact: 'Contact',
         ft_lnk_privacy: 'Privacy Policy', ft_lnk_terms: 'Terms of Use', ft_lnk_disclaimer: 'Disclaimer',
@@ -509,6 +510,7 @@ class Component extends DCLogic {
         ft_follow: 'Follow Us', ft_payment: 'Payment Accepted'
       },
       ru: {
+        companyName: 'Benchmark Technology Engineering L.L.C-FZ',
         nav_about: 'О компании', nav_services: 'Услуги', nav_tech: 'Технологии', nav_contact: 'Контакты',
         cta: 'Запросить консультацию', cta2: 'Смотреть услуги',
         hero_badge: 'Разработка ПО и архитектура данных',
@@ -552,7 +554,7 @@ class Component extends DCLogic {
         ct_h2: 'Запросить техническую консультацию',
         ct_sub: 'Расскажите о ваших системах и задачах. Наша инженерная команда ответит в течение одного рабочего дня.',
         ct_emailLabel: 'Эл. почта', ct_officeLabel: 'Юридический адрес',
-        ct_officeValue: 'Свободная зона Meydan, Meydan Hotel, Над-Аль-Шеба, Дубай, ОАЭ',
+        ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
         ct_hoursLabel: 'Часы работы', ct_hoursValue: 'Вс–Чт · 09:00–18:00 GST',
         ct_name: 'Имя', ct_email: 'Эл. почта', ct_subject: 'Тема', ct_message: 'Сообщение',
         ct_ph_name: 'Иван Иванов', ct_ph_subject: 'Чем можем помочь?',
@@ -563,7 +565,7 @@ class Component extends DCLogic {
         dis_body: 'Benchmark Technology Engineering L.L.C-FZ НЕ является зарегистрированным инвестиционным консультантом, брокером или финансовой организацией. Мы не управляем активами и портфелями клиентов и не храним средства клиентов. Мы предоставляем исключительно исследования рынка и образовательную аналитику.',
         dis_readfull: 'Полный текст дисклеймера',
         ft_desc: 'Независимый поставщик ПО и образовательных технологий. Заказная разработка ПО, архитектура баз данных и инженерия данных.',
-        ft_addr: 'Свободная зона Meydan, Над-Аль-Шеба, Дубай, ОАЭ', ft_addrShort: 'API, UAE',
+        ft_addr: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E', ft_addrShort: 'Dubai, U.A.E',
         ft_license: 'Лицензия №: [будет присвоен]',
         ft_colCompany: 'Компания', ft_colLegal: 'Юридическое', ft_colContact: 'Контакты',
         ft_lnk_privacy: 'Политика конфиденциальности', ft_lnk_terms: 'Условия использования', ft_lnk_disclaimer: 'Дисклеймер',
@@ -572,6 +574,7 @@ class Component extends DCLogic {
         ft_follow: 'Мы в соцсетях', ft_payment: 'Принимаем к оплате'
       },
       ar: {
+        companyName: 'هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة',
         nav_about: 'من نحن', nav_services: 'الخدمات', nav_tech: 'التقنيات', nav_contact: 'تواصل',
         cta: 'اطلب استشارة', cta2: 'استعرض الخدمات',
         hero_badge: 'هندسة البرمجيات وبنية البيانات',
@@ -615,7 +618,7 @@ class Component extends DCLogic {
         ct_h2: 'اطلب استشارة تقنية',
         ct_sub: 'أخبرنا عن أنظمتك وأهدافك. سيردّ فريقنا الهندسي خلال يوم عمل واحد.',
         ct_emailLabel: 'البريد الإلكتروني', ct_officeLabel: 'المكتب المسجّل',
-        ct_officeValue: 'منطقة ميدان الحرة، فندق ميدان، ند الشبا، دبي، الإمارات',
+        ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
         ct_hoursLabel: 'ساعات العمل', ct_hoursValue: 'الأحد–الخميس · 09:00–18:00 بتوقيت الخليج',
         ct_name: 'الاسم', ct_email: 'البريد الإلكتروني', ct_subject: 'الموضوع', ct_message: 'الرسالة',
         ct_ph_name: 'الاسم الكامل', ct_ph_subject: 'كيف يمكننا المساعدة؟',
@@ -623,14 +626,14 @@ class Component extends DCLogic {
         ct_note: 'بإرسالك النموذج فإنك توافق على معالجة المعلومات أعلاه بغرض الرد على استفسارك.',
         submit: 'إرسال الرسالة', submit_sending: 'يتم فتح بريدك… ✓',
         dis_label: 'إخلاء مسؤولية.',
-        dis_body: 'Benchmark Technology Engineering L.L.C-FZ ليست مستشارًا استثماريًا مسجّلاً ولا وسيطًا ولا مؤسسة مالية. لا ندير أصول العملاء أو محافظهم ولا نحتفظ بأموالهم. نقدّم حصريًا أبحاث السوق والتحليلات التعليمية.',
+        dis_body: 'هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة ليست مستشارًا استثماريًا مسجّلاً ولا وسيطًا ولا مؤسسة مالية. لا ندير أصول العملاء أو محافظهم ولا نحتفظ بأموالهم. نقدّم حصريًا أبحاث السوق والتحليلات التعليمية.',
         dis_readfull: 'اقرأ إخلاء المسؤولية كاملاً',
         ft_desc: 'مزوّد مستقل للبرمجيات وتقنيات التعليم. تطوير برمجيات مخصّص وبنية قواعد بيانات وهندسة بيانات.',
-        ft_addr: 'منطقة ميدان الحرة، ند الشبا، دبي، الإمارات', ft_addrShort: 'API, UAE',
+        ft_addr: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E', ft_addrShort: 'Dubai, U.A.E',
         ft_license: 'رقم الرخصة: [يُحدَّد لاحقًا]',
         ft_colCompany: 'الشركة', ft_colLegal: 'قانوني', ft_colContact: 'تواصل',
         ft_lnk_privacy: 'سياسة الخصوصية', ft_lnk_terms: 'شروط الاستخدام', ft_lnk_disclaimer: 'إخلاء المسؤولية',
-        ft_copyright: '© 2026 Benchmark Technology Engineering L.L.C-FZ. جميع الحقوق محفوظة.',
+        ft_copyright: '© 2026 هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة. جميع الحقوق محفوظة.',
         ft_tagline: 'مزوّد برمجيات مستقل — لا نقدّم خدمات مالية أو استثمارية أو استشارية.',
         ft_follow: 'تابعنا', ft_payment: 'طرق الدفع المقبولة'
       }
