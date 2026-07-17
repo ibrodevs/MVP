@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Benchmark Technology Engineering L.L.C-FZ — Advanced Software Solutions &amp; Data Engineering</title>
 <meta name="description" content="Custom software development, database solutions, API integration, automation, and application customization for data-intensive business environments.">
+<link rel="icon" type="image/png" href="./logo.png">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -44,6 +45,7 @@
   .lift:hover{transform:translateY(-4px)}
   .navlink{position:relative;transition:color .3s}
   .navlink:hover{color:var(--text)}
+  .brand-logo{width:44px;height:44px;display:block;object-fit:contain;flex:none}
   .mag{transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .4s,background .3s,border-color .3s}
   .mag:hover{transform:translateY(-2px)}
   ::selection{background:rgba(59,130,246,.28)}
@@ -71,6 +73,7 @@
     .site-shell,.site-main,.site-strip,.footer-inner{padding-inline:18px!important;width:100%;max-width:100%}
     .top-nav{height:auto!important;min-height:62px;padding-block:10px!important;gap:12px!important}
     .brand-link{min-width:0;flex:1}
+    .brand-logo{width:38px;height:38px}
     .brand-name{font-size:13px!important;line-height:1.25;white-space:normal;overflow-wrap:anywhere}
     .nav-actions{gap:8px!important;flex:none}
     .langseg button{padding:7px 8px;font-size:11px}
@@ -117,9 +120,7 @@
   <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb, var(--bg) 72%, transparent);border-bottom:1px solid var(--line)">
     <nav class="site-shell top-nav" style="height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px">
       <a href="#top" class="brand-link" style="display:flex;align-items:center;gap:11px">
-        <div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent)">
-          <div style="width:9px;height:9px;border-radius:2px;background:var(--bg)"></div>
-        </div>
+        <img class="brand-logo" src="./logo.png" alt="{{ companyName }} logo">
         <span class="brand-name" style="font-weight:600;letter-spacing:-.01em;font-size:16px">{{ companyName }}</span>
       </a>
       <div class="hide-md" style="display:flex;align-items:center;gap:30px;font-size:14px;color:var(--muted)">
@@ -301,7 +302,7 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
       <div class="footer-grid" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px">
         <div>
           <div style="display:flex;align-items:center;gap:11px">
-            <div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center"><div style="width:8px;height:8px;border-radius:2px;background:var(--bg)"></div></div>
+            <img src="./logo.png" alt="{{ companyName }} logo" style="width:38px;height:38px;display:block;object-fit:contain;flex:none">
             <span style="font-weight:600">{{ companyName }}</span>
           </div>
           <p style="margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:300px">{{ ft_desc }}</p>

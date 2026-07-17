@@ -20,9 +20,7 @@ header .wrap{min-height:64px;display:flex;align-items:center;justify-content:spa
 .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;line-height:1.25;min-width:0}
 .brand{text-decoration:none;color:inherit}
 .brand .logo{flex:none}
-.logo{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:grid;place-items:center}
-.logo span{width:8px;height:8px;border-radius:2px;background:var(--bg)}
+.logo{width:42px;height:42px;display:block;object-fit:contain}
 .brand em{color:var(--muted);font-weight:500;font-style:normal}
 .back{font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s}
 .back:hover{color:var(--text)}
