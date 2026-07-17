@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Benchmark Technology Engineering L.L.C-FZ — Advanced Software Solutions &amp; Data Architecture</title>
-<meta name="description" content="Benchmark Technology Engineering L.L.C-FZ is an independent software vendor and educational technology provider specializing in custom software development, database architecture, and quantitative data engineering. We do not provide financial advisory services.">
+<title>Benchmark Technology Engineering L.L.C-FZ — Advanced Software Solutions &amp; Data Engineering</title>
+<meta name="description" content="Custom software development, database solutions, API integration, automation, and application customization for data-intensive business environments.">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -159,7 +159,6 @@
         </div>
         <div class="hero-stats" style="margin-top:44px;display:flex;gap:36px;flex-wrap:wrap">
           <div><div class="mono-ltr" style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s1n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s1l }}</div></div>
-          <div><div class="mono-ltr" style="font-size:26px;font-weight:700;letter-spacing:-.02em">{{ hero_s2n }}</div><div style="font-size:13px;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ hero_s2l }}</div></div>
         </div>
       </div>
 
@@ -201,10 +200,6 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
         </div>
         <div class="reveal" style="animation-delay:.1s">
           <p class="lead-text" style="font-size:18px;line-height:1.65;color:var(--muted)">{{ about_lead }}</p>
-          <div class="about-card" style="margin-top:26px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--panel);display:flex;gap:14px;align-items:flex-start">
-            <i data-lucide="shield-check" style="color:var(--teal);font-size:20px;margin-top:2px"></i>
-            <p style="font-size:14.5px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">{{ about_impLabel }}</strong> {{ about_impBody }}</p>
-          </div>
           <div class="about-tiles" style="margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
             <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">{{ about_t1t }}</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">{{ about_t1d }}</div></div>
             <div style="padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)"><div style="font-weight:600">{{ about_t2t }}</div><div style="font-size:13.5px;color:var(--faint);margin-top:4px">{{ about_t2d }}</div></div>
@@ -233,7 +228,7 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
       </div>
     </section>
 
-    <!-- TECHNOLOGY & PORTFOLIO -->
+    <!-- TECHNOLOGY & CAPABILITIES -->
     <section id="tech" class="section-block" style="padding:88px 0;border-top:1px solid var(--line)">
       <div class="tech-grid" style="display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center">
         <div class="reveal">
@@ -281,7 +276,7 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
           <h2 class="section-title" style="margin-top:18px;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:700">{{ ct_h2 }}</h2>
           <p class="lead-text" style="margin-top:16px;font-size:17px;line-height:1.6;color:var(--muted);max-width:440px">{{ ct_sub }}</p>
           <div class="contact-list" style="margin-top:34px;display:flex;flex-direction:column;gap:20px">
-            <div class="contact-item" style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="mail"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_emailLabel }}</div><div class="mono-ltr contact-value" style="font-weight:500">hello@tradesadvisor.com</div></div></div>
+            <div class="contact-item" style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="mail"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_emailLabel }}</div><a class="mono-ltr contact-value" href="mailto:info@benchmarktechnologyengineering.ae" style="font-weight:500">info@benchmarktechnologyengineering.ae</a></div></div>
             <div class="contact-item" style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="map-pin"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_officeLabel }}</div><div class="contact-value" style="font-weight:500">{{ ct_officeValue }}</div></div></div>
             <div class="contact-item" style="display:flex;gap:13px;align-items:center"><div style="width:40px;height:40px;border-radius:10px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent2);flex:none"><i data-lucide="clock"></i></div><div><div style="font-size:13px;color:var(--faint)">{{ ct_hoursLabel }}</div><div class="contact-value" style="font-weight:500">{{ ct_hoursValue }}</div></div></div>
           </div>
@@ -294,18 +289,11 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
           <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">{{ ct_subject }}</span><input name="subject" class="field" placeholder="{{ ct_ph_subject }}" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;transition:border-color .2s,box-shadow .2s"></label>
           <label style="display:flex;flex-direction:column;gap:7px"><span style="font-size:13px;color:var(--muted)">{{ ct_message }}</span><textarea name="message" class="field" rows="4" required placeholder="{{ ct_ph_message }}" style="padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></label>
           <button type="submit" class="mag" style="margin-top:4px;padding:14px;border-radius:11px;border:none;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04121f;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 16px 40px -16px var(--accent)">{{ submitLabel }}</button>
-          <p style="font-size:12px;color:var(--faint);text-align:center;line-height:1.5">{{ ct_note }}</p>
+          <p style="font-size:12px;color:var(--faint);text-align:center;line-height:1.5">{{ ct_note }} <a href="privacy.html" style="color:var(--accent2);text-decoration:underline">{{ ft_lnk_privacy }}</a>.</p>
         </form>
       </div>
     </section>
   </main>
-
-  <!-- DISCLAIMER STRIP -->
-  <div class="site-strip" style="position:relative;z-index:1;padding-bottom:48px">
-    <div style="border-top:1px solid var(--line);padding-top:22px;font-size:12px;line-height:1.7;color:var(--faint)">
-      <strong style="color:var(--muted);font-weight:600">{{ dis_label }}</strong> {{ dis_body }} <a href="disclaimer.html" style="color:var(--accent2);text-decoration:underline">{{ dis_readfull }}</a>.
-    </div>
-  </div>
 
   <!-- FOOTER -->
   <footer style="position:relative;z-index:1;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg2) 80%,transparent)">
@@ -319,14 +307,11 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
           <p style="margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:300px">{{ ft_desc }}</p>
           <div style="margin-top:16px;font-size:12.5px;line-height:1.9;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">
             <div>{{ ft_addr }}</div>
-            <div>{{ ft_license }}</div>
           </div>
-          <!-- FOLLOW US — only LinkedIn shown for now; replace href with the company page once created -->
-          <div style="margin-top:22px">
+          <!-- Social links remain hidden until official company profiles are available. -->
+          <div style="display:none;margin-top:22px" aria-hidden="true">
             <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_follow }}</div>
             <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-              <a href="#" aria-label="LinkedIn" class="mag" style="width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);display:grid;place-items:center;font-size:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
-              <!-- Additional channels — kept in markup but hidden until launch -->
               <a href="#" aria-label="Facebook" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
               <a href="#" aria-label="Instagram" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
               <a href="#" aria-label="X" class="mag" style="display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);place-items:center;font-size:16px"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
@@ -348,7 +333,7 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
         </div>
         <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colCompany }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#about" class="navlink">{{ nav_about }}</a><a href="#services" class="navlink">{{ nav_services }}</a><a href="#tech" class="navlink">{{ nav_tech }}</a></div></div>
         <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colLegal }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="privacy.html" class="navlink">{{ ft_lnk_privacy }}</a><a href="terms.html" class="navlink">{{ ft_lnk_terms }}</a><a href="disclaimer.html" class="navlink">{{ ft_lnk_disclaimer }}</a></div></div>
-        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colContact }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><span class="mono-ltr">hello@tradesadvisor.com</span><span>{{ ft_addrShort }}</span></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colContact }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a class="mono-ltr" href="mailto:info@benchmarktechnologyengineering.ae">info@benchmarktechnologyengineering.ae</a><span>{{ ft_addrShort }}</span></div></div>
       </div>
       <div class="footer-bottom" style="margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--faint)">
         <span>{{ ft_copyright }}</span>
@@ -485,10 +470,10 @@ class Component extends DCLogic {
     const data = new FormData(e.target);
     const name = (data.get('name') || '').toString().trim();
     const email = (data.get('email') || '').toString().trim();
-    const subject = (data.get('subject') || '').toString().trim() || 'Consultation request';
+    const subject = (data.get('subject') || '').toString().trim() || 'Software project enquiry';
     const message = (data.get('message') || '').toString().trim();
     const body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
-    window.location.href = 'mailto:hello@tradesadvisor.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = 'mailto:info@benchmarktechnologyengineering.ae?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     this.setState({ sending: true });
     setTimeout(() => this.setState({ sending: false }), 3200);
   };
@@ -498,193 +483,169 @@ class Component extends DCLogic {
       en: {
         companyName: 'Benchmark Technology Engineering L.L.C-FZ',
         nav_about: 'About', nav_services: 'Services', nav_tech: 'Technology', nav_contact: 'Contact',
-        cta: 'Request Consultation', cta2: 'View Services',
-        hero_badge: 'Software Engineering & Data Architecture',
-        hero_h1: 'Advanced Software Solutions & Data Architecture',
-        hero_sub: 'Custom engineering, quantitative data analysis, and algorithmic system development for corporate environments.',
-        hero_s1n: '5+ yrs', hero_s1l: 'domain expertise',
-        hero_s2n: 'Python', hero_s2l: 'data engineering',
-        hero_s3n: '', hero_s3l: '',
+        cta: 'Discuss a Project', cta2: 'View Services',
+        hero_badge: 'Software Development & Data Engineering',
+        hero_h1: 'Advanced Software Solutions & Data Engineering',
+        hero_sub: 'Custom software development, database solutions, API integration, automation, and application customization for business environments.',
+        hero_s1n: '5+ yrs', hero_s1l: 'Founder-led technical experience',
         about_eyebrow: '01 — About Us',
-        about_h2: 'A specialized software & data engineering firm',
-        about_lead: 'We are a specialized IT consulting and software development firm with over 5 years of domain expertise in quantitative analytics and data engineering. Our mission is to build robust, scalable applications and database architectures that help businesses process complex data sets.',
-        about_impLabel: 'Important.',
-        about_impBody: 'We are an independent software vendor and educational technology provider. We do not offer financial advisory services, and we do not manage client portfolios or assets. Our focus is strictly on designing the software infrastructure and analytical tools that empower our clients’ internal operations.',
-        about_t1t: 'Independent software vendor', about_t1d: 'Custom applications & APIs',
-        about_t2t: 'Database architecture', about_t2d: 'Secure, scalable data environments',
-        about_t3t: 'Quantitative analytics', about_t3d: 'Analytical models & tooling',
-        about_t4t: 'Educational technology', about_t4d: 'Research & learning software',
+        about_h2: 'A specialized software development company',
+        about_lead: 'Benchmark Technology Engineering L.L.C-FZ is a software development company focused on custom applications, database solutions, API integrations, automation, and the customization of existing software for client environments. Built on more than five years of founder-led technical experience, we design reliable and maintainable software systems for data-intensive business processes.',
+        about_t1t: 'Custom Application Development', about_t1d: 'Business applications and software modules',
+        about_t2t: 'Database Solutions', about_t2d: 'Structured and scalable data environments',
+        about_t3t: 'API Integration & Automation', about_t3d: 'Connected systems and automated workflows',
+        about_t4t: 'Software Customization', about_t4d: 'Updates, modifications, and client-specific configuration',
         svc_eyebrow: '02 — Core Services',
         svc_h2: 'Architecture, code, and customization',
-        svc_sub: 'Software design, database architecture, and code development for data-intensive corporate environments.',
+        svc_sub: 'Software design, database development, API integration, and application customization for data-intensive business environments.',
         svc1_title: 'Custom Application Development',
-        svc1_desc: 'Designing and deploying complex analytical systems from scratch. Expertise in creating multi-layered calculation models (including Monte Carlo simulations and advanced pricing matrices) tailored to client environments.',
+        svc1_desc: 'Designing and developing custom applications, software modules, databases, dashboards, and automated workflows tailored to client requirements.',
         svc2_title: 'Data Engineering & API Integration',
-        svc2_desc: 'Structuring secure database environments and configuring seamless data pipelines. We specialize in Python-based automation, data aggregation from stable institutional API endpoints, and efficient data parsing.',
+        svc2_desc: 'Building structured data pipelines and integrating authorized third-party or client-provided APIs. Our solutions support data collection, validation, transformation, storage, and reporting.',
         svc3_title: 'Software Customization & Maintenance',
-        svc3_desc: 'Modifying existing enterprise software to ensure seamless functionality within specific client infrastructures. Writing, testing, and implementing code updates, patches, and automated delivery systems.',
-        tech_eyebrow: '03 — Technology & Portfolio',
+        svc3_desc: 'Modifying and configuring existing software to fit client environments, workflows, and data structures, including code updates, patches, testing, and ongoing maintenance.',
+        tech_eyebrow: '03 — Technology & Capabilities',
         tech_h2: 'A modern, data-native stack',
         tech_sub: 'We standardize on proven, open technologies — chosen for performance, maintainability, and long-term support.',
         stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','Automated Data Parsers','Custom API Integrations'],
-        tech_projEyebrow: 'Featured Projects', tech_projH3: 'Systems in production',
-        proj1_tag: 'analytics engine', proj1_title: 'Gex Analyzer Core',
-        proj1_desc: 'A proprietary multi-layered analytical model designed for complex options construction and selection. The module processes high-frequency data to calculate Gamma Exposure (GEX) context, integrating SABR models.',
-        proj2_tag: 'data pipeline', proj2_title: 'Institutional Data Pipeline',
-        proj2_desc: 'A robust, automated data engineering pipeline built to aggregate and normalize heterogeneous financial data. The system is engineered to pull heavy data streams securely, utilizing reliable REST API infrastructure, including the latest stable EOD endpoints, ensuring zero data loss during high-load market hours.',
-        proj3_tag: 'automation', proj3_title: 'Automated Parsing & Delivery Engines',
-        proj3_desc: 'Custom-built event-driven automated bots designed for continuous web parsing and real-time information delivery. The architecture securely filters, structures, and instantly distributes aggregated market research and news updates directly to corporate messaging platforms (e.g., Telegram).',
-        proj4_tag: 'local AI', proj4_title: 'Autonomous AI Deployment',
-        proj4_desc: 'Configuration and deployment of autonomous, locally hosted Large Language Models (LLMs) to ensure strict data privacy. The environment is optimized for secure, offline code auditing, complex logic translation, and script refactoring without exposing proprietary code to public cloud APIs.',
+        tech_projEyebrow: 'Featured Projects', tech_projH3: 'Selected Software Modules',
+        proj1_tag: 'analytical software', proj1_title: 'Analyzer Core',
+        proj1_desc: 'A proprietary multi-layer software module designed to process large volumes of structured and time-series data. It combines mathematical modelling, statistical analysis, API integration, automation, and interactive data visualization to generate configurable analytical outputs.',
+        proj2_tag: 'data pipeline', proj2_title: 'Data Integration Pipeline',
+        proj2_desc: 'A configurable software pipeline for collecting, validating, normalizing, and storing structured and time-series data from authorized APIs and client-provided sources. Designed for reliability, traceability, and scheduled processing.',
+        proj3_tag: 'automation', proj3_title: 'Data Ingestion & Delivery Automation',
+        proj3_desc: 'Event-driven software workflows for collecting, structuring, validating, and delivering information between authorized sources, internal systems, dashboards, and communication channels.',
+        proj4_tag: 'private AI', proj4_title: 'Private AI Integration',
+        proj4_desc: 'Configuration and integration of locally hosted language models for private document processing, code assistance, knowledge retrieval, and workflow automation within client-controlled environments.',
         ct_eyebrow: '04 — Contact',
-        ct_h2: 'Request a technical consultation',
-        ct_sub: 'Tell us about your systems and objectives. Our engineering team will respond within one business day.',
+        ct_h2: 'Discuss your software project',
+        ct_sub: 'Tell us about your application, database, integration, automation, or customization requirements. Our team will respond within one business day.',
         ct_emailLabel: 'Email', ct_officeLabel: 'Registered Office',
         ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
         ct_hoursLabel: 'Hours', ct_hoursValue: 'Sun–Thu · 09:00–18:00 GST',
         ct_name: 'Name', ct_email: 'Email', ct_subject: 'Subject', ct_message: 'Message',
         ct_ph_name: 'Jane Doe', ct_ph_subject: 'How can we help?',
-        ct_ph_message: 'Tell us about your systems, data, and objectives…',
-        ct_note: 'By submitting you agree to our processing of the information above for the purpose of responding to your inquiry.',
-        submit: 'Send Message', submit_sending: 'Opening your email client… ✓',
-        dis_label: 'Disclaimer.',
-        dis_body: 'Benchmark Technology Engineering L.L.C-FZ is NOT a registered investment advisor, broker, or financial institution. We do not manage client assets, portfolios, or hold client funds. We strictly provide market research and educational analytics.',
-        dis_readfull: 'Read full disclaimer',
-        ft_desc: 'Independent software vendor and educational technology provider. Custom software development, database architecture, and data engineering.',
+        ct_ph_message: 'Tell us about your application, database, integration, automation, or customization requirements…',
+        ct_note: 'By submitting this form, you agree to the processing of the information provided for the purpose of responding to your enquiry. Please see our',
+        submit: 'Send Enquiry', submit_sending: 'Opening your email client… ✓',
+        ft_desc: 'Software development and application customization for data-intensive business systems.',
         ft_addr: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E', ft_addrShort: 'Dubai, U.A.E',
-        ft_license: 'License No.: [to be assigned]',
         ft_colCompany: 'Company', ft_colLegal: 'Legal', ft_colContact: 'Contact',
         ft_lnk_privacy: 'Privacy Policy', ft_lnk_terms: 'Terms of Use', ft_lnk_disclaimer: 'Disclaimer',
         ft_copyright: '© 2026 Benchmark Technology Engineering L.L.C-FZ. All Rights Reserved.',
-        ft_tagline: 'An independent software vendor — we do not provide financial, investment, or advisory services.',
+        ft_tagline: 'All Rights Reserved.',
         ft_follow: 'Follow Us', ft_payment: 'Payment Accepted'
       },
       ru: {
         companyName: 'Benchmark Technology Engineering L.L.C-FZ',
         nav_about: 'О компании', nav_services: 'Услуги', nav_tech: 'Технологии', nav_contact: 'Контакты',
-        cta: 'Запросить консультацию', cta2: 'Смотреть услуги',
-        hero_badge: 'Разработка ПО и архитектура данных',
-        hero_h1: 'Передовые программные решения и архитектура данных',
-        hero_sub: 'Индивидуальная разработка, количественный анализ данных и создание алгоритмических систем для корпоративной среды.',
-        hero_s1n: '5+ лет', hero_s1l: 'отраслевой опыт',
-        hero_s2n: 'Python', hero_s2l: 'инженерия данных',
-        hero_s3n: '', hero_s3l: '',
+        cta: 'Обсудить проект', cta2: 'Смотреть услуги',
+        hero_badge: 'Разработка ПО и инженерия данных',
+        hero_h1: 'Передовые программные решения и инженерия данных',
+        hero_sub: 'Заказная разработка ПО, решения для баз данных, интеграция API, автоматизация и кастомизация приложений для бизнеса.',
+        hero_s1n: '5+ лет', hero_s1l: 'Технический опыт основателя',
         about_eyebrow: '01 — О компании',
-        about_h2: 'Специализированная компания по разработке ПО и инженерии данных',
-        about_lead: 'Мы — специализированная компания в сфере ИТ-консалтинга и разработки ПО с более чем 5-летним профильным опытом в области количественной аналитики и инженерии данных. Наша миссия — создавать надёжные масштабируемые приложения и архитектуры баз данных, помогающие бизнесу обрабатывать сложные наборы данных.',
-        about_impLabel: 'Важно.',
-        about_impBody: 'Мы являемся независимым поставщиком программного обеспечения и образовательных технологий. Мы не оказываем услуги финансового консультирования и не управляем портфелями или активами клиентов. Наша деятельность строго ограничена проектированием программной инфраструктуры и аналитических инструментов, поддерживающих внутренние операции наших клиентов.',
-        about_t1t: 'Независимый разработчик ПО', about_t1d: 'Заказные приложения и API',
-        about_t2t: 'Архитектура баз данных', about_t2d: 'Безопасные масштабируемые среды данных',
-        about_t3t: 'Количественная аналитика', about_t3d: 'Аналитические модели и инструменты',
-        about_t4t: 'Образовательные технологии', about_t4d: 'ПО для исследований и обучения',
+        about_h2: 'Специализированная компания по разработке ПО',
+        about_lead: 'Benchmark Technology Engineering L.L.C-FZ разрабатывает заказные приложения, решения для баз данных, интеграции API и автоматизацию, а также адаптирует существующее ПО под клиентскую среду. Опираясь на более чем пятилетний технический опыт основателя, мы создаём надёжные и сопровождаемые программные системы для бизнес-процессов с интенсивной обработкой данных.',
+        about_t1t: 'Разработка заказных приложений', about_t1d: 'Бизнес-приложения и программные модули',
+        about_t2t: 'Решения для баз данных', about_t2d: 'Структурированные и масштабируемые среды данных',
+        about_t3t: 'Интеграция API и автоматизация', about_t3d: 'Связанные системы и автоматизированные процессы',
+        about_t4t: 'Кастомизация ПО', about_t4d: 'Обновления, доработки и настройка под клиента',
         svc_eyebrow: '02 — Основные услуги',
         svc_h2: 'Архитектура, код и кастомизация',
-        svc_sub: 'Проектирование ПО, архитектура баз данных и разработка кода для корпоративных сред с интенсивной обработкой данных.',
+        svc_sub: 'Проектирование ПО, разработка баз данных, интеграция API и кастомизация приложений для бизнес-сред с интенсивной обработкой данных.',
         svc1_title: 'Разработка заказных приложений',
-        svc1_desc: 'Проектирование и внедрение сложных аналитических систем с нуля. Опыт создания многоуровневых расчётных моделей (включая моделирование Монте-Карло и продвинутые матрицы ценообразования) под среду клиента.',
+        svc1_desc: 'Проектирование и разработка заказных приложений, программных модулей, баз данных, панелей управления и автоматизированных процессов под требования клиента.',
         svc2_title: 'Инженерия данных и интеграция API',
-        svc2_desc: 'Построение безопасных сред баз данных и настройка бесшовных конвейеров данных. Мы специализируемся на автоматизации на Python, агрегации данных из стабильных институциональных API и эффективном парсинге данных.',
+        svc2_desc: 'Создание структурированных конвейеров данных и интеграция разрешённых сторонних или предоставленных клиентом API. Решения охватывают сбор, проверку, преобразование, хранение и отчётность.',
         svc3_title: 'Кастомизация и сопровождение ПО',
-        svc3_desc: 'Доработка существующего корпоративного ПО для бесшовной работы в конкретной инфраструктуре клиента. Написание, тестирование и внедрение обновлений кода, патчей и систем автоматической доставки.',
-        tech_eyebrow: '03 — Технологии и кейсы',
+        svc3_desc: 'Изменение и настройка существующего ПО под среду, процессы и структуры данных клиента, включая обновления кода, патчи, тестирование и дальнейшее сопровождение.',
+        tech_eyebrow: '03 — Технологии и возможности',
         tech_h2: 'Современный стек, ориентированный на данные',
         tech_sub: 'Мы используем проверенные открытые технологии, выбранные за производительность, удобство сопровождения и долгосрочную поддержку.',
         stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','Автопарсеры данных','Интеграции API'],
-        tech_projEyebrow: 'Избранные проекты', tech_projH3: 'Системы в эксплуатации',
-        proj1_tag: 'аналитический движок', proj1_title: 'Gex Analyzer Core',
-        proj1_desc: 'Собственная многоуровневая аналитическая модель для построения и подбора сложных опционных конструкций. Модуль обрабатывает высокочастотные данные для расчёта контекста гамма-экспозиции (GEX) с интеграцией моделей SABR.',
-        proj2_tag: 'конвейер данных', proj2_title: 'Институциональный конвейер данных',
-        proj2_desc: 'Надёжный автоматизированный конвейер инженерии данных для агрегации и нормализации разнородных финансовых данных. Система безопасно загружает тяжёлые потоки данных через надёжную REST API-инфраструктуру, включая актуальные стабильные EOD-endpoint’ы, обеспечивая нулевые потери данных в часы высокой нагрузки.',
-        proj3_tag: 'автоматизация', proj3_title: 'Автоматизированные парсинг и доставка',
-        proj3_desc: 'Специально созданные событийно-ориентированные боты для непрерывного веб-парсинга и доставки информации в реальном времени. Архитектура безопасно фильтрует, структурирует и мгновенно распределяет агрегированные рыночные исследования и новости прямо в корпоративные мессенджеры (например, Telegram).',
-        proj4_tag: 'локальный ИИ', proj4_title: 'Автономное развёртывание ИИ',
-        proj4_desc: 'Настройка и развёртывание автономных, локально размещённых больших языковых моделей (LLM) для строгой конфиденциальности данных. Среда оптимизирована для безопасного офлайн-аудита кода, перевода сложной логики и рефакторинга скриптов без передачи проприетарного кода в публичные облачные API.',
+        tech_projEyebrow: 'Избранные проекты', tech_projH3: 'Выбранные программные модули',
+        proj1_tag: 'аналитическое ПО', proj1_title: 'Analyzer Core',
+        proj1_desc: 'Собственный многоуровневый программный модуль для обработки больших объёмов структурированных данных и временных рядов. Он сочетает математическое моделирование, статистический анализ, интеграцию API, автоматизацию и интерактивную визуализацию для формирования настраиваемых аналитических результатов.',
+        proj2_tag: 'конвейер данных', proj2_title: 'Data Integration Pipeline',
+        proj2_desc: 'Настраиваемый программный конвейер для сбора, проверки, нормализации и хранения структурированных данных и временных рядов из разрешённых API и источников клиента. Спроектирован для надёжной, отслеживаемой и плановой обработки.',
+        proj3_tag: 'автоматизация', proj3_title: 'Data Ingestion & Delivery Automation',
+        proj3_desc: 'Событийно-ориентированные программные процессы для сбора, структурирования, проверки и передачи информации между разрешёнными источниками, внутренними системами, панелями управления и каналами связи.',
+        proj4_tag: 'частный ИИ', proj4_title: 'Private AI Integration',
+        proj4_desc: 'Настройка и интеграция локально размещённых языковых моделей для приватной обработки документов, помощи с кодом, поиска знаний и автоматизации процессов в контролируемой клиентом среде.',
         ct_eyebrow: '04 — Контакты',
-        ct_h2: 'Запросить техническую консультацию',
-        ct_sub: 'Расскажите о ваших системах и задачах. Наша инженерная команда ответит в течение одного рабочего дня.',
+        ct_h2: 'Обсудите свой программный проект',
+        ct_sub: 'Расскажите о требованиях к приложению, базе данных, интеграции, автоматизации или кастомизации. Наша команда ответит в течение одного рабочего дня.',
         ct_emailLabel: 'Эл. почта', ct_officeLabel: 'Юридический адрес',
         ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
         ct_hoursLabel: 'Часы работы', ct_hoursValue: 'Вс–Чт · 09:00–18:00 GST',
         ct_name: 'Имя', ct_email: 'Эл. почта', ct_subject: 'Тема', ct_message: 'Сообщение',
         ct_ph_name: 'Иван Иванов', ct_ph_subject: 'Чем можем помочь?',
-        ct_ph_message: 'Расскажите о ваших системах, данных и задачах…',
-        ct_note: 'Отправляя форму, вы соглашаетесь на обработку указанных данных для ответа на ваш запрос.',
-        submit: 'Отправить', submit_sending: 'Открываем почтовый клиент… ✓',
-        dis_label: 'Дисклеймер.',
-        dis_body: 'Benchmark Technology Engineering L.L.C-FZ НЕ является зарегистрированным инвестиционным консультантом, брокером или финансовой организацией. Мы не управляем активами и портфелями клиентов и не храним средства клиентов. Мы предоставляем исключительно исследования рынка и образовательную аналитику.',
-        dis_readfull: 'Полный текст дисклеймера',
-        ft_desc: 'Независимый поставщик ПО и образовательных технологий. Заказная разработка ПО, архитектура баз данных и инженерия данных.',
+        ct_ph_message: 'Опишите требования к приложению, базе данных, интеграции, автоматизации или кастомизации…',
+        ct_note: 'Отправляя форму, вы соглашаетесь на обработку предоставленной информации для ответа на ваш запрос. Подробнее:',
+        submit: 'Отправить запрос', submit_sending: 'Открываем почтовый клиент… ✓',
+        ft_desc: 'Разработка ПО и кастомизация приложений для бизнес-систем с интенсивной обработкой данных.',
         ft_addr: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E', ft_addrShort: 'Dubai, U.A.E',
-        ft_license: 'Лицензия №: [будет присвоен]',
         ft_colCompany: 'Компания', ft_colLegal: 'Юридическое', ft_colContact: 'Контакты',
         ft_lnk_privacy: 'Политика конфиденциальности', ft_lnk_terms: 'Условия использования', ft_lnk_disclaimer: 'Дисклеймер',
         ft_copyright: '© 2026 Benchmark Technology Engineering L.L.C-FZ. Все права защищены.',
-        ft_tagline: 'Независимый разработчик ПО — мы не оказываем финансовых, инвестиционных или консультационных услуг.',
+        ft_tagline: 'Все права защищены.',
         ft_follow: 'Мы в соцсетях', ft_payment: 'Принимаем к оплате'
       },
       ar: {
         companyName: 'هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة',
         nav_about: 'من نحن', nav_services: 'الخدمات', nav_tech: 'التقنيات', nav_contact: 'تواصل',
-        cta: 'اطلب استشارة', cta2: 'استعرض الخدمات',
-        hero_badge: 'هندسة البرمجيات وبنية البيانات',
-        hero_h1: 'حلول برمجية متقدّمة وبنية بيانات',
-        hero_sub: 'هندسة مخصّصة وتحليل كمّي للبيانات وتطوير أنظمة خوارزمية لبيئات الشركات.',
-        hero_s1n: '+5 سنوات', hero_s1l: 'خبرة متخصّصة',
-        hero_s2n: 'Python', hero_s2l: 'هندسة البيانات',
-        hero_s3n: '', hero_s3l: '',
+        cta: 'ناقش مشروعاً', cta2: 'استعرض الخدمات',
+        hero_badge: 'تطوير البرمجيات وهندسة البيانات',
+        hero_h1: 'حلول برمجية متقدمة وهندسة بيانات',
+        hero_sub: 'تطوير برمجيات مخصصة، وحلول قواعد بيانات، وتكامل واجهات API، وأتمتة، وتخصيص تطبيقات لبيئات الأعمال.',
+        hero_s1n: '+5 سنوات', hero_s1l: 'خبرة تقنية بقيادة المؤسس',
         about_eyebrow: '01 — من نحن',
-        about_h2: 'شركة متخصّصة في هندسة البرمجيات والبيانات',
-        about_lead: 'نحن شركة متخصّصة في استشارات تقنية المعلومات وتطوير البرمجيات، بخبرة تتجاوز 5 سنوات في التحليلات الكمّية وهندسة البيانات. مهمتنا بناء تطبيقات قوية وقابلة للتوسّع وبنى قواعد بيانات تساعد الشركات على معالجة مجموعات البيانات المعقّدة.',
-        about_impLabel: 'ملاحظة مهمة.',
-        about_impBody: 'نحن مزوّد مستقل للبرمجيات وتقنيات التعليم. لا نقدّم خدمات استشارات مالية، ولا ندير محافظ العملاء أو أصولهم. ينحصر عملنا في تصميم البنية البرمجية والأدوات التحليلية التي تدعم العمليات الداخلية لعملائنا.',
-        about_t1t: 'مزوّد برمجيات مستقل', about_t1d: 'تطبيقات وواجهات برمجية مخصّصة',
-        about_t2t: 'بنية قواعد البيانات', about_t2d: 'بيئات بيانات آمنة وقابلة للتوسّع',
-        about_t3t: 'تحليلات كمّية', about_t3d: 'نماذج وأدوات تحليلية',
-        about_t4t: 'تقنيات تعليمية', about_t4d: 'برمجيات للبحث والتعلّم',
+        about_h2: 'شركة متخصصة في تطوير البرمجيات',
+        about_lead: 'تركز Benchmark Technology Engineering L.L.C-FZ على التطبيقات المخصصة وحلول قواعد البيانات وتكامل واجهات API والأتمتة وتخصيص البرمجيات القائمة لتناسب بيئات العملاء. وبخبرة تقنية يقودها المؤسس تمتد لأكثر من خمس سنوات، نصمم أنظمة برمجية موثوقة وقابلة للصيانة لعمليات الأعمال كثيفة البيانات.',
+        about_t1t: 'تطوير التطبيقات المخصصة', about_t1d: 'تطبيقات أعمال ووحدات برمجية',
+        about_t2t: 'حلول قواعد البيانات', about_t2d: 'بيئات بيانات منظمة وقابلة للتوسع',
+        about_t3t: 'تكامل API والأتمتة', about_t3d: 'أنظمة مترابطة وسير عمل مؤتمت',
+        about_t4t: 'تخصيص البرمجيات', about_t4d: 'تحديثات وتعديلات وإعدادات خاصة بالعميل',
         svc_eyebrow: '02 — الخدمات الأساسية',
         svc_h2: 'البنية والبرمجة والتخصيص',
-        svc_sub: 'تصميم البرمجيات وبنية قواعد البيانات وتطوير الشيفرة لبيئات الشركات كثيفة البيانات.',
+        svc_sub: 'تصميم البرمجيات وتطوير قواعد البيانات وتكامل API وتخصيص التطبيقات لبيئات الأعمال كثيفة البيانات.',
         svc1_title: 'تطوير التطبيقات المخصّصة',
-        svc1_desc: 'تصميم وتنفيذ أنظمة تحليلية معقّدة من الصفر. خبرة في بناء نماذج حسابية متعدّدة الطبقات (بما في ذلك محاكاة مونت كارلو ومصفوفات التسعير المتقدّمة) مصمّمة وفق بيئة العميل.',
+        svc1_desc: 'تصميم وتطوير تطبيقات مخصصة ووحدات برمجية وقواعد بيانات ولوحات معلومات وسير عمل مؤتمت وفق متطلبات العميل.',
         svc2_title: 'هندسة البيانات وتكامل الواجهات البرمجية',
-        svc2_desc: 'بناء بيئات قواعد بيانات آمنة وإعداد مسارات بيانات سلسة. نتخصّص في الأتمتة عبر Python، وتجميع البيانات من واجهات برمجية مؤسسية مستقرّة، وتحليل البيانات بكفاءة.',
+        svc2_desc: 'إنشاء خطوط بيانات منظمة وتكامل واجهات API المصرح بها أو التي يوفرها العميل، بما يدعم جمع البيانات والتحقق منها وتحويلها وتخزينها وإعداد التقارير.',
         svc3_title: 'تخصيص البرمجيات وصيانتها',
-        svc3_desc: 'تعديل البرمجيات المؤسسية القائمة لضمان عملها بسلاسة ضمن بنية العميل. كتابة واختبار وتطبيق تحديثات الشيفرة والتصحيحات وأنظمة التسليم الآلي.',
-        tech_eyebrow: '03 — التقنيات والأعمال',
+        svc3_desc: 'تعديل وتهيئة البرمجيات القائمة لتناسب بيئة العميل وسير العمل وهياكل البيانات، بما في ذلك تحديثات الشيفرة والتصحيحات والاختبار والصيانة المستمرة.',
+        tech_eyebrow: '03 — التقنية والقدرات',
         tech_h2: 'حزمة تقنية حديثة قائمة على البيانات',
         tech_sub: 'نعتمد تقنيات مفتوحة ومُثبتة، مختارة من أجل الأداء وسهولة الصيانة والدعم طويل الأمد.',
         stack: ['Python','NumPy','Pandas','DuckDB','Streamlit','محلّلات بيانات آلية','تكاملات API مخصّصة'],
-        tech_projEyebrow: 'مشاريع مختارة', tech_projH3: 'أنظمة قيد التشغيل',
-        proj1_tag: 'محرّك تحليلات', proj1_title: 'Gex Analyzer Core',
-        proj1_desc: 'نموذج تحليلي متعدّد الطبقات خاص مصمّم لبناء واختيار تراكيب خيارات معقّدة. تعالج الوحدة البيانات عالية التردّد لحساب سياق انكشاف غاما (GEX) مع دمج نماذج SABR.',
-        proj2_tag: 'خط بيانات', proj2_title: 'خط بيانات مؤسسي',
-        proj2_desc: 'خط أنابيب قوي وآلي لهندسة البيانات، مبني لتجميع وتوحيد بيانات مالية غير متجانسة. صُمّم النظام لسحب تدفّقات بيانات ضخمة بأمان عبر بنية REST API موثوقة، بما في ذلك أحدث نقاط النهاية المستقرّة EOD، مع ضمان عدم فقدان البيانات في ساعات الذروة.',
-        proj3_tag: 'أتمتة', proj3_title: 'محرّكات التحليل والتسليم الآلية',
-        proj3_desc: 'روبوتات آلية مبنية خصيصًا ومدفوعة بالأحداث للتحليل المستمر للويب وتسليم المعلومات لحظيًا. تقوم البنية بتصفية وهيكلة وتوزيع أبحاث السوق والأخبار المجمّعة فورًا إلى منصّات المراسلة المؤسسية (مثل Telegram) بأمان.',
-        proj4_tag: 'ذكاء محلي', proj4_title: 'نشر ذكاء اصطناعي مستقل',
-        proj4_desc: 'تهيئة ونشر نماذج لغوية كبيرة (LLMs) مستقلّة ومستضافة محليًا لضمان خصوصية صارمة للبيانات. البيئة مُحسّنة لتدقيق الشيفرة بأمان دون اتصال، وترجمة المنطق المعقّد، وإعادة هيكلة السكربتات دون كشف الشيفرة الخاصة لواجهات السحابة العامة.',
+        tech_projEyebrow: 'مشاريع مختارة', tech_projH3: 'وحدات برمجية مختارة',
+        proj1_tag: 'برمجيات تحليلية', proj1_title: 'Analyzer Core',
+        proj1_desc: 'وحدة برمجية متعددة الطبقات لمعالجة كميات كبيرة من البيانات المنظمة والسلاسل الزمنية. تجمع بين النمذجة الرياضية والتحليل الإحصائي وتكامل API والأتمتة والتصور التفاعلي لإنتاج مخرجات تحليلية قابلة للتهيئة.',
+        proj2_tag: 'خط بيانات', proj2_title: 'Data Integration Pipeline',
+        proj2_desc: 'خط برمجي قابل للتهيئة لجمع البيانات المنظمة والسلاسل الزمنية والتحقق منها وتوحيدها وتخزينها من واجهات API المصرح بها ومصادر العميل، مع التركيز على الموثوقية والتتبع والمعالجة المجدولة.',
+        proj3_tag: 'أتمتة', proj3_title: 'Data Ingestion & Delivery Automation',
+        proj3_desc: 'سير عمل برمجي قائم على الأحداث لجمع المعلومات وتنظيمها والتحقق منها وتسليمها بين المصادر المصرح بها والأنظمة الداخلية ولوحات المعلومات وقنوات الاتصال.',
+        proj4_tag: 'ذكاء اصطناعي خاص', proj4_title: 'Private AI Integration',
+        proj4_desc: 'تهيئة ودمج نماذج لغوية مستضافة محلياً لمعالجة المستندات بشكل خاص، والمساعدة البرمجية، واسترجاع المعرفة، وأتمتة سير العمل داخل بيئات يتحكم بها العميل.',
         ct_eyebrow: '04 — تواصل',
-        ct_h2: 'اطلب استشارة تقنية',
-        ct_sub: 'أخبرنا عن أنظمتك وأهدافك. سيردّ فريقنا الهندسي خلال يوم عمل واحد.',
+        ct_h2: 'ناقش مشروعك البرمجي',
+        ct_sub: 'أخبرنا بمتطلبات التطبيق أو قاعدة البيانات أو التكامل أو الأتمتة أو التخصيص. سيرد فريقنا خلال يوم عمل واحد.',
         ct_emailLabel: 'البريد الإلكتروني', ct_officeLabel: 'المكتب المسجّل',
         ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
         ct_hoursLabel: 'ساعات العمل', ct_hoursValue: 'الأحد–الخميس · 09:00–18:00 بتوقيت الخليج',
         ct_name: 'الاسم', ct_email: 'البريد الإلكتروني', ct_subject: 'الموضوع', ct_message: 'الرسالة',
         ct_ph_name: 'الاسم الكامل', ct_ph_subject: 'كيف يمكننا المساعدة؟',
-        ct_ph_message: 'أخبرنا عن أنظمتك وبياناتك وأهدافك…',
-        ct_note: 'بإرسالك النموذج فإنك توافق على معالجة المعلومات أعلاه بغرض الرد على استفسارك.',
-        submit: 'إرسال الرسالة', submit_sending: 'يتم فتح بريدك… ✓',
-        dis_label: 'إخلاء مسؤولية.',
-        dis_body: 'هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة ليست مستشارًا استثماريًا مسجّلاً ولا وسيطًا ولا مؤسسة مالية. لا ندير أصول العملاء أو محافظهم ولا نحتفظ بأموالهم. نقدّم حصريًا أبحاث السوق والتحليلات التعليمية.',
-        dis_readfull: 'اقرأ إخلاء المسؤولية كاملاً',
-        ft_desc: 'مزوّد مستقل للبرمجيات وتقنيات التعليم. تطوير برمجيات مخصّص وبنية قواعد بيانات وهندسة بيانات.',
+        ct_ph_message: 'صف متطلبات التطبيق أو قاعدة البيانات أو التكامل أو الأتمتة أو التخصيص…',
+        ct_note: 'بإرسال هذا النموذج، فإنك توافق على معالجة المعلومات المقدمة لغرض الرد على استفسارك. راجع',
+        submit: 'إرسال الاستفسار', submit_sending: 'يتم فتح بريدك… ✓',
+        ft_desc: 'تطوير البرمجيات وتخصيص التطبيقات لأنظمة الأعمال كثيفة البيانات.',
         ft_addr: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E', ft_addrShort: 'Dubai, U.A.E',
-        ft_license: 'رقم الرخصة: [يُحدَّد لاحقًا]',
         ft_colCompany: 'الشركة', ft_colLegal: 'قانوني', ft_colContact: 'تواصل',
         ft_lnk_privacy: 'سياسة الخصوصية', ft_lnk_terms: 'شروط الاستخدام', ft_lnk_disclaimer: 'إخلاء المسؤولية',
         ft_copyright: '© 2026 هندسة التكنولوجيا المعيارية ش.ذ.م.م-منطقة حرة. جميع الحقوق محفوظة.',
-        ft_tagline: 'مزوّد برمجيات مستقل — لا نقدّم خدمات مالية أو استثمارية أو استشارية.',
+        ft_tagline: 'جميع الحقوق محفوظة.',
         ft_follow: 'تابعنا', ft_payment: 'طرق الدفع المقبولة'
       }
     };
@@ -715,8 +676,8 @@ class Component extends DCLogic {
       projects: [
         { icon: 'activity', tag: d.proj1_tag, title: d.proj1_title, desc: d.proj1_desc, tech: ['Python','DuckDB','Streamlit'] },
         { icon: 'git-branch', tag: d.proj2_tag, title: d.proj2_title, desc: d.proj2_desc, tech: ['Python','Pandas','API Integration'] },
-        { icon: 'bot', tag: d.proj3_tag, title: d.proj3_title, desc: d.proj3_desc, tech: ['Python','Automation','Web Scraping','Message APIs'] },
-        { icon: 'cpu', tag: d.proj4_tag, title: d.proj4_title, desc: d.proj4_desc, tech: ['Ollama','LLMs','Hardware Optimization'] }
+        { icon: 'workflow', tag: d.proj3_tag, title: d.proj3_title, desc: d.proj3_desc, tech: ['Python','Automation','Data Ingestion','System Integration'] },
+        { icon: 'cpu', tag: d.proj4_tag, title: d.proj4_title, desc: d.proj4_desc, tech: ['Local AI','LLMs','Software Integration','Private Deployment'] }
       ]
     };
   }
