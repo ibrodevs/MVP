@@ -57,6 +57,7 @@ footer a:hover{color:var(--text)}
 @media(max-width:640px){
   header .wrap{padding-top:10px;padding-bottom:10px;align-items:flex-start;flex-direction:column}
   .brand{overflow-wrap:anywhere}
+  .navcluster{width:100%;justify-content:space-between}
   main{padding-top:42px}
   footer .wrap{flex-direction:column}
   footer a{margin-left:0;margin-right:14px}
