@@ -421,7 +421,7 @@ router = APIRouter(prefix=<span style="color:var(--teal)">"/v2/analytics"</span>
         </div>
         <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colCompany }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="#about" class="navlink">{{ nav_about }}</a><a href="#services" class="navlink">{{ nav_services }}</a><a href="#tech" class="navlink">{{ nav_tech }}</a></div></div>
         <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colLegal }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a href="privacy.html" class="navlink">{{ ft_lnk_privacy }}</a><a href="terms.html" class="navlink">{{ ft_lnk_terms }}</a><a href="disclaimer.html" class="navlink">{{ ft_lnk_disclaimer }}</a></div></div>
-        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colContact }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a class="mono-ltr" href="mailto:projects@bteglobal.ae">projects@bteglobal.ae</a><span>{{ ft_addrShort }}</span></div></div>
+        <div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:'IBM Plex Mono','IBM Plex Sans Arabic',monospace">{{ ft_colContact }}</div><div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--muted)"><a class="mono-ltr" href="mailto:projects@bteglobal.ae">projects@bteglobal.ae</a><span>{{ ft_addrShort }}</span><span class="mono-ltr">{{ ct_hoursValue }}</span></div></div>
       </div>
       <div class="footer-bottom" style="margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--faint)">
         <span>{{ ft_copyright }}</span>
@@ -610,7 +610,7 @@ class Component extends DCLogic {
         ct_sub: 'Tell us about your application, database, integration, automation, or customization requirements. Our team will respond within one business day.',
         ct_emailLabel: 'Email', ct_officeLabel: 'Registered Office',
         ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
-        ct_hoursLabel: 'Hours', ct_hoursValue: 'Sun–Thu · 09:00–18:00 GST',
+        ct_hoursLabel: 'Hours', ct_hoursValue: 'Sun–Thu · 08:00–16:00 UAE',
         ct_name: 'Name', ct_email: 'Email', ct_subject: 'Subject', ct_message: 'Message',
         ct_ph_name: 'Jane Doe', ct_ph_subject: 'How can we help?',
         ct_ph_message: 'Tell us about your application, database, integration, automation, or customization requirements…',
@@ -666,7 +666,7 @@ class Component extends DCLogic {
         ct_sub: 'Расскажите о требованиях к приложению, базе данных, интеграции, автоматизации или кастомизации. Наша команда ответит в течение одного рабочего дня.',
         ct_emailLabel: 'Эл. почта', ct_officeLabel: 'Юридический адрес',
         ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
-        ct_hoursLabel: 'Часы работы', ct_hoursValue: 'Вс–Чт · 09:00–18:00 GST',
+        ct_hoursLabel: 'Часы работы', ct_hoursValue: 'Вс–Чт · 08:00–16:00 UAE',
         ct_name: 'Имя', ct_email: 'Эл. почта', ct_subject: 'Тема', ct_message: 'Сообщение',
         ct_ph_name: 'Иван Иванов', ct_ph_subject: 'Чем можем помочь?',
         ct_ph_message: 'Опишите требования к приложению, базе данных, интеграции, автоматизации или кастомизации…',
@@ -722,7 +722,7 @@ class Component extends DCLogic {
         ct_sub: 'أخبرنا بمتطلبات التطبيق أو قاعدة البيانات أو التكامل أو الأتمتة أو التخصيص. سيرد فريقنا خلال يوم عمل واحد.',
         ct_emailLabel: 'البريد الإلكتروني', ct_officeLabel: 'المكتب المسجّل',
         ct_officeValue: 'The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E',
-        ct_hoursLabel: 'ساعات العمل', ct_hoursValue: 'الأحد–الخميس · 09:00–18:00 بتوقيت الخليج',
+        ct_hoursLabel: 'ساعات العمل', ct_hoursValue: 'الأحد–الخميس · 08:00–16:00 بتوقيت الإمارات',
         ct_name: 'الاسم', ct_email: 'البريد الإلكتروني', ct_subject: 'الموضوع', ct_message: 'الرسالة',
         ct_ph_name: 'الاسم الكامل', ct_ph_subject: 'كيف يمكننا المساعدة؟',
         ct_ph_message: 'صف متطلبات التطبيق أو قاعدة البيانات أو التكامل أو الأتمتة أو التخصيص…',
