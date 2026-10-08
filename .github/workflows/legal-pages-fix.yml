@@ -1,0 +1,98 @@
+name: Legal pages fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/legal-pages-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-legal-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore Terms of Use and add separate legal pages
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          OLD = 'af0079d46a9c1162d087bdd190565efc0285fce6'
+
+          # Preserve the current Public Offer as its own page before restoring terms.html.
+          current_terms = Path('terms.html').read_text(encoding='utf-8')
+          public_offer = current_terms
+          public_offer = public_offer.replace('https://www.bteglobal.ae/terms.html', 'https://www.bteglobal.ae/public-offer.html')
+          public_offer = public_offer.replace('href="terms.html" aria-current="page">Terms of Service</a>', 'href="terms.html">Terms of Use</a><a href="public-offer.html" aria-current="page">Terms of Service (Public Offer)</a>')
+          public_offer = public_offer.replace('<a href="refund.html">Refund &amp; Cancellation</a><a href="disclaimer.html">Disclaimer</a>', '<a href="refund.html">Refund &amp; Cancellation</a><a href="disclaimer.html">Disclaimer</a>')
+          Path('public-offer.html').write_text(public_offer, encoding='utf-8')
+
+          # Restore the original Terms of Use exactly from before the previous change.
+          old_terms = subprocess.check_output(['git', 'show', f'{OLD}:terms.html'], text=True)
+          Path('terms.html').write_text(old_terms, encoding='utf-8')
+
+          # Add the two new legal links to the main website footer.
+          index = Path('index.html').read_text(encoding='utf-8')
+          old_block = '<a href="privacy.html" class="navlink">{{ ft_lnk_privacy }}</a><a href="terms.html" class="navlink">{{ ft_lnk_terms }}</a><a href="disclaimer.html" class="navlink">{{ ft_lnk_disclaimer }}</a>'
+          new_block = '<a href="privacy.html" class="navlink">{{ ft_lnk_privacy }}</a><a href="terms.html" class="navlink">{{ ft_lnk_terms }}</a><a href="refund.html" class="navlink">Refund &amp; Cancellation</a><a href="public-offer.html" class="navlink">Terms of Service (Public Offer)</a><a href="disclaimer.html" class="navlink">{{ ft_lnk_disclaimer }}</a>'
+          if old_block not in index:
+              raise SystemExit('Main footer legal block not found in index.html')
+          index = index.replace(old_block, new_block, 1)
+          Path('index.html').write_text(index, encoding='utf-8')
+
+          # Keep legal-page footers consistent.
+          def set_footer_links(path, current=None):
+              p = Path(path)
+              if not p.exists():
+                  return
+              s = p.read_text(encoding='utf-8')
+              import re
+              current_attr = lambda page: ' aria-current="page"' if current == page else ''
+              links = (
+                  f'<a href="privacy.html"{current_attr("privacy")}>Privacy Policy</a>'
+                  f'<a href="terms.html"{current_attr("terms")}>Terms of Use</a>'
+                  f'<a href="refund.html"{current_attr("refund")}>Refund &amp; Cancellation</a>'
+                  f'<a href="public-offer.html"{current_attr("public-offer")}>Terms of Service (Public Offer)</a>'
+                  f'<a href="disclaimer.html"{current_attr("disclaimer")}>Disclaimer</a>'
+              )
+              s2, n = re.subn(r'(<footer><div class="wrap"><span>© 2026 Benchmark Technology Engineering L\.L\.C-FZ\. All Rights Reserved\.</span><span>).*?(</span></div></footer>)', r'\1' + links + r'\2', s, count=1, flags=re.S)
+              if n:
+                  p.write_text(s2, encoding='utf-8')
+
+          set_footer_links('privacy.html', 'privacy')
+          set_footer_links('terms.html', 'terms')
+          set_footer_links('refund.html', 'refund')
+          set_footer_links('public-offer.html', 'public-offer')
+          set_footer_links('disclaimer.html', 'disclaimer')
+
+          # Add new pages to sitemap.
+          sitemap_path = Path('sitemap.xml')
+          sitemap = sitemap_path.read_text(encoding='utf-8')
+          entries = []
+          if 'https://www.bteglobal.ae/refund.html' not in sitemap:
+              entries.append('  <url>\n    <loc>https://www.bteglobal.ae/refund.html</loc>\n    <lastmod>2026-10-08</lastmod>\n    <changefreq>yearly</changefreq>\n    <priority>0.3</priority>\n  </url>\n')
+          if 'https://www.bteglobal.ae/public-offer.html' not in sitemap:
+              entries.append('  <url>\n    <loc>https://www.bteglobal.ae/public-offer.html</loc>\n    <lastmod>2026-10-08</lastmod>\n    <changefreq>yearly</changefreq>\n    <priority>0.3</priority>\n  </url>\n')
+          if entries:
+              sitemap = sitemap.replace('</urlset>', ''.join(entries) + '</urlset>')
+              sitemap_path.write_text(sitemap, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html terms.html refund.html public-offer.html privacy.html disclaimer.html sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Restore Terms of Use and add Refund and Public Offer pages"
+            git push
+          fi
