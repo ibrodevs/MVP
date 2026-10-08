@@ -14,7 +14,13 @@
   </url>
   <url>
     <loc>https://www.bteglobal.ae/terms.html</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.bteglobal.ae/refund.html</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
