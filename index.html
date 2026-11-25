@@ -25,6 +25,7 @@
 <meta name="twitter:image" content="https://www.bteglobal.ae/logo.png">
 <link rel="alternate" hreflang="x-default" href="https://www.bteglobal.ae/">
 <link rel="icon" type="image/png" href="./logo.png">
+<script src="./preferences.js"></script>
 <script src="./support.js"></script>
 <script type="application/ld+json">
 {
@@ -133,6 +134,9 @@
   [data-lucide]{width:1em;height:1em}
   .lift{transition:transform .5s cubic-bezier(.16,.84,.44,1),box-shadow .5s,border-color .5s,background .5s}
   .lift:hover{transform:translateY(-4px)}
+.consultation-nav{font-size:13px;white-space:nowrap;padding:9px 12px;border:1px solid var(--accent);border-radius:9px;color:var(--text)}
+  @media(max-width:1150px){.top-nav>.hide-md{display:none!important}}
+  @media(max-width:760px){.top-nav{height:auto!important;flex-wrap:wrap;padding-block:12px}.consultation-nav{order:3;width:100%;text-align:center}}
   .navlink{position:relative;transition:color .3s}
   .navlink:hover{color:var(--text)}
   .brand-logo{width:44px;height:44px;display:block;object-fit:contain;flex:none}
@@ -219,6 +223,7 @@
         <a href="#tech" class="navlink">{{ nav_tech }}</a>
         <a href="#contact" class="navlink">{{ nav_contact }}</a>
       </div>
+      <a class="consultation-nav" href="book-consultation.html">{{ consultationLabel }}</a>
       <div class="nav-actions" style="display:flex;align-items:center;gap:12px">
         <div class="langseg mono-ltr" data-lang="{{ langAttr }}">
           <button class="lb-en" onClick="{{ setEn }}" aria-label="English">EN</button>
@@ -436,7 +441,8 @@ class Component extends DCLogic {
   state = { theme: null, lang: null, sending: false };
 
   get theme() {
-    return this.state.theme ?? (this.props.theme === 'light' ? 'light' : 'dark');
+    let stored; try { stored = localStorage.getItem('ta_theme'); } catch (e) {}
+    return this.state.theme ?? (stored === 'light' || stored === 'dark' ? stored : (this.props.theme === 'light' ? 'light' : 'dark'));
   }
   get lang() {
     return this.state.lang ?? this._storedLang() ?? 'en';
@@ -545,7 +551,10 @@ class Component extends DCLogic {
   }
 
   toggleTheme = () => {
-    this.setState({ theme: this.theme === 'light' ? 'dark' : 'light' });
+    const next = this.theme === 'light' ? 'dark' : 'light';
+    try { localStorage.setItem('ta_theme', next); } catch (e) {}
+    document.documentElement.dataset.theme = next;
+    this.setState({ theme: next });
   };
 
   _setLang = (l) => { try { localStorage.setItem('ta_lang', l); } catch (e) {} this.setState({ lang: l }); };
@@ -746,6 +755,7 @@ class Component extends DCLogic {
     const d = D[lang] || D.en;
     return {
       ...d,
+      consultationLabel: lang === 'ar' ? 'احجز استشارة' : lang === 'ru' ? 'Записаться на консультацию' : 'Book a Consultation',
       themeAttr: theme,
       themeIcon: theme === 'light' ? 'moon' : 'sun',
       toggleTheme: this.toggleTheme,

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Consultation Payment Status — BTE Global</title>
+    <meta
+      name="description"
+      content="Book a focused IT consultation with BTE Global. Software development, API integration, data engineering and automation expertise."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BTE Global" />
+    <meta
+      property="og:title"
+      content="Consultation Payment Status — BTE Global"
+    />
+    <meta
+      property="og:description"
+      content="Focused engineering expertise for your next technology decision."
+    />
+    <meta
+      property="og:url"
+      content="https://www.bteglobal.ae/book-consultation.html"
+    />
+    <meta property="og:image" content="https://www.bteglobal.ae/logo.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Consultation Payment Status — BTE Global"
+    />
+    <meta
+      name="twitter:description"
+      content="Focused engineering expertise for your business."
+    />
+    <meta name="twitter:image" content="https://www.bteglobal.ae/logo.png" />
+    <link rel="icon" href="logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="consultation.css" />
+    <script src="preferences.js"></script>
+    <script src="consultation-i18n.js" defer></script>
+    <script src="consultation.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="container nav" aria-label="Main navigation">
+        <a class="brand" href="index.html"
+          ><img src="logo.png" alt="BTE Global" /><span
+            >Benchmark Technology<br />Engineering L.L.C-FZ</span
+          ></a
+        >
+        <div class="nav-tools">
+          <a class="back" href="index.html" data-i18n="home">Back to home</a>
+          <div class="languages" aria-label="Language">
+            <button type="button" data-lang="en" aria-label="English">EN</button
+            ><button type="button" data-lang="ru" aria-label="Русский">
+              RU</button
+            ><button type="button" data-lang="ar" aria-label="العربية">
+              AR
+            </button>
+          </div>
+          <button
+            class="theme"
+            type="button"
+            data-theme-toggle
+            aria-label="Switch color theme"
+          >
+            <svg aria-hidden="true">
+              <use href="assets/icons.svg#sun"></use>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <div class="result">
+        <p class="eyebrow">BTE GLOBAL · CONSULTATIONS</p>
+        <h1 data-i18n="cancelTitle"></h1>
+        <p class="muted" data-i18n="resultNote"></p>
+        <div class="result-card">
+          <div id="payment-notice" class="notice"></div>
+          <p>
+            <span data-i18n="bookingId"></span>: <span id="booking-id">—</span>
+          </p>
+          <p>
+            <span data-i18n="status"></span>:
+            <strong id="booking-status">—</strong>
+          </p>
+          <p>
+            <span data-i18n="paymentStatus"></span>:
+            <strong id="payment-status">—</strong>
+          </p>
+          <p id="payment-total"></p>
+          <p id="payment-error" class="error" role="alert"></p>
+          <button
+            id="mock-pay"
+            class="primary"
+            type="button"
+            data-i18n="mockPay"
+            hidden
+          ></button
+          ><button
+            id="refresh"
+            class="primary"
+            type="button"
+            data-i18n="refresh"
+          ></button>
+          <p><a href="book-consultation.html" data-i18n="retry"></a></p>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <span
+          >© 2026 BTE Global ·
+          <span data-i18n="footer"
+            >Engineering software. Solving business challenges.</span
+          ></span
+        ><a href="mailto:projects@bteglobal.ae">projects@bteglobal.ae</a>
+      </div>
+    </footer>
+  </body>
+</html>

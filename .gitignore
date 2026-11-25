@@ -1,5 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.vercel/
+test-results/
+playwright-report/
+*.log
 .DS_Store
+
 .thumbnail
-.vercel
-node_modules
 *.docx

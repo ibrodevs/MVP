@@ -60,3 +60,5 @@ footer a:hover{color:var(--text)}
   footer .wrap{flex-direction:column}
   footer a{margin-left:0;margin-right:14px}
 }
+
+[data-theme="light"]{--bg:#fff;--bg2:#F6F8FB;--panel:#fff;--line:rgba(15,28,48,.13);--text:#0B1524;--muted:#55637A;--faint:#65748A;--accent:#2563EB;--accent2:#0E7490}

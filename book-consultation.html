@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Book an IT Consultation — BTE Global</title>
+    <meta
+      name="description"
+      content="Book a focused IT consultation with BTE Global. Software development, API integration, data engineering and automation expertise."
+    />
+    <link
+      rel="canonical"
+      href="https://www.bteglobal.ae/book-consultation.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BTE Global" />
+    <meta property="og:title" content="Book an IT Consultation — BTE Global" />
+    <meta
+      property="og:description"
+      content="Focused engineering expertise for your next technology decision."
+    />
+    <meta
+      property="og:url"
+      content="https://www.bteglobal.ae/book-consultation.html"
+    />
+    <meta property="og:image" content="https://www.bteglobal.ae/logo.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Book an IT Consultation — BTE Global" />
+    <meta
+      name="twitter:description"
+      content="Focused engineering expertise for your business."
+    />
+    <meta name="twitter:image" content="https://www.bteglobal.ae/logo.png" />
+    <link rel="icon" href="logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="consultation.css" />
+    <script src="preferences.js"></script>
+    <script src="consultation-i18n.js" defer></script>
+    <script src="consultation.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="container nav" aria-label="Main navigation">
+        <a class="brand" href="index.html"
+          ><img src="logo.png" alt="BTE Global" /><span
+            >Benchmark Technology<br />Engineering L.L.C-FZ</span
+          ></a
+        >
+        <div class="nav-tools">
+          <a class="back" href="index.html" data-i18n="home">Back to home</a>
+          <div class="languages" aria-label="Language">
+            <button type="button" data-lang="en" aria-label="English">EN</button
+            ><button type="button" data-lang="ru" aria-label="Русский">
+              RU</button
+            ><button type="button" data-lang="ar" aria-label="العربية">
+              AR
+            </button>
+          </div>
+          <button
+            class="theme"
+            type="button"
+            data-theme-toggle
+            aria-label="Switch color theme"
+          >
+            <svg aria-hidden="true">
+              <use href="assets/icons.svg#sun"></use>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <div class="intro">
+        <p class="eyebrow" data-i18n="eyebrow"></p>
+        <h1 data-i18n="title"></h1>
+        <p data-i18n="intro"></p>
+      </div>
+      <div id="notice" class="notice" role="status"></div>
+      <form id="booking" class="checkout" novalidate>
+        <div>
+          <section class="form-section" aria-labelledby="service-title">
+            <div class="section-heading">
+              <span class="icon"
+                ><svg aria-hidden="true">
+                  <use href="assets/icons.svg#layers"></use></svg
+              ></span>
+              <div>
+                <h2 id="service-title" data-i18n="service"></h2>
+                <p data-i18n="serviceSub"></p>
+              </div>
+            </div>
+            <div
+              id="services"
+              class="services"
+              role="radiogroup"
+              aria-labelledby="service-title"
+            ></div>
+          </section>
+          <section class="form-section" aria-labelledby="duration-title">
+            <div class="section-heading">
+              <span class="icon"
+                ><svg aria-hidden="true">
+                  <use href="assets/icons.svg#timer"></use></svg
+              ></span>
+              <div>
+                <h2 id="duration-title" data-i18n="duration"></h2>
+                <p data-i18n="durationSub"></p>
+              </div>
+            </div>
+            <div
+              id="durations"
+              class="durations"
+              role="radiogroup"
+              aria-labelledby="duration-title"
+            ></div>
+          </section>
+          <section class="form-section" aria-labelledby="schedule-title">
+            <div class="section-heading">
+              <span class="icon"
+                ><svg aria-hidden="true">
+                  <use href="assets/icons.svg#calendar-days"></use></svg
+              ></span>
+              <div>
+                <h2 id="schedule-title" data-i18n="schedule"></h2>
+                <p data-i18n="scheduleSub"></p>
+              </div>
+            </div>
+            <div class="zone" style="margin: 0 0 18px">
+              <svg aria-hidden="true">
+                <use href="assets/icons.svg#clock"></use></svg
+              ><span data-i18n="zone"></span>
+            </div>
+            <div class="calendar-layout">
+              <div class="calendar">
+                <div class="month-nav">
+                  <button
+                    type="button"
+                    id="previous"
+                    aria-label="Previous month"
+                  >
+                    <svg aria-hidden="true">
+                      <use href="assets/icons.svg#chevron-left"></use>
+                    </svg></button
+                  ><select id="month" aria-label="Month"></select
+                  ><button type="button" id="next" aria-label="Next month">
+                    <svg aria-hidden="true">
+                      <use href="assets/icons.svg#chevron-right"></use>
+                    </svg>
+                  </button>
+                </div>
+                <div class="weekdays" id="weekdays"></div>
+                <div class="days" id="days"></div>
+              </div>
+              <div id="slots" class="slots" aria-live="polite"></div>
+            </div>
+          </section>
+          <section class="form-section" aria-labelledby="details-title">
+            <div class="section-heading">
+              <span class="icon"
+                ><svg aria-hidden="true">
+                  <use href="assets/icons.svg#user-round"></use></svg
+              ></span>
+              <div>
+                <h2 id="details-title" data-i18n="details"></h2>
+                <p data-i18n="detailsSub"></p>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="field">
+                <label for="customer_name"
+                  ><span data-i18n="customer_name"></span>
+                  <span class="required" aria-hidden="true">*</span></label
+                ><input
+                  type="text"
+                  id="customer_name"
+                  name="customer_name"
+                  maxlength="120"
+                  required
+                  autocomplete="name"
+                  minlength="2"
+                />
+              </div>
+              <div class="field">
+                <label for="customer_email"
+                  ><span data-i18n="customer_email"></span>
+                  <span class="required" aria-hidden="true">*</span></label
+                ><input
+                  type="email"
+                  id="customer_email"
+                  name="customer_email"
+                  maxlength="254"
+                  required
+                  autocomplete="email"
+                  dir="ltr"
+                />
+              </div>
+              <div class="field">
+                <label for="customer_phone"
+                  ><span data-i18n="customer_phone"></span>
+                  <span class="required" aria-hidden="true">*</span></label
+                ><input
+                  type="tel"
+                  id="customer_phone"
+                  name="customer_phone"
+                  maxlength="30"
+                  required
+                  autocomplete="tel"
+                  dir="ltr"
+                  inputmode="tel"
+                  aria-describedby="phone-hint"
+                /><small id="phone-hint" data-i18n="phoneHint"></small>
+              </div>
+              <div class="field">
+                <label for="company_name"
+                  ><span data-i18n="company_name"></span>
+                  <small data-i18n="optional"></small></label
+                ><input
+                  type="text"
+                  id="company_name"
+                  name="company_name"
+                  maxlength="160"
+                  autocomplete="organization"
+                />
+              </div>
+              <div class="field wide">
+                <label for="task_description"
+                  ><span data-i18n="task_description"></span>
+                  <span class="required" aria-hidden="true">*</span></label
+                ><textarea
+                  id="task_description"
+                  name="task_description"
+                  maxlength="3000"
+                  required
+                  minlength="10"
+                  aria-describedby="task-hint"
+                ></textarea
+                ><small id="task-hint" data-i18n="taskHint"></small>
+              </div>
+            </div>
+            <div class="honeypot" aria-hidden="true">
+              <label
+                >Website<input name="website" tabindex="-1" autocomplete="off"
+              /></label>
+            </div>
+          </section>
+        </div>
+        <aside class="summary" aria-labelledby="summary-title">
+          <h2 id="summary-title">
+            <svg aria-hidden="true">
+              <use href="assets/icons.svg#receipt-text"></use></svg
+            ><span data-i18n="summary"></span>
+          </h2>
+          <dl>
+            <dt data-i18n="selectedService"></dt>
+            <dd id="summary-selectedService"></dd>
+            <dt data-i18n="date"></dt>
+            <dd id="summary-date"></dd>
+            <div class="split">
+              <div>
+                <dt data-i18n="start"></dt>
+                <dd id="summary-start"></dd>
+              </div>
+              <div>
+                <dt data-i18n="end"></dt>
+                <dd id="summary-end"></dd>
+              </div>
+            </div>
+            <dt data-i18n="timezone"></dt>
+            <dd id="summary-timezone"></dd>
+            <dt data-i18n="duration"></dt>
+            <dd id="summary-duration"></dd>
+            <dt data-i18n="currency"></dt>
+            <dd id="summary-currency"></dd>
+          </dl>
+          <div class="total">
+            <span data-i18n="total"></span><strong id="total">—</strong>
+          </div>
+          <label class="consent"
+            ><input id="terms" type="checkbox" required /><span
+              ><span data-i18n="agree"></span>
+              <a
+                href="public-offer.html"
+                target="_blank"
+                rel="noopener"
+                data-i18n="terms"
+              ></a>
+              <span data-i18n="and"></span>
+              <a
+                href="refund.html"
+                target="_blank"
+                rel="noopener"
+                data-i18n="refund"
+              ></a
+              >.</span
+            ></label
+          ><button
+            id="submit"
+            type="submit"
+            class="primary"
+            disabled
+            data-i18n="proceed"
+          ></button>
+          <p class="summary-note" data-i18n="summaryNote"></p>
+          <a
+            class="privacy-link"
+            href="privacy.html"
+            target="_blank"
+            rel="noopener"
+            data-i18n="privacy"
+          ></a>
+          <p id="form-error" class="error" role="alert"></p>
+        </aside>
+      </form>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <span
+          >© 2026 BTE Global ·
+          <span data-i18n="footer"
+            >Engineering software. Solving business challenges.</span
+          ></span
+        ><a href="mailto:projects@bteglobal.ae">projects@bteglobal.ae</a>
+      </div>
+    </footer>
+  </body>
+</html>
