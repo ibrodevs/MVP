@@ -79,3 +79,9 @@ Emails and calendar events in the end-to-end run used isolated mocks. Tests veri
 - Tests and build also ran under the pinned Node 24 runtime. Total: **49 passing tests (28 + 7 + 14)**.
 
 The initial failed Vercel Preview is documented in AUDIT_2026-11-26.md. Remote Preview success must be established from the post-push Vercel/GitHub check, not from these local results.
+
+## Observed Vercel Preview
+
+Implementation commit 364f69533384c2f57bd2290f5292fb9db77961ee received Vercel `success / Deployment has completed` for dpl_Dxbw7QULCb1ctSiCC8Yi2rGqxZyF. GitHub deployment 8091852879 is Preview and production_environment=false. URL: https://mvp-nyph7k1dn-ibroits-projects.vercel.app.
+
+Remote route probes returned 302 to Vercel SSO for both assets/API and candidate server-file paths. Deployment success is verified; application-level responses behind SSO are not claimed as remotely verified. Protection was left enabled. See AUDIT_2026-11-26.md for the exact evidence and unchanged-main/production checks.
