@@ -4,7 +4,7 @@ The existing static corporate website is preserved. `support.js` is generated an
 
 ## Quick start
 
-Node.js 20.20+ (use a supported Node.js 24 runtime on Vercel), npm:
+Node.js 24.x (pinned for local and Vercel), npm:
 
 ```sh
 npm ci
@@ -30,6 +30,8 @@ Production payments remain disabled. Merely returning to a success page never co
 npm run check
 npm test
 npm run test:e2e
+TEST_DATABASE_URL=postgresql://... npm run test:postgres
+npm run build
 npm audit
 ```
 
@@ -52,4 +54,12 @@ See [deployment](docs/DEPLOYMENT.md), [stack](docs/TECH_STACK.md), [Calendar](do
 
 ## Release boundaries
 
-No production deployment or remote push has been performed. Customer must approve the working schedule and legal additions, supply PostgreSQL/Google/SMTP access, and commission and test the Ziina adapter. Live Google/SMTP/Ziina delivery cannot be certified without those accounts. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
+Work is pushed only to feature/book-consultation for Preview; no production deployment or merge into main is authorized. Customer must approve the working schedule and legal additions, supply PostgreSQL/Google/SMTP access, and commission and test the Ziina adapter. Live Google/SMTP/Ziina delivery cannot be certified without those accounts. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
+
+## Audited deployment and booking lifecycle
+
+`npm run build` copies only allowlisted client assets to generated `public/`; server sources, SQL, tests, docs and environment files are not static output. Vercel builds `/api` separately.
+
+Paid reservations enter `paid_pending_calendar`; only a successful Calendar job promotes them to `confirmed`. Run `npm run migrate` before deploying this version to an existing database (includes migration 002).
+
+Hobby-compatible configuration uses a daily cron fallback, not a minute cron. Preview does not run Vercel cron: its mock-payment handler immediately attempts outbox processing. A frequent authenticated external scheduler or an approved paid-plan cron is required before enabling real payments. See [environment/deployment guide](docs/DEPLOYMENT.md) and [final audit](docs/AUDIT_2026-11-26.md).

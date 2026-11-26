@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "node --env-file-if-exists=.env.local scripts/dev.js",
@@ -11,7 +11,9 @@
     "test:e2e": "playwright test",
     "migrate": "node --env-file-if-exists=.env.local scripts/migrate.js",
     "check": "node scripts/check.js",
-    "dev:demo": "node scripts/dev.js --demo"
+    "dev:demo": "node scripts/dev.js --demo",
+    "build": "node scripts/build.js",
+    "test:postgres": "node --test tests/postgres/*.test.js"
   },
   "dependencies": {
     "luxon": "^3.7.2",

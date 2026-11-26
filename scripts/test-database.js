@@ -3,7 +3,11 @@ const fs = require("node:fs");
 // Real PostgreSQL engine, used only by isolated tests/local demo. Production uses pg.
 async function testDatabase(path) {
   const p = new PGlite(path);
-  await p.exec(fs.readFileSync("db/migrations/001_booking.sql", "utf8"));
+  for (const file of fs
+    .readdirSync("db/migrations")
+    .filter((f) => f.endsWith(".sql"))
+    .sort())
+    await p.exec(fs.readFileSync("db/migrations/" + file, "utf8"));
   let tail = Promise.resolve();
   async function lock() {
     const before = tail;

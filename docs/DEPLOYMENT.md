@@ -1,66 +1,134 @@
-# Local and Vercel deployment
+# Deployment and exact environment configuration
 
-## 1. Prepare staging
+## Runtime and safe build
 
-Use Node.js 24 on Vercel (local checks also ran on Node.js 20.20). Run `npm ci`. Copy `.env.example` to `.env.local`; never commit secret files. `npm run dev:demo` needs no credentials and cannot run on Vercel or with NODE_ENV=production.
+Node.js **24.x** is pinned in package.json (tested with 24.22.3). Run `npm ci`. Vercel Framework: **Other**. `vercel.json` defines `buildCommand: npm run build`, `outputDirectory: public`, Node function duration **60 seconds**, and daily cron `0 3 * * *` (03:00 UTC). Clear conflicting dashboard build/output overrides. Keep `/api` in the source root: Vercel builds those functions separately from static output.
 
-Provision a PostgreSQL database and a trusted pooled connection URL. Use the managed provider's verified TLS configuration. Execute `npm run migrate` with DATABASE_URL; migration is repeatable for a fresh schema but does not modify an older incompatible schema automatically. Back up an existing database before schema changes. PostgreSQL must support GiST range exclusion constraints; no extra extensions are required.
+`npm run build` copies exactly the files in scripts/public-assets.js. It never copies lib/, api/, db/, scripts/, tests/, docs/, package files or environment files into public/. `.vercelignore` excludes local secrets and development/test material from the upload. Do not replace this with a copy of the entire repository. Generated public/ is ignored by Git.
 
-## 2. Environment
+The original failed deployment `dpl_D34GrcPpPN4tQa4qrmJszt6EcfEq` reported: **Hobby accounts are limited to daily cron jobs; `* * * * *` runs more than once per day.** The fatal error was provided by the customer from Vercel build logs. No upgrade is necessary for the committed daily fallback. 60-second functions also fit legacy Hobby limits; the worker bounds external delivery with a 40-second shared deadline. Minute cron must not be restored without a plan supporting it.
 
-| Variable | Value / purpose |
+## Database migration
+
+Use a separate managed PostgreSQL pool URL for Preview and Production. Verify TLS certificates; never disable certificate verification. Back up an existing database, set DATABASE_URL locally, then run:
+
+```sh
+npm run migrate
+```
+
+The migration runner applies sorted db/migrations/*.sql. Migration 002 adds paid_pending_calendar to the status constraint and interval exclusion predicate, and repairs legacy paid/confirmed records that have no Calendar event. Run it before starting the updated functions against an existing database. No PostgreSQL extensions are required. Keep production migration execution separate from a Preview build: Preview builds must never mutate a production database.
+
+## Exact variables by environment
+
+### Public site / configuration only (no booking)
+
+No database or service secret is required for the page, prices and services. Defaults deliberately disable payments and close the schedule. Set APP_BASE_URL to the canonical origin when deploying. Vercel system variables are supplied by Vercel, not by the client.
+
+### Full isolated Preview checkout
+
+| Variable | Required value |
 | --- | --- |
-| DATABASE_URL | Trusted PostgreSQL connection/pool URL; required for public API rate limiting and bookings |
-| APP_BASE_URL | Exact browser origin, e.g. `https://www.bteglobal.ae`; staging must use its actual origin |
+| DATABASE_URL | Separate Preview PostgreSQL URL, migrated through 002 |
+| APP_BASE_URL | Actual Preview origin; immutable and branch URLs from Vercel are also accepted automatically |
+| PAYMENT_MODE | `mock` |
+| CALENDAR_MODE | `mock` (no real Calendar writes) |
+| EMAIL_MODE | `mock` (no real messages) |
+| BOOKING_DEMO_SCHEDULE | `true` for explicitly labelled Mon–Fri 09:00–18:00 Astana demo |
+| CRON_SECRET | Strong random secret if manually invoking/retrying the private worker |
+
+Vercel supplies VERCEL=1 and VERCEL_ENV=preview; **do not change NODE_ENV to development**. Preview normally has NODE_ENV=production and is explicitly supported. The same mock settings on VERCEL_ENV=production or an unknown Vercel target cannot enable mock payment. VERCEL_TARGET_ENV=production is also denied. Outside Vercel, NODE_ENV=production denies mock.
+
+For a Preview test against real Google/SMTP sandbox accounts, replace the two adapter modes with google/smtp and add the matching credentials below. Use a dedicated sandbox calendar and controlled test recipients. A local PostgreSQL URL cannot be reached by Vercel; provision a remote Preview database.
+
+### Live scheduling and adapters (production payment still disabled)
+
+| Variable | Purpose / default |
+| --- | --- |
+| DATABASE_URL | Required for availability, reservation, private status and outbox; not for public config |
+| APP_BASE_URL | Canonical HTTPS origin; exact Origin check |
+| PAYMENT_MODE | `disabled`; real Ziina integration is outside this stage |
+| CALENDAR_MODE | `google` |
 | GOOGLE_CALENDAR_ID | Private corporate calendar ID |
-| GOOGLE_CLIENT_EMAIL | Service-account email with Calendar access |
+| GOOGLE_CLIENT_EMAIL | Service-account email with Calendar write access |
 | GOOGLE_PRIVATE_KEY | PEM key, actual newlines or escaped `\n` |
-| SMTP_HOST / SMTP_PORT | TLS mail service; 465 implicit TLS or 587 STARTTLS |
-| SMTP_USER / SMTP_PASSWORD | Mail service credentials |
-| EMAIL_FROM | Verified corporate sender |
+| EMAIL_MODE | `smtp` |
+| SMTP_HOST | SMTP provider hostname |
+| SMTP_PORT | 587 STARTTLS by default; 465 implicit TLS |
+| SMTP_USER / SMTP_PASSWORD | Required if the SMTP service authenticates |
+| EMAIL_FROM | Verified corporate sender, required for real mail |
 | BOOKING_NOTIFICATION_EMAIL | Defaults to projects@bteglobal.ae |
-| BOOKING_TIMEZONE | Asia/Almaty (Astana, UTC+5); UI content is designed for this timezone |
-| BOOKING_WORK_DAYS | Approved ISO weekdays, e.g. 1,2,3,4,5; example is not a final schedule |
-| BOOKING_WORK_START / BOOKING_WORK_END | Approved HH:mm same-day working hours |
-| BOOKING_SLOT_MINUTES | Default 30 |
-| BOOKING_HORIZON_DAYS | Default 60 |
-| BOOKING_MIN_LEAD_MINUTES | Default 120 |
-| BOOKING_RESERVATION_TTL_MINUTES | Default 15, range 1–60 |
-| PAYMENT_MODE | `disabled` in production; `mock` only local/preview; real mode requires future provider code |
-| CALENDAR_MODE / EMAIL_MODE | `google` / `smtp` normally; `mock` only with nonproduction mock payment mode |
-| BOOKING_DEMO_SCHEDULE | false normally; true only explicitly for a local/preview demo |
-| CRON_SECRET | Strong random secret, used by Vercel cron Authorization header |
+| CRON_SECRET | Strong random secret shared with the authenticated scheduler |
+| BOOKING_DEMO_SCHEDULE | `false`; demo schedule cannot activate in Production |
+| BOOKING_WORK_DAYS | Customer-approved ISO weekdays, 1=Monday … 7=Sunday; empty closes schedule |
+| BOOKING_WORK_START / BOOKING_WORK_END | Customer-approved same-day HH:mm hours; empty closes schedule |
 
-No Ziina credentials are needed in this phase. Do not put secrets into a client bundle, public file, logs or shell command history. The configuration endpoint returns only public configuration.
+### Optional scheduling controls
 
-Empty work hours keep scheduling closed. Prices, policy version identifiers and USD currency are controlled in `lib/booking/config.js`. After legal approval, version the published policies and update the identifiers together. Changing BOOKING_TIMEZONE also requires updating the Astana-specific UI copy and integration tests.
+| Variable | Default / limits |
+| --- | --- |
+| BOOKING_TIMEZONE | Asia/Almaty; UI copy is designed for Astana UTC+5 |
+| BOOKING_SLOT_MINUTES | 30, integer 5–120 |
+| BOOKING_RESERVATION_TTL_MINUTES | 15, integer 1–60 |
+| BOOKING_HORIZON_DAYS | 60, integer 1–365 |
+| BOOKING_MIN_LEAD_MINUTES | 120, integer 0–43200 |
 
-## 3. Vercel preparation (no production deploy performed)
+### Optional independent distributed config protection
 
-Import the repository, select Framework Preset **Other**, no frontend build command, no custom static output directory. Keep root HTML assets and `/api` Node functions. Install dependencies with `npm ci`. Set Node.js 24 in project settings. Add the environment variables separately for Preview and Production. Restrict preview access, use a separate staging database/calendar/mail sandbox.
+Set **both or neither**:
 
-`vercel.json` configures 120-second functions and a minute cron for `/api/consultations/worker`. A plan that supports minute cron scheduling is required; verify plan limits before release. Otherwise provide an authenticated external scheduler at the approved frequency. Cron calls require `Authorization: Bearer <CRON_SECRET>`. Do not expose this secret in the browser. Cleanup also runs opportunistically on availability/order/status requests, so stale reservations cannot be sold as active indefinitely if cron is delayed.
+- CONFIG_RATE_LIMIT_REDIS_REST_URL — HTTPS Redis REST endpoint supporting EVAL.
+- CONFIG_RATE_LIMIT_REDIS_REST_TOKEN — its server-only bearer token.
 
-Review Vercel's forwarded-IP guarantees for `x-real-ip` and configure WAF/edge request limits as an additional perimeter. Application limits are shared PostgreSQL counters, not process memory: 6 order/mock-payment requests/minute/IP, 60 availability/status, 120 config. No public endpoint lists customers. Keep logs restricted and do not log request bodies, tokens or external error payloads.
+Public config never consults PostgreSQL. Successful responses are CDN-cacheable for 30 seconds. Its fallback limiter is bounded to 2048 instance counters, 120 requests/minute/IP. This fallback is **per instance**, not a global deployment quota. Configure Redis or an edge/WAF rate rule for a deployment-wide cap. Configured Redis failures return 503 rather than silently allowing traffic. Private/mutating API limits remain PostgreSQL-backed: 6 orders/mock-payments/minute/IP, 60 availability/status. Errors and private responses are no-store.
 
-## 4. Release gates
+### Platform and test-only values
 
-1. Approve schedule and proposals in LEGAL_REVIEW.md; commission final legal translation review.
-2. Run all checks and staging PostgreSQL smoke tests, including two independent simultaneous booking requests.
-3. Connect the real Calendar and SMTP sandbox; verify private event visibility, recovery and all language emails.
-4. Integrate Ziina using PAYMENT_INTEGRATION.md, verify signed webhooks, amount/currency/settlement and return URLs.
-5. Test delayed payments, provider retries, recovery after Calendar/SMTP outage and monitoring.
-6. Obtain explicit customer approval before production deployment. Until provider readiness, PAYMENT_MODE=disabled and payment controls stay disabled with an explanation.
+VERCEL, VERCEL_ENV, VERCEL_TARGET_ENV, VERCEL_URL and VERCEL_BRANCH_URL are trusted platform-supplied values. Do not set them manually in Vercel project settings to bypass mock guards. TEST_DATABASE_URL is used **only** by `npm run test:postgres` against a disposable local/staging PostgreSQL instance; it is not a deployed app setting. PORT and PLAYWRIGHT_CHROME_PATH are local tooling options. NODE_ENV is runtime-controlled. No Ziina secret is required now.
 
-## 5. Operations
+Do not store customer data or secrets in frontend variables, logs, source files, public/ or Git. `.env.example` is a template only.
 
-Monitor failed cron executions and inspect unresolved records with restricted database access:
+## Cron, fulfilment and recovery
+
+Vercel Cron runs only on **Production**, not Preview. The daily cron is a Hobby-compatible recovery fallback, not a promise of timely real-payment fulfilment. Preview's mock endpoint first commits settlement/outbox, then immediately attempts processing; delivery failure cannot undo paid status. Retry via:
+
+```text
+GET /api/consultations/worker
+Authorization: Bearer <CRON_SECRET>
+```
+
+Before real payments are enabled, the future verified webhook must trigger background processing after settlement and an authenticated external scheduler must retry frequently, or an approved Pro plan may use minute cron. Do not depend on one daily run to deliver paid consultations promptly. No real Ziina adapter, plan upgrade or production release is part of this audit.
+
+Expired unpaid reservations are also released opportunistically on availability/order/status calls. Paid_pending_calendar and needs_attention reservations with slot_held=true stay blocked until fulfilled/resolved. Late payments keep paid state but do not acquire an interval or create events automatically.
+
+## Checks and release boundaries
+
+```sh
+npm ci
+npm run check
+npm test
+TEST_DATABASE_URL=postgresql://... npm run test:postgres
+npm run test:e2e
+npm run build
+npm audit
+```
+
+The PostgreSQL suite creates and drops only a random bte_audit_* schema, using multiple actual server connections. Supply a disposable database. Browser tests start/stop their own local server; macOS uses installed Chrome, elsewhere install Playwright Chromium or set PLAYWRIGHT_CHROME_PATH.
+
+Push only feature/book-consultation and verify Vercel's resulting **Preview** check. Do not merge main or invoke `vercel --prod`. Inspect the deployed config and blocked source paths, if deployment protection permits access. Keep protection enabled; a 401 from protection is not an app runtime failure.
+
+Before any future production release: approve schedule/legal additions, verify real Google/SMTP sandbox delivery, configure alerts/retention/backups, finish authenticated Ziina integration and settlement tests, validate production runtime settings and scheduler, and obtain explicit deployment approval.
+
+## Operations
+
+Monitor worker failures and query with restricted database access:
 
 ```sql
 SELECT id, booking_status, payment_status, paid_at FROM bookings
-WHERE booking_status='needs_attention';
+WHERE booking_status IN ('paid_pending_calendar','needs_attention');
 SELECT booking_id, kind, attempts, last_error FROM outbox
 WHERE completed_at IS NULL AND attempts>3;
 ```
 
-Never delete paid rows to recover an integration failure. Worker retries with backoff up to one hour; completed jobs are not reprocessed. Do not manually reset completed email jobs without checking provider delivery. Late payments need a human to agree an alternative slot/refund; no automatic refund or new cancellation policy is implemented. Set retention, backup, access and alert ownership with the customer before release. Roll back code through Vercel; retain the database and payment audit record.
+Both booking and effect rows are locked during a job, serializing recipients per booking while allowing independent bookings to progress. notification_sent_at is set once only after both actual email jobs complete. SMTP remains subject to crash-after-acceptance ambiguity: for strict provider idempotency use an email API with durable idempotency/reconciliation. Do not reset completed mail jobs without verifying provider delivery. Never delete paid records to recover a service failure.
+
+Official references: [Cron usage/pricing](https://vercel.com/docs/cron-jobs/usage-and-pricing), [Cron deployment behavior](https://vercel.com/docs/cron-jobs/manage-cron-jobs), [function limits](https://vercel.com/docs/functions/limitations), [build configuration](https://vercel.com/docs/builds/configure-a-build).

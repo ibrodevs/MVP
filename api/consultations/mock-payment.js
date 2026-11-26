@@ -1,6 +1,7 @@
 const { route, fail, hash } = require("../../lib/booking/http");
 const { config } = require("../../lib/booking/config");
 const { db } = require("../../lib/booking/db");
+const { work } = require("../../lib/booking/worker");
 const { confirmVerifiedPayment } = require("../../lib/payments");
 module.exports = route(
   "POST",
@@ -16,12 +17,23 @@ module.exports = route(
       )
     ).rows[0];
     if (!b) fail(404, "not_found");
-    return confirmVerifiedPayment({
+    const result = await confirmVerifiedPayment({
       bookingId: id,
       paymentId: "mock_" + id,
       amountMinor: b.amount_minor,
       currency: b.currency,
     });
+    // Preview has no Vercel Cron invocations. Settlement remains durable even if
+    // immediate processing fails; the authenticated worker can safely retry later.
+    try {
+      await work();
+    } catch (e) {}
+    return result;
   },
-  { max: 6 },
+  {
+    max: 6,
+    guard: () => {
+      if (!config().mock) fail(404, "not_found");
+    },
+  },
 );

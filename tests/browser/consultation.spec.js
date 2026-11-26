@@ -213,7 +213,7 @@ test("empty availability and production payment notice keep checkout disabled", 
   );
   await expect(page.locator("#submit")).toBeDisabled();
 });
-test("main navigation and existing project CTA survive at all required widths", async ({
+test("main navigation, three languages and both themes at all required widths", async ({
   page,
 }) => {
   const errors = [];
@@ -221,15 +221,28 @@ test("main navigation and existing project CTA survive at all required widths", 
   for (const width of [320, 375, 390, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/index.html");
-    await expect(page.locator(".consultation-nav")).toBeVisible();
-    await expect(page.locator('.nav-actions a[href="#contact"]')).toHaveCount(
-      1,
-    );
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
+    for (const lang of ["en", "ru", "ar"]) {
+      await page.locator(".langseg .lb-" + lang).click();
+      await expect(page.locator(".consultation-nav")).toBeVisible();
+      await expect(page.locator(".consultation-nav")).toHaveText(
+        {
+          en: "Book a Consultation",
+          ru: "Записаться на консультацию",
+          ar: "احجز استشارة",
+        }[lang],
+      );
+      await expect(page.locator('.nav-actions a[href="#contact"]')).toHaveCount(
+        1,
+      );
+      for (let i = 0; i < 2; i++) {
+        await page.locator(".theme-toggle").click();
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        ).toBe(true);
+      }
+    }
   }
   expect(errors).toEqual([]);
 });

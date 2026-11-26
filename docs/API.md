@@ -1,6 +1,6 @@
 # Consultation API
 
-All responses are JSON and no-store. Errors use `{ "error": "code", "field": "optional_field" }`, without customer data or external service payloads. Methods are restricted. POST requires application/json, at most 16 KiB, and an Origin matching APP_BASE_URL if supplied. Booking access is a high-entropy bearer capability; no cookies or public customer listing are used.
+All responses are JSON. Private/mutating/error responses are no-store. Successful public config uses CDN s-maxage=30 and stale-while-revalidate=30; it returns no personal data or secrets. Errors use `{ "error": "code", "field": "optional_field" }`, without customer data or external service payloads. Methods are restricted. POST requires application/json, at most 16 KiB, and an Origin matching APP_BASE_URL if supplied; Preview also accepts trusted Vercel system VERCEL_URL/VERCEL_BRANCH_URL origins. Booking access is a high-entropy bearer capability; no cookies or public customer listing are used.
 
 | Method | Path | Result |
 | --- | --- | --- |
@@ -52,3 +52,11 @@ The key is also the status capability in this implementation; it is never logged
 Status response includes id, booking_status, payment_status, amount_minor, currency, reservation_expires_at, calendar_ready and notifications_sent booleans. It never returns name/email/phone/task/event ID or a list of orders. Query `success=true` has no effect.
 
 Error status: 400 invalid, 401 worker auth, 403 origin, 404 order not found/no capability, 405 method, 409 slot_unavailable/idempotency_conflict/payment_mismatch/payment_conflict, 413 request size, 415 content type, 429 rate_limited, 503 unavailable. Configuration, Calendar or database failure never yields assumed-free intervals. Production order creation currently returns unavailable; config advertises payment_available=false and UI explains payment unavailability.
+
+## Paid lifecycle and config resilience
+
+`pending_payment/pending` → `paid_pending_calendar/paid` → `confirmed/paid`. Calendar failure transitions to `needs_attention/paid` with the held interval retained; retry success sets confirmed. A late payment remains needs_attention with slot_held=false and no automatic Calendar/email effects. No confirmed status is returned before the event exists.
+
+GET config does not call PostgreSQL. It has a bounded per-instance 120/min/IP limiter plus CDN caching; optional CONFIG_RATE_LIMIT_REDIS_REST_URL/TOKEN supply atomic distributed counters independent of PostgreSQL. Configured Redis errors fail closed with 503. Without Redis/edge rules the cap is per instance, not a deployment-wide guarantee. Other endpoints retain PostgreSQL-backed limits.
+
+Mock payment is available only in explicit local/Preview mock mode. Production/unknown Vercel targets reject it with 404 before database access, even if PAYMENT_MODE=mock. Preview mock settlement attempts the outbox immediately because Vercel Cron does not run on Preview.

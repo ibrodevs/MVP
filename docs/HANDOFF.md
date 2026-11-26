@@ -15,7 +15,7 @@
 | События и уведомления | Outbox, повторы, private event, локализованные письма/ICS реализованы и проверены с адаптерами; нужны реальные Google/SMTP-тесты |
 | Безопасность | Серверная валидация, ограничения частоты, honeypot, capability status, отсутствие PII в логах/localStorage |
 | Юридические страницы | Добавлены отсутствовавшие переводы; новые формулировки вынесены в LEGAL_REVIEW.md, не опубликованы |
-| Документация и проверки | 22 серверных + 14 браузерных тестов, audit без известных уязвимостей |
+| Документация и проверки | 28 unit/адаптерных + 7 PostgreSQL + 14 браузерных тестов, audit без известных уязвимостей |
 | Production | Не выполнен; необходимы доступы, согласования и Ziina-интеграция |
 
 ## Файлы
@@ -40,6 +40,8 @@
 
 Локальный демонстрационный запуск: `npm ci` → `npm run dev:demo` → http://localhost:3000/book-consultation.html. Для реальных сервисов: заполнить .env.local, `npm run migrate`, `npm run dev`.
 
-Vercel: импортировать репозиторий с Framework Other, без frontend-сборки, настроить Node 24, PostgreSQL/Google/SMTP/cron и переменные по DEPLOYMENT.md. PAYMENT_MODE=disabled до завершения Ziina. Production-деплой выполняется только после отдельного согласования.
+Vercel: импортировать репозиторий с Framework Other, с npm run build и outputDirectory=public, настроить Node 24, PostgreSQL/Google/SMTP/cron и переменные по DEPLOYMENT.md. PAYMENT_MODE=disabled до завершения Ziina. Production-деплой выполняется только после отдельного согласования.
 
 Известные эксплуатационные ограничения: SMTP не гарантирует строго однократную доставку при аварии после принятия письма; внешний писатель Google Calendar может создать конфликт между FreeBusy и insert. Эти ограничения и способы управления описаны в PAYMENT_INTEGRATION.md и GOOGLE_CALENDAR.md.
+
+Финальный аудит: см. AUDIT_2026-11-26.md. Добавлены миграция 002, paid_pending_calendar, независимая конфигурация, безопасная статическая сборка и реальные конкурентные PostgreSQL-тесты. Точные обязательные и опциональные переменные перечислены в DEPLOYMENT.md и .env.example.

@@ -4,7 +4,7 @@
 
 Static booking UI → Vercel Functions → PostgreSQL reservation → independent payment service → durable paid transaction/outbox → private Google Calendar event → localized customer and company emails.
 
-**No real Ziina integration is implemented.** No Ziina API endpoint, request field, signature scheme, secret name, settlement response or webhook format has been invented. Production is deliberately closed to checkout until an authenticated provider adapter is delivered and tested. PAYMENT_MODE=mock cannot activate when NODE_ENV=production or VERCEL_ENV=production; on Vercel it is permitted only in Preview. All mock Calendar/email paths are also gated by that same nonproduction condition.
+**No real Ziina integration is implemented.** No Ziina API endpoint, request field, signature scheme, secret name, settlement response or webhook format has been invented. Production is deliberately closed to checkout until an authenticated provider adapter is delivered and tested. On Vercel, PAYMENT_MODE=mock activates only when VERCEL_ENV=preview and VERCEL_TARGET_ENV is not production, including Preview with NODE_ENV=production. VERCEL_ENV=production and unknown Vercel targets always reject it. Outside Vercel, NODE_ENV=production rejects mock. All mock Calendar/email paths are also gated by that same nonproduction condition.
 
 ## Order creation and identifiers
 
@@ -41,13 +41,13 @@ await confirmVerifiedPayment({
 
 The function validates identifiers and integer amount/currency, locks the booking, verifies amount/currency against stored order, checks existing payment state/reference and writes payment_status=paid and paid_at. payment_reference is globally unique. Same order + same payment + same amount/currency is a safe duplicate; different payment for an already paid order is a conflict. A payment used on another order causes the entire transaction to roll back.
 
-For a valid unexpired pending reservation it sets booking_status=confirmed and writes unique calendar/customer_email/company_email outbox jobs **in the same transaction**. It returns `{id,booking_status,duplicate}`. It does not perform external delivery within the settlement transaction.
+For a valid unexpired pending reservation it sets booking_status=paid_pending_calendar and writes unique calendar/customer_email/company_email outbox jobs **in the same transaction**. It returns `{id,booking_status,duplicate}`. It does not perform external delivery within the settlement transaction.
 
 Late settlement (expired/cancelled/nonpending reservation) always records paid, sets needs_attention and slot_held=false, even if the original slot is now free. It never creates calendar/email confirmation jobs or an overlapping event automatically. An operator must contact the customer and resolve the slot or refund according to approved terms. Do not automatically refund or invent cancellation penalties.
 
 ## Calendar and notifications
 
-The CRON_SECRET-authenticated worker expires unpaid reservations, processes queued effects under row locks and retries failures with exponential backoff capped at one hour. Deterministic Google event IDs recover event insertion after network uncertainty. Before a new insert, it checks FreeBusy again; conflicting external events require attention. Completed jobs are not processed twice. Private internal events contain customer details; the client receives only a sanitized ICS attachment and localized booking confirmation after the calendar event exists.
+Only successful Calendar insertion/recovery sets booking_status=confirmed. The CRON_SECRET-authenticated worker expires unpaid reservations, processes queued effects under both outbox and booking row locks and retries failures with exponential backoff capped at one hour. Deterministic Google event IDs recover event insertion after network uncertainty. Before a new insert, it checks FreeBusy again; conflicting external events require attention. Completed jobs are not processed twice. Recipient jobs for one booking are serialized; unrelated bookings can process concurrently. notification_sent_at is set once, only when both recipient jobs actually exist and are completed. A 40-second shared delivery deadline fits the 60-second function budget. Private internal events contain customer details; the client receives only a sanitized ICS attachment and localized booking confirmation after the calendar event exists.
 
 Calendar failure sets needs_attention while payment remains paid; a successful retry restores confirmed. Email failure retries independently. Neither can erase the paid record. No notifications/events occur when merely submitting the form.
 
@@ -56,8 +56,12 @@ SMTP has no universal idempotency mechanism: outbox locks and stable Message-ID 
 ## Operational and security requirements
 
 - Keep secrets exclusively on the server. Public status requires a capability; returns only redacted fields, never a client list.
-- API per-IP counters live in PostgreSQL. Add provider-specific webhook rate/replay controls without rejecting valid retry bursts.
+- Mutating/status/availability API per-IP counters live in PostgreSQL; read-only config uses an independent bounded limiter/CDN cache and optional Redis REST quota. Add provider-specific webhook rate/replay controls without rejecting valid retry bursts.
 - Do not log webhook bodies, access capabilities, customer data, API keys or signing material.
 - Alert on needs_attention, failed cron and repeatedly failing outbox jobs. No admin UI is provided; customer must assign restricted operations ownership.
 - Use a dedicated Calendar with controlled external writers. Google FreeBusy + insert is not an atomic lock; PostgreSQL prevents concurrent overlaps from this app, not arbitrary outside calendar writes.
 - Verify actual production PostgreSQL network concurrency, Google permissions and real mail delivery before launch. Local tests use an actual PostgreSQL test engine plus controlled external-service adapters.
+
+## Hobby and Preview execution
+
+The committed cron runs once daily at 03:00 UTC (Hobby compatible). Vercel runs cron only for Production; Preview's mock-payment endpoint attempts `work()` after durable settlement, catches delivery failures without undoing payment, and can be recovered through the authenticated worker. Never rely on a daily cron for timely real-payment fulfilment: the future verified webhook must trigger background processing and an authenticated external scheduler should retry frequently, or minute cron may be enabled only after an approved plan upgrade. No plan upgrade or production deployment has been performed.
