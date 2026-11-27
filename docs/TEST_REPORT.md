@@ -104,3 +104,9 @@ Executed with Node 24.22.3:
 Total: 55 automated tests. Preview tests reject production/unknown remote hosts before any schema creation. The suite uses a random schema in the dedicated Neon Preview branch and verifies order overlap exclusion, idempotent settlement, full HTTP mock payment and all outbox effects. A network-dependent 150ms parallelism assertion was replaced by an explicit worker barrier, then the entire Neon suite was rerun successfully.
 
 Schedule checks now assert Monday-Friday 10:00-19:00, Asia/Dubai and UTC offset +240 minutes (GMT+4). EN/RU/AR labels, homepage contact hours, summary and stored booking timezone use Dubai. Real Google Calendar and SMTP delivery are not claimed: supplied host/account identifiers are prepared, but their missing secrets are not fabricated.
+
+### Cloud smoke check with actual Neon Preview
+
+Deployment dpl_2PvSuJGT4PU291FuFnVYNvEcjx25 / implementation 98f6a71905685e4f0d2b2d890acd1a43afb197ef was verified READY. At https://mvp-bi4xx7u4e-ibroits-projects.vercel.app, authenticated requests verified Dubai config, database-backed availability, one winner from two concurrent orders, same-ID retry, successful mock settlement, confirmed status, three completed outbox effects and idempotent duplicate payment. Server/config source probes returned 404 behind authenticated access. This is in addition to the 55 automated tests above.
+
+No real Calendar event, SMTP email or payment was sent. Production tables were still empty after the cloud smoke test. The CLI-created temporary automation token was revoked and verified invalid (302 to SSO); deployment protection remains enabled. See NEON.md for the exact boundaries and remaining credentials.

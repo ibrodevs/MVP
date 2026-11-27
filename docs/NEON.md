@@ -106,3 +106,23 @@ It uses an existing Vercel CLI login or VERCEL_TOKEN, never prints values, and r
 An old parallelism assertion used a fixed 150ms delivery sleep, which was shorter than real cloud database latency. It was replaced with a barrier proving that two different booking effects can enter concurrently; no concurrency protection was removed.
 
 Live Preview deployment/runtime evidence is recorded in the delivery report after push. Local/cloud Neon tests do not imply that real Google Calendar, SMTP or Ziina have been configured.
+
+## Verified cloud Preview result
+
+Implementation commit: `98f6a71905685e4f0d2b2d890acd1a43afb197ef`.
+Deployment: `dpl_2PvSuJGT4PU291FuFnVYNvEcjx25`, READY / Preview.
+URL: https://mvp-bi4xx7u4e-ibroits-projects.vercel.app
+
+Using authenticated Preview access, the deployed Vercel functions connected to the pooled Neon Preview URL and completed the following actual requests:
+
+- Public config returned Asia/Dubai, active demo/mock mode and server prices.
+- Availability returned a valid Dubai working-day slot.
+- Two parallel create-order requests produced exactly one order and one 409 conflict.
+- Idempotent order retry returned the same Booking ID.
+- Mock settlement produced paid + confirmed, calendar_ready=true and notifications_sent=true.
+- Direct inspection of the isolated Preview branch verified exactly 3 completed outbox effects for that test order; duplicate settlement remained idempotent.
+- Authorized probes to /lib/booking/neon-project.json, /.env.local, /neon.ts, /scripts/migrate.js and /package.json all returned 404.
+
+The Calendar/email effects were mocks, not external delivery, and no money was charged. A synthetic paid smoke-test booking remains only in Preview. Production was rechecked afterwards: bookings=0, outbox=0, rate_limits=0.
+
+Vercel CLI created a temporary automation protection token for the authenticated smoke check. That exact token was revoked after the test; revocation was verified through project metadata, and a request using the revoked token returned 302 to SSO. SSO protection remains enabled. No production deployment, production environment-variable update, merge into main or real Ziina integration was performed.
