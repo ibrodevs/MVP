@@ -10,7 +10,7 @@ The provider must trust the correct Vercel issuer/audience and restrict identiti
 
 References: [Vercel GCP WIF](https://vercel.com/docs/oidc/gcp), [Google STS](https://cloud.google.com/iam/docs/reference/sts/rest/v1/TopLevel/token).
 
-Private POST /api/consultations/calendar-check requires Preview, isolated database and CRON_SECRET. Action verify with an ISO date reads FreeBusy and returns only authentication status and busy count. Action cleanup with bookingId can delete only a paid test booking's deterministic event when the stored and remote company markers both equal BTE Preview E2E and the recipient is projects@bteglobal.ae; it verifies deletion afterwards. No arbitrary calendar/event ID can be supplied. Owner consent is required before a live event test.
+Private POST /api/consultations/calendar-check requires Preview, isolated database and CRON_SECRET. Action verify with an ISO date reads FreeBusy and returns only authentication status and busy count. Action cleanup with bookingId can delete only a paid test booking's deterministic event when the stored and remote company markers both equal BTE Preview E2E and the recipient is projects@bteglobal.ae; it verifies deletion afterwards (including Google cancellation tombstones), then cancels only that Preview test record and releases its held slot while retaining the mock-payment and notification history. No arbitrary calendar/event ID can be supplied. Owner consent is required before a live event test.
 
 ## Legacy key-based setup
 
@@ -29,3 +29,9 @@ On recovery, the server first checks its deterministic event ID, then FreeBusy b
 References: [FreeBusy](https://developers.google.com/workspace/calendar/api/v3/reference/freebusy/query), [Events insert and IDs](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert), [Service-account OAuth](https://developers.google.com/identity/protocols/oauth2/service-account).
 
 Prepared Calendar ID: 808bte@gmail.com. With WIF, GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY are not required. Real access must still be verified using the deployed identity and the calendar sharing permissions.
+
+## Live Preview verification — 27 November 2026
+
+Owner consent was obtained to create one test event and delete it afterwards. Fresh Preview authenticated through WIF as bte-booking@bte-global-booking-516005.iam.gserviceaccount.com against calendar 808bte@gmail.com. FreeBusy succeeded before checkout (0 busy intervals). Browser checkout booked 30 November, 11:00–12:00 Asia/Dubai. Before mock settlement: no event and no outbox effects. After settlement: one private PREVIEW TEST event and two SMTP notifications; FreeBusy showed 1 busy interval. Repeated settlement and worker processing did not create another event or resend the completed notification jobs.
+
+Cleanup was subsequently verified on deployment dpl_9KgYSaMX13e2kvHgKqkp42kgN6Qr: remote event deletion confirmed, FreeBusy returned 0 busy intervals, the Preview test booking was cancelled and its slot released. No other calendar event was modified. See TEST_REPORT.md for exact deployment and booking identifiers.

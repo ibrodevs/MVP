@@ -64,3 +64,5 @@ Mock payment is available only in explicit local/Preview mock mode. Production/u
 ## Private Preview SMTP diagnostics
 
 POST /api/consultations/smtp-check: Preview-only, isolated DB, CRON_SECRET bearer authentication, 3 requests/minute. JSON action verify/send and language en/ru/ar. Recipient is fixed to projects@bteglobal.ae; no booking or payment side effects. Missing settings and sanitized SMTP outcomes are returned without credentials. Production returns 404. See SMTP.md.
+
+POST /api/consultations/calendar-check: Preview-only with isolated DB and CRON_SECRET, maximum 6 requests/minute. Action verify plus date reads real FreeBusy and returns only mode/status/count. Action cleanup plus bookingId only removes an owned paid Preview test event with the fixed company/recipient markers, verifies deletion and releases its test slot. It cannot accept an arbitrary event/calendar ID. Production returns 404. Owner approval is required for live event creation/cleanup.

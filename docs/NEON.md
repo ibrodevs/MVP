@@ -79,7 +79,7 @@ BOOKING_WORK_START=10:00
 BOOKING_WORK_END=19:00
 ```
 
-Still needed for **real** adapters: GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY for the service account, write access to the chosen calendar, and SMTP_PASSWORD. These credentials were not fabricated. The initial Neon checkout validation used CALENDAR_MODE=mock and EMAIL_MODE=mock; later Preview configuration selects google/smtp. No real Google event or email delivery is claimed. See SMTP.md for current email setup. Real Ziina is not integrated.
+Current authentication uses WIF; GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY are unnecessary when the WIF pool is configured. The client supplied SMTP_PASSWORD directly in Vercel. Live Preview Calendar and SMTP checks are recorded in GOOGLE_CALENDAR.md, SMTP.md and TEST_REPORT.md. These credentials were not fabricated. The initial Neon checkout validation used CALENDAR_MODE=mock and EMAIL_MODE=mock; later Preview configuration selects google/smtp. No real Google event or email delivery is claimed. See SMTP.md for current email setup. Real Ziina is not integrated.
 
 ## Vercel Preview configuration
 

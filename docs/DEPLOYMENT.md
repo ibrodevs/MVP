@@ -55,7 +55,7 @@ For a Preview test against real Google/SMTP sandbox accounts, replace the two ad
 | EMAIL_MODE | `smtp` |
 | SMTP_HOST | Prepared: smtp.ionos.com |
 | SMTP_PORT | 587 only; mandatory STARTTLS, verified TLS >=1.2 |
-| SMTP_USER / SMTP_PASSWORD | projects@bteglobal.ae; password still required |
+| SMTP_USER / SMTP_PASSWORD | projects@bteglobal.ae; client-supplied Sensitive Preview secret; never commit |
 | EMAIL_FROM | projects@bteglobal.ae; verify sender with SMTP provider |
 | BOOKING_NOTIFICATION_EMAIL | Defaults to projects@bteglobal.ae |
 | CRON_SECRET | Strong random secret shared with the authenticated scheduler |
@@ -139,3 +139,7 @@ Official references: [Cron usage/pricing](https://vercel.com/docs/cron-jobs/usag
 See NEON.md for actual branch IDs, ignored local files and deployment-scoped values. Production/test host guards are enforced before destructive test setup; mock mode rejects production URLs even in a Preview runtime. Migration files now have checksummed replay tracking. The default local profile is Preview; an explicit .env.production.local is available only for authorized production migrations/read-only verification.
 
 IONOS Preview setup and safe password entry: [SMTP.md](SMTP.md). The SMTP configuration script preserves existing Neon, Calendar and Production values.
+
+### Current WIF authentication
+
+With GCP_WORKLOAD_IDENTITY_POOL_ID configured, supply GCP_PROJECT_NUMBER, GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID and GCP_SERVICE_ACCOUNT_EMAIL. The adapter obtains request-scoped Vercel OIDC and impersonates the service account. GCP_AUDIENCE is optional for a custom provider audience. GOOGLE_CLIENT_EMAIL/GOOGLE_PRIVATE_KEY apply only to the legacy non-WIF path. The configured Preview WIF identity and SMTP password were tested against their real services; see GOOGLE_CALENDAR.md and SMTP.md.

@@ -22,7 +22,7 @@ EMAIL_MODE=smtp
 3. Paste the password for the mailbox `projects@bteglobal.ae`, not the IONOS dashboard login. Save it directly in Vercel. Never send it in chat, commit it or paste it into a terminal command.
 4. Report only that it is saved. A new **Preview** deployment is needed to load it; existing deployments retain their old environment. Do not redeploy Production.
 
-No password was invented or stored in Git. Until this variable is present, real SMTP authentication and sending remain unverified. The six public settings above alone do not enable delivery.
+No password was invented or stored in Git. The client subsequently saved this variable as Sensitive in the branch-specific Preview environment. A fresh Preview verified real IONOS authentication and SMTP acceptance; see the live results below. The password was not downloaded into the repository.
 
 ## Transport and notifications
 
@@ -49,7 +49,7 @@ First run `verify`, then one `send` after credentials are saved and a new Previe
 
 - Live connection to smtp.ionos.com:587: STARTTLS, verified certificate and TLS 1.3 succeeded without AUTH or sending mail.
 - Local TLS SMTP fixtures verify authentication success/failure, refusal before insecure AUTH, paid-only notification gating, retry after a recipient rejection, stable Message-ID, timestamp completion and EN/RU/AR formatting.
-- No real IONOS authentication or email delivery has been claimed. `SMTP_PASSWORD` is the remaining prerequisite for the independent SMTP check.
-- A full live booking-to-email test additionally requires working Google Calendar authentication. Existing GCP Workload Identity identifiers do not themselves implement WIF in the current key-based Calendar adapter. This task preserves those settings; it does not switch the Calendar to a mock.
+- Fresh Preview `dpl_F1R81e7Df9iefZsLb3cmFPzzNWZf`: real IONOS SMTP authentication succeeded, and one technical email to projects@bteglobal.ae was accepted by the SMTP server. A browser checkout then sent customer and company confirmations to the same approved mailbox. The two confirmations were labelled PREVIEW TEST and explicitly stated that the payment was mocked. No real charge occurred. Inbox receipt is pending owner confirmation; SMTP acceptance alone is not proof of inbox delivery.
+- Google Calendar now uses Vercel OIDC / Google STS / service-account impersonation through WIF. Live FreeBusy, event creation after mock payment and owner-approved deletion were verified. See GOOGLE_CALENDAR.md and TEST_REPORT.md. No private key or Calendar mock was used in the live Preview scenario.
 
 See TEST_REPORT.md for the executed commands and PAYMENT_INTEGRATION.md for delivery/recovery boundaries.

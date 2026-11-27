@@ -54,7 +54,7 @@ See [deployment](docs/DEPLOYMENT.md), [stack](docs/TECH_STACK.md), [Calendar](do
 
 ## Release boundaries
 
-Work is pushed only to feature/book-consultation for Preview; no production deployment or merge into main is authorized. The Dubai schedule is approved and Neon is connected. Customer must approve legal additions, supply missing Google/SMTP credentials, and commission/test the Ziina adapter. Live Google/SMTP/Ziina delivery cannot be certified without those accounts. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
+Work is pushed only to feature/book-consultation for Preview; no production deployment or merge into main is authorized. The Dubai schedule is approved and Neon is connected. Customer must approve legal additions and commission/test the Ziina adapter before a future Production release. Live Preview WIF Calendar access and IONOS SMTP acceptance are verified in docs/TEST_REPORT.md; inbox receipt remains subject to mailbox-owner confirmation. Real Ziina remains unconnected. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
 
 ## Audited deployment and booking lifecycle
 

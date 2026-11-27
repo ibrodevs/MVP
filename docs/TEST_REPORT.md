@@ -124,3 +124,37 @@ A separate no-password network probe reached smtp.ionos.com:587, upgraded with S
 Implementation commit `4b78fc626a09037efcf7df600b355d26f9b98b50` was pushed to `feature/book-consultation`. Vercel deployment `dpl_CNa1regGtJHfhmQ5yrGiSVJWdjnH` reached **READY**, target is Preview (not Production), matching branch and SHA. URL: https://mvp-j1pd7elk1-ibroits-projects.vercel.app. Actual build logs contain “Prepared 24 allowlisted public assets”, “Build Completed in /vercel/output [4s]” and “Deployment completed”.
 
 Unauthenticated config request redirects HTTP 302 to Vercel SSO; protection remains enabled. No project-wide bypass was created for this SMTP audit, and no remote application response behind SSO is claimed. All six SMTP variables were verified branch-specific Preview settings; `SMTP_PASSWORD` was absent at the final environment metadata check. Real authentication/send must follow secret entry and a fresh Preview deployment. No real test mail has been sent.
+
+## Live IONOS + Google WIF end-to-end — 27 November 2026
+
+The client saved SMTP_PASSWORD as Sensitive for Preview / feature/book-consultation. No password was printed, committed or pulled into a local environment file. A new Preview deployment loaded the supplied credential. The Calendar owner explicitly approved creating one test event and deleting it afterwards.
+
+### Actual cloud results
+
+| Check | Observed result |
+| --- | --- |
+| IONOS AUTH | authenticated=true, STARTTLS required, executed from Vercel Preview against smtp.ionos.com:587 |
+| Technical email | One real technical test to projects@bteglobal.ae accepted by IONOS SMTP; inbox placement not yet confirmed by mailbox owner |
+| Google authentication | Vercel request OIDC → Google STS → IAM service-account impersonation; mode=wif, FreeBusy succeeded, no service-account private key or Calendar mock |
+| Browser reservation | Chrome used the real Preview UI/API, isolated Neon Preview and live Calendar availability; 30 November 2026, 11:00–12:00 Asia/Dubai |
+| Before payment | pending_payment / pending, zero outbox jobs, no event, no notification timestamp |
+| Overlapping order | Second request for the held interval returned HTTP 409 |
+| Mock checkout | Server-confirmed paid / confirmed, calendar_ready=true, notifications_sent=true; USD 150 simulated, no real money charged |
+| Live effects | One private Calendar event plus customer and company SMTP confirmations, all three outbox jobs completed with attempts=1 |
+| Test recipients and labels | Both booking emails went only to projects@bteglobal.ae and were labelled PREVIEW TEST / mock payment; event also labelled PREVIEW TEST |
+| Busy check with event | Google FreeBusy busyCount=1 |
+| Duplicate settlement / worker | duplicate=true; worker processed=0; job attempts unchanged; notification_sent_at unchanged |
+| Browser errors | No uncaught page errors in the live checkout |
+| Owner-approved cleanup | Event deletion confirmed; subsequent FreeBusy busyCount=0; test row cancelled, slot_held=false, calendar_event_id cleared; mock-payment and sent-notification history retained |
+
+Implementation Preview: **dpl_F1R81e7Df9iefZsLb3cmFPzzNWZf**, SHA `031abe28ffee7361877b816da6c9d51af91ec639`, https://mvp-2rpf9dk81-ibroits-projects.vercel.app. Booking ID: `3cd8e973-52e2-454a-b956-821af8cb3296`. Capability/access token is deliberately omitted.
+
+Initial cleanup verification returned HTTP 503. Deleted-event response handling was hardened to accept cancellation tombstones and 404/410, with a regression test. Cleanup then succeeded on **dpl_9KgYSaMX13e2kvHgKqkp42kgN6Qr**, SHA `2dcadebff486511c605228bf520c147cf830559e`, https://mvp-di6i74wk2-ibroits-projects.vercel.app: HTTP 200, deleted=true, slotReleased=true. This cleanup did not create a second event or send another email.
+
+Only temporary share links scoped to the selected Preview deployments (TTL 300 seconds) were used for protected runtime requests. Every created link was revoked; the final revocation check redirected to vercel.com authentication. No project-wide automation bypass or Production protection change was made. Main remains `962e27cc9265cc198f41fc9568e02be9e01a0e1e`. No Production deployment, merge, Ziina integration, production-database test or unrelated calendar change was performed.
+
+### Final automated validation
+
+Node 24.22.3: npm run check passed; npm test **51/51**; npm run test:postgres **8/8** in random schemas on isolated Neon Preview; npm run test:e2e **14/14**; npm run build **24 allowlisted assets**; npm audit **0 vulnerabilities**. Total **73 automated tests**, plus the separate live Preview browser checkout described above. WIF tests cover STS/impersonation scoping, explicit audience, failure without key fallback, incomplete configuration and private endpoint guards. SMTP tests cover EN/RU/AR including the mock-payment notice. Responsive/main-page tests cover all seven widths, three languages and both themes.
+
+The remaining verification is mailbox-owner confirmation of inbox/spam receipt. SMTP acceptance was observed, but neither inbox delivery nor inbox placement is inferred from it. Retry/concurrency behavior was verified through database assertions and controlled failure fixtures; no artificial outage or IAM/SMTP permission revocation was performed against the live accounts.

@@ -42,7 +42,7 @@ const http = require("node:http"),
             "mock-payment",
             "worker",
             "smtp-check",
-    "calendar-check",
+            "calendar-check",
           ].includes(name)
         ) {
           res.writeHead(404);
