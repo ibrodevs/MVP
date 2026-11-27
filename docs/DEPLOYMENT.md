@@ -10,7 +10,7 @@ The original failed deployment `dpl_D34GrcPpPN4tQa4qrmJszt6EcfEq` reported: **Ho
 
 ## Database migration
 
-Use a separate managed PostgreSQL pool URL for Preview and Production. Verify TLS certificates; never disable certificate verification. Back up an existing database, set DATABASE_URL locally, then run:
+Use a separate managed PostgreSQL pool URL for Preview and Production. Verify TLS certificates; never disable certificate verification. Back up an existing database, set direct DATABASE_URL_UNPOOLED (application DATABASE_URL stays pooled), then run:
 
 ```sh
 npm run migrate
@@ -22,18 +22,18 @@ The migration runner applies sorted db/migrations/*.sql. Migration 002 adds paid
 
 ### Public site / configuration only (no booking)
 
-No database or service secret is required for the page, prices and services. Defaults deliberately disable payments and close the schedule. Set APP_BASE_URL to the canonical origin when deploying. Vercel system variables are supplied by Vercel, not by the client.
+No database or service secret is required for the page, prices and services. Defaults disable payments; the approved schedule is Mon–Fri 10:00–19:00 Dubai (GMT+4). Availability fails closed until its database/Calendar services are configured. Set APP_BASE_URL to the canonical origin when deploying. Vercel system variables are supplied by Vercel, not by the client.
 
 ### Full isolated Preview checkout
 
 | Variable | Required value |
 | --- | --- |
-| DATABASE_URL | Separate Preview PostgreSQL URL, migrated through 002 |
+| DATABASE_URL | Dedicated Neon Preview pooled URL, migrated through 002 |
 | APP_BASE_URL | Actual Preview origin; immutable and branch URLs from Vercel are also accepted automatically |
 | PAYMENT_MODE | `mock` |
 | CALENDAR_MODE | `mock` (no real Calendar writes) |
 | EMAIL_MODE | `mock` (no real messages) |
-| BOOKING_DEMO_SCHEDULE | `true` for explicitly labelled Mon–Fri 09:00–18:00 Astana demo |
+| BOOKING_DEMO_SCHEDULE | `true` for explicitly labelled Mon–Fri 10:00–19:00 Dubai demo |
 | CRON_SECRET | Strong random secret if manually invoking/retrying the private worker |
 
 Vercel supplies VERCEL=1 and VERCEL_ENV=preview; **do not change NODE_ENV to development**. Preview normally has NODE_ENV=production and is explicitly supported. The same mock settings on VERCEL_ENV=production or an unknown Vercel target cannot enable mock payment. VERCEL_TARGET_ENV=production is also denied. Outside Vercel, NODE_ENV=production denies mock.
@@ -44,29 +44,30 @@ For a Preview test against real Google/SMTP sandbox accounts, replace the two ad
 
 | Variable | Purpose / default |
 | --- | --- |
-| DATABASE_URL | Required for availability, reservation, private status and outbox; not for public config |
+| DATABASE_URL | Pooled Neon URL for runtime availability/reservation/status/outbox; not required for public config |
+| DATABASE_URL_UNPOOLED | Direct URL for local/CI migrations; not required in deployed app |
 | APP_BASE_URL | Canonical HTTPS origin; exact Origin check |
 | PAYMENT_MODE | `disabled`; real Ziina integration is outside this stage |
 | CALENDAR_MODE | `google` |
-| GOOGLE_CALENDAR_ID | Private corporate calendar ID |
+| GOOGLE_CALENDAR_ID | Prepared: 808bte@gmail.com |
 | GOOGLE_CLIENT_EMAIL | Service-account email with Calendar write access |
 | GOOGLE_PRIVATE_KEY | PEM key, actual newlines or escaped `\n` |
 | EMAIL_MODE | `smtp` |
-| SMTP_HOST | SMTP provider hostname |
+| SMTP_HOST | Prepared: smtp.ionos.com |
 | SMTP_PORT | 587 STARTTLS by default; 465 implicit TLS |
-| SMTP_USER / SMTP_PASSWORD | Required if the SMTP service authenticates |
-| EMAIL_FROM | Verified corporate sender, required for real mail |
+| SMTP_USER / SMTP_PASSWORD | projects@bteglobal.ae; password still required |
+| EMAIL_FROM | projects@bteglobal.ae; verify sender with SMTP provider |
 | BOOKING_NOTIFICATION_EMAIL | Defaults to projects@bteglobal.ae |
 | CRON_SECRET | Strong random secret shared with the authenticated scheduler |
 | BOOKING_DEMO_SCHEDULE | `false`; demo schedule cannot activate in Production |
-| BOOKING_WORK_DAYS | Customer-approved ISO weekdays, 1=Monday … 7=Sunday; empty closes schedule |
-| BOOKING_WORK_START / BOOKING_WORK_END | Customer-approved same-day HH:mm hours; empty closes schedule |
+| BOOKING_WORK_DAYS | Approved 1,2,3,4,5; explicit empty closes schedule |
+| BOOKING_WORK_START / BOOKING_WORK_END | Approved 10:00 / 19:00; explicit empty closes schedule |
 
 ### Optional scheduling controls
 
 | Variable | Default / limits |
 | --- | --- |
-| BOOKING_TIMEZONE | Asia/Almaty; UI copy is designed for Astana UTC+5 |
+| BOOKING_TIMEZONE | Asia/Dubai; UI copy is designed for Dubai GMT+4 |
 | BOOKING_SLOT_MINUTES | 30, integer 5–120 |
 | BOOKING_RESERVATION_TTL_MINUTES | 15, integer 1–60 |
 | BOOKING_HORIZON_DAYS | 60, integer 1–365 |
@@ -106,7 +107,7 @@ Expired unpaid reservations are also released opportunistically on availability/
 npm ci
 npm run check
 npm test
-TEST_DATABASE_URL=postgresql://... npm run test:postgres
+npm run test:postgres # .env.test.local with dedicated Preview direct URL
 npm run test:e2e
 npm run build
 npm audit
@@ -116,7 +117,7 @@ The PostgreSQL suite creates and drops only a random bte_audit_* schema, using m
 
 Push only feature/book-consultation and verify Vercel's resulting **Preview** check. Do not merge main or invoke `vercel --prod`. Inspect the deployed config and blocked source paths, if deployment protection permits access. Keep protection enabled; a 401 from protection is not an app runtime failure.
 
-Before any future production release: approve schedule/legal additions, verify real Google/SMTP sandbox delivery, configure alerts/retention/backups, finish authenticated Ziina integration and settlement tests, validate production runtime settings and scheduler, and obtain explicit deployment approval.
+Before any future production release: approve legal additions, verify real Google/SMTP sandbox delivery, configure alerts/retention/backups, finish authenticated Ziina integration and settlement tests, validate production runtime settings and scheduler, and obtain explicit deployment approval.
 
 ## Operations
 
@@ -132,3 +133,7 @@ WHERE completed_at IS NULL AND attempts>3;
 Both booking and effect rows are locked during a job, serializing recipients per booking while allowing independent bookings to progress. notification_sent_at is set once only after both actual email jobs complete. SMTP remains subject to crash-after-acceptance ambiguity: for strict provider idempotency use an email API with durable idempotency/reconciliation. Do not reset completed mail jobs without verifying provider delivery. Never delete paid records to recover a service failure.
 
 Official references: [Cron usage/pricing](https://vercel.com/docs/cron-jobs/usage-and-pricing), [Cron deployment behavior](https://vercel.com/docs/cron-jobs/manage-cron-jobs), [function limits](https://vercel.com/docs/functions/limitations), [build configuration](https://vercel.com/docs/builds/configure-a-build).
+
+## Connected Neon profiles
+
+See NEON.md for actual branch IDs, ignored local files and deployment-scoped values. Production/test host guards are enforced before destructive test setup; mock mode rejects production URLs even in a Preview runtime. Migration files now have checksummed replay tracking. The default local profile is Preview; an explicit .env.production.local is available only for authorized production migrations/read-only verification.

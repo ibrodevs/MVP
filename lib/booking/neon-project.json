@@ -1,0 +1,20 @@
+{
+  "projectId": "cool-dream-36213648",
+  "organizationId": "org-winter-pine-05131981",
+  "production": {
+    "branchId": "br-broad-recipe-bh5vvix5",
+    "branchName": "production",
+    "hosts": [
+      "ep-polished-sun-bhzxucm1.c-10.eu-central-1.aws.neon.tech",
+      "ep-polished-sun-bhzxucm1-pooler.c-10.eu-central-1.aws.neon.tech"
+    ]
+  },
+  "preview": {
+    "branchId": "br-cool-hall-bh7n6csb",
+    "branchName": "preview-book-consultation",
+    "hosts": [
+      "ep-old-grass-bhwakeyw.c-10.eu-central-1.aws.neon.tech",
+      "ep-old-grass-bhwakeyw-pooler.c-10.eu-central-1.aws.neon.tech"
+    ]
+  }
+}

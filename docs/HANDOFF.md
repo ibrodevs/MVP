@@ -45,3 +45,5 @@ Vercel: импортировать репозиторий с Framework Other, с
 Известные эксплуатационные ограничения: SMTP не гарантирует строго однократную доставку при аварии после принятия письма; внешний писатель Google Calendar может создать конфликт между FreeBusy и insert. Эти ограничения и способы управления описаны в PAYMENT_INTEGRATION.md и GOOGLE_CALENDAR.md.
 
 Финальный аудит: см. AUDIT_2026-11-26.md. Добавлены миграция 002, paid_pending_calendar, независимая конфигурация, безопасная статическая сборка и реальные конкурентные PostgreSQL-тесты. Точные обязательные и опциональные переменные перечислены в DEPLOYMENT.md и .env.example.
+
+Обновление 27 ноября: Neon подключён, production и отдельная schema-only Preview-ветка мигрированы. Локальный профиль по умолчанию — Preview; mock/тесты отвергают production-хосты. Рабочий график утверждён: Пн–Пт, 10:00–19:00, Дубай/GMT+4/Asia/Dubai. В Vercel записаны только Preview branch-specific настройки. Проверки: 33 unit + 8 Neon PostgreSQL + 14 Playwright. Для реальных адаптеров нужны GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY, доступ к календарю и SMTP_PASSWORD. См. NEON.md.

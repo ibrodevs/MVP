@@ -32,7 +32,7 @@ test("Google event is private, includes paid internal record, has stable id and 
     id: randomUUID(),
     start_at: "2026-12-01T04:00:00Z",
     end_at: "2026-12-01T05:00:00Z",
-    timezone: "Asia/Almaty",
+    timezone: "Asia/Dubai",
     service_id: "software-development",
     duration_hours: 1,
     customer_name: "Test",

@@ -18,7 +18,7 @@ const { work } = require("../lib/booking/worker");
 const { DateTime } = require("luxon");
 let database;
 const date = () => {
-  let d = DateTime.now().setZone("Asia/Almaty").plus({ days: 2 });
+  let d = DateTime.now().setZone("Asia/Dubai").plus({ days: 2 });
   while (d.weekday > 5) d = d.plus({ days: 1 });
   return d.toISODate();
 };
@@ -89,8 +89,8 @@ test("reject empty, invalid, overlong, spam and malformed inputs", () => {
 test("whole interval fits work hours; adjacent intervals do not overlap", () => {
   const slots = candidates(date(), 4);
   assert.equal(
-    DateTime.fromISO(slots.at(-1).end).setZone("Asia/Almaty").hour,
-    18,
+    DateTime.fromISO(slots.at(-1).end).setZone("Asia/Dubai").hour,
+    19,
   );
   assert.equal(
     overlaps(
@@ -298,7 +298,7 @@ test("HTML mail escapes user data; invitation excludes internal/customer fields"
     id: randomUUID(),
     end_at: new Date(Date.parse(input().start_at) + 3600000),
     paid_at: new Date(),
-    timezone: "Asia/Almaty",
+    timezone: "Asia/Dubai",
     amount_minor: 15000,
     currency: "USD",
     customer_name: "<script>alert(1)</script>",

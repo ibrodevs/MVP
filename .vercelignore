@@ -9,3 +9,6 @@ tests
 db
 README.md
 playwright.config.js
+
+.neon
+neon.ts

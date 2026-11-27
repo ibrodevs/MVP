@@ -11,13 +11,13 @@ npm ci
 npm run dev:demo
 ```
 
-Open http://localhost:3000/book-consultation.html. This **local-only demo** uses an isolated PostgreSQL engine (PGlite), sample Monday–Friday 09:00–18:00 Astana schedule, mock Calendar, mock email and mock payment. Data resets at restart. No email is delivered and no money is charged. PGlite is a development dependency, never the production store.
+Open http://localhost:3000/book-consultation.html. This **local-only demo** uses an isolated PostgreSQL engine (PGlite), approved Monday–Friday 10:00–19:00 Dubai (GMT+4) schedule, mock Calendar, mock email and mock payment. Data resets at restart. No email is delivered and no money is charged. PGlite is a development dependency, never the production store.
 
 For real PostgreSQL and configured external services:
 
 ```sh
 cp .env.example .env.local
-# Fill DATABASE_URL and approved schedule; configure Calendar and SMTP.
+# Neon: use pooled DATABASE_URL, direct DATABASE_URL_UNPOOLED; configure real adapters only when credentials are available.
 npm run migrate
 npm run dev
 ```
@@ -30,7 +30,7 @@ Production payments remain disabled. Merely returning to a success page never co
 npm run check
 npm test
 npm run test:e2e
-TEST_DATABASE_URL=postgresql://... npm run test:postgres
+npm run test:postgres # loads ignored .env.test.local, Preview only
 npm run build
 npm audit
 ```
@@ -54,7 +54,7 @@ See [deployment](docs/DEPLOYMENT.md), [stack](docs/TECH_STACK.md), [Calendar](do
 
 ## Release boundaries
 
-Work is pushed only to feature/book-consultation for Preview; no production deployment or merge into main is authorized. Customer must approve the working schedule and legal additions, supply PostgreSQL/Google/SMTP access, and commission and test the Ziina adapter. Live Google/SMTP/Ziina delivery cannot be certified without those accounts. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
+Work is pushed only to feature/book-consultation for Preview; no production deployment or merge into main is authorized. The Dubai schedule is approved and Neon is connected. Customer must approve legal additions, supply missing Google/SMTP credentials, and commission/test the Ziina adapter. Live Google/SMTP/Ziina delivery cannot be certified without those accounts. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
 
 ## Audited deployment and booking lifecycle
 
@@ -63,3 +63,7 @@ Work is pushed only to feature/book-consultation for Preview; no production depl
 Paid reservations enter `paid_pending_calendar`; only a successful Calendar job promotes them to `confirmed`. Run `npm run migrate` before deploying this version to an existing database (includes migration 002).
 
 Hobby-compatible configuration uses a daily cron fallback, not a minute cron. Preview does not run Vercel cron: its mock-payment handler immediately attempts outbox processing. A frequent authenticated external scheduler or an approved paid-plan cron is required before enabling real payments. See [environment/deployment guide](docs/DEPLOYMENT.md) and [final audit](docs/AUDIT_2026-11-26.md).
+
+## Connected Neon database
+
+See [Neon setup and safety boundaries](docs/NEON.md). Production and schema-only Preview branches are provisioned and migrated. Local default points to Preview; production URLs are rejected for mock payment and destructive test setup. Vercel variables are scoped to Preview + feature/book-consultation. The application still uses pg; migrate through the direct URL.

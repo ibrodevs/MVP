@@ -335,7 +335,7 @@
     $("summary-date").textContent = date ? dateLabel(date) : empty;
     $("summary-start").textContent = selected ? time(selected.start) : "—";
     $("summary-end").textContent = selected ? time(selected.end) : "—";
-    $("summary-timezone").textContent = "Astana · UTC+5 · " + c.timezone;
+    $("summary-timezone").textContent = t("zoneName") + " · " + c.timezone;
     $("summary-duration").textContent =
       duration + " " + t(duration === 1 ? "hour" : "hours");
     $("summary-currency").textContent = "USD";

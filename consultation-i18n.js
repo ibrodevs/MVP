@@ -6,7 +6,8 @@ window.BTE_I18N = {
     title: "Clarity for your next<br>technology decision.",
     intro:
       "Book a focused session with our engineering team. Bring your challenge. Leave with a practical direction.",
-    zone: "All times are shown in Astana · UTC+5",
+    zone: "Monday–Friday · 10:00–19:00 · Dubai (GMT+4)",
+    zoneName: "Dubai · GMT+4",
     service: "Choose your expertise",
     serviceSub: "Select the area you would like to explore.",
     services: [
@@ -110,7 +111,8 @@ window.BTE_I18N = {
     title: "Ясность для вашего<br>следующего IT-решения.",
     intro:
       "Обсудите вашу задачу с нашей инженерной командой и определите практический путь её решения.",
-    zone: "Всё время указано по Астане · UTC+5",
+    zone: "Понедельник–пятница · 10:00–19:00 · Дубай (GMT+4)",
+    zoneName: "Дубай · GMT+4",
     service: "Выберите направление",
     serviceSub: "В какой области вам нужна экспертиза?",
     services: [
@@ -211,7 +213,8 @@ window.BTE_I18N = {
     eyebrow: "خبرة في الوقت المناسب لك",
     title: "رؤية واضحة لقرارك<br>التقني القادم.",
     intro: "احجز جلسة مركزة مع فريقنا الهندسي. اطرح تحديك واحصل على توجه عملي.",
-    zone: "جميع الأوقات بتوقيت أستانا · UTC+5",
+    zone: "الاثنين–الجمعة · 10:00–19:00 · دبي (GMT+4)",
+    zoneName: "دبي · GMT+4",
     service: "اختر مجال الاستشارة",
     serviceSub: "حدد المجال الذي ترغب في مناقشته.",
     services: [

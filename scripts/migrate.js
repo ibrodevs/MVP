@@ -1,18 +1,21 @@
-const fs = require("node:fs");
-const { db } = require("../lib/booking/db");
+const { Pool } = require("pg");
+const { migrationUrl, runMigrations } = require("../lib/booking/migrations");
 (async () => {
-  const p = db();
+  const pool = new Pool({
+    connectionString: migrationUrl(),
+    max: 1,
+    connectionTimeoutMillis: 15000,
+    statement_timeout: 60000,
+  });
   try {
-    for (const file of fs
-      .readdirSync("db/migrations")
-      .filter((f) => f.endsWith(".sql"))
-      .sort())
-      await p.query(fs.readFileSync("db/migrations/" + file, "utf8"));
-    console.log("Migration complete");
+    const result = await runMigrations(pool);
+    console.log(`Migrations complete: ${result.applied} applied`);
   } finally {
-    await p.end();
+    await pool.end();
   }
 })().catch(() => {
-  console.error("Migration failed; check database configuration");
+  console.error(
+    "Migration failed; verify direct connection and migration state (credentials omitted)",
+  );
   process.exitCode = 1;
 });

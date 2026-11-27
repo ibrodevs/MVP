@@ -65,3 +65,7 @@ SMTP has no universal idempotency mechanism: outbox locks and stable Message-ID 
 ## Hobby and Preview execution
 
 The committed cron runs once daily at 03:00 UTC (Hobby compatible). Vercel runs cron only for Production; Preview's mock-payment endpoint attempts `work()` after durable settlement, catches delivery failures without undoing payment, and can be recovered through the authenticated worker. Never rely on a daily cron for timely real-payment fulfilment: the future verified webhook must trigger background processing and an authenticated external scheduler should retry frequently, or minute cron may be enabled only after an approved plan upgrade. No plan upgrade or production deployment has been performed.
+
+## Connected Neon safety boundary
+
+The application still uses pg with a pooled Neon URL; migrations use a direct URL. Local/Preview mock checkout is additionally restricted to the registered Neon Preview endpoint hosts in lib/booking/neon-project.json (or disposable localhost). A production or unknown remote database URL disables mock even when VERCEL_ENV=preview. PostgreSQL tests reject such URLs before schema creation. Working hours are approved Monday–Friday 10:00–19:00, Asia/Dubai (GMT+4). Real Google/SMTP credentials remain outstanding; Preview adapters are intentionally mocked. See NEON.md.

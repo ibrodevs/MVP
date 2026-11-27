@@ -17,9 +17,12 @@ Object.assign(process.env, {
 });
 if (!process.env.TEST_DATABASE_URL)
   throw Error("Set TEST_DATABASE_URL to a disposable PostgreSQL instance");
+require("../../lib/booking/database-policy").assertIsolatedDatabase(
+  process.env.TEST_DATABASE_URL,
+);
 const schema = "bte_audit_" + randomUUID().replace(/-/g, "");
 let pool, admin;
-let day = DateTime.now().setZone("Asia/Almaty").plus({ days: 3 });
+let day = DateTime.now().setZone("Asia/Dubai").plus({ days: 3 });
 while (day.weekday > 5) day = day.plus({ days: 1 });
 const date = day.toISODate();
 const input = (start = candidates(date, 1)[0].start) => ({
@@ -152,22 +155,43 @@ test("different bookings can be processed in parallel while same booking stays l
   await pay(b);
   let active = 0,
     maxActive = 0;
+  // Synchronize at the external effect, not with a fixed sleep: cloud database
+  // latency can exceed 150 ms even when independent bookings are not locked.
+  let releaseBarrier, timer;
+  const barrier = new Promise((resolve, reject) => {
+    releaseBarrier = () => {
+      clearTimeout(timer);
+      resolve();
+    };
+    timer = setTimeout(
+      () => reject(Error("Independent worker did not reach the effect")),
+      30000,
+    );
+  });
   const adapters = {
     calendar: {
       createEvent: async (booking) => {
         active++;
         maxActive = Math.max(maxActive, active);
-        await delay(150);
-        active--;
-        return "event_" + booking.id;
+        if (active === 2) releaseBarrier();
+        try {
+          await barrier;
+          return "event_" + booking.id;
+        } finally {
+          active--;
+        }
       },
     },
     notifications: { send: async () => {} },
   };
-  await Promise.all([
-    work(pool, adapters, { maxJobs: 1 }),
-    work(pool, adapters, { maxJobs: 1 }),
-  ]);
+  try {
+    await Promise.all([
+      work(pool, adapters, { maxJobs: 1 }),
+      work(pool, adapters, { maxJobs: 1 }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
   assert.equal(maxActive, 2);
 });
 test("calendar and one-recipient failures recover without unpaid or repeated notifications", async () => {
@@ -328,4 +352,16 @@ test("HTTP checkout works in Preview with NODE_ENV production using real Postgre
     child.kill("SIGTERM");
     await new Promise((resolve) => child.once("exit", resolve));
   }
+});
+test("direct migration runner records checksums and repeat execution applies nothing", async () => {
+  const { runMigrations } = require("../../lib/booking/migrations");
+  const first = await runMigrations(pool);
+  assert.equal(first.applied, 2);
+  const second = await runMigrations(pool);
+  assert.equal(second.applied, 0);
+  assert.equal(
+    (await pool.query("SELECT count(*)::int AS n FROM booking_migrations"))
+      .rows[0].n,
+    2,
+  );
 });

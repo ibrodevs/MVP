@@ -85,3 +85,22 @@ The initial failed Vercel Preview is documented in AUDIT_2026-11-26.md. Remote P
 Implementation commit 364f69533384c2f57bd2290f5292fb9db77961ee received Vercel `success / Deployment has completed` for dpl_Dxbw7QULCb1ctSiCC8Yi2rGqxZyF. GitHub deployment 8091852879 is Preview and production_environment=false. URL: https://mvp-nyph7k1dn-ibroits-projects.vercel.app.
 
 Remote route probes returned 302 to Vercel SSO for both assets/API and candidate server-file paths. Deployment success is verified; application-level responses behind SSO are not claimed as remotely verified. Protection was left enabled. See AUDIT_2026-11-26.md for the exact evidence and unchanged-main/production checks.
+
+## Neon connection and Dubai schedule — 27 November 2026
+
+See NEON.md. Production and schema-only Preview branches in cool-dream-36213648 were provisioned and migrated (001/002). Both pooled connections and required public tables were verified. Production verification was read-only after DDL; its bookings/outbox/rate_limits remained empty.
+
+Executed with Node 24.22.3:
+
+| Command | Actual result |
+| --- | --- |
+| npm run check | Passed |
+| npm test | 33 passed |
+| npm run test:postgres | 8 passed against isolated Neon Preview |
+| npm run test:e2e | 14 passed |
+| npm run build | 24 allowlisted assets |
+| npm audit | 0 known vulnerabilities |
+
+Total: 55 automated tests. Preview tests reject production/unknown remote hosts before any schema creation. The suite uses a random schema in the dedicated Neon Preview branch and verifies order overlap exclusion, idempotent settlement, full HTTP mock payment and all outbox effects. A network-dependent 150ms parallelism assertion was replaced by an explicit worker barrier, then the entire Neon suite was rerun successfully.
+
+Schedule checks now assert Monday-Friday 10:00-19:00, Asia/Dubai and UTC offset +240 minutes (GMT+4). EN/RU/AR labels, homepage contact hours, summary and stored booking timezone use Dubai. Real Google Calendar and SMTP delivery are not claimed: supplied host/account identifiers are prepared, but their missing secrets are not fabricated.
