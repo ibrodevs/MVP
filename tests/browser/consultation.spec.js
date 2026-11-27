@@ -216,9 +216,21 @@ test("empty availability and production payment notice keep checkout disabled", 
 test("main navigation, three languages and both themes at all required widths", async ({
   page,
 }) => {
+  // Navbar geometry must remain testable when third-party font/icon CDNs stall.
+  await page.route("https://fonts.googleapis.com/**", (route) =>
+    route.fulfill({ contentType: "text/css", body: "" }),
+  );
+  await page.route("https://unpkg.com/lucide@latest/**", (route) =>
+    route.fulfill({
+      contentType: "application/javascript",
+      body: "window.lucide = { createIcons() {} };",
+    }),
+  );
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  for (const width of [320, 375, 390, 768, 1024, 1440, 1920]) {
+  for (const width of [
+    320, 375, 390, 768, 1024, 1151, 1200, 1240, 1241, 1280, 1440, 1920,
+  ]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/index.html");
     for (const lang of ["en", "ru", "ar"]) {
@@ -234,6 +246,41 @@ test("main navigation, three languages and both themes at all required widths", 
       await expect(page.locator('.nav-actions a[href="#contact"]')).toHaveCount(
         1,
       );
+      const links = page.locator(".primary-nav .navlink:visible");
+      expect(
+        await links.evaluateAll((items) =>
+          items.every((item) => {
+            const walker = document.createTreeWalker(
+              item,
+              NodeFilter.SHOW_TEXT,
+            );
+            const lines = new Set();
+            while (walker.nextNode()) {
+              if (!walker.currentNode.textContent.trim()) continue;
+              const range = document.createRange();
+              range.selectNodeContents(walker.currentNode);
+              for (const rect of range.getClientRects())
+                lines.add(Math.round(rect.top));
+            }
+            return lines.size === 1;
+          }),
+        ),
+      ).toBe(true);
+      const fits = await page.locator(".top-nav").evaluate((nav) => {
+        const outer = nav.getBoundingClientRect();
+        return [...nav.children]
+          .filter((el) => el.getClientRects().length)
+          .every((el) => {
+            const rect = el.getBoundingClientRect();
+            return (
+              rect.top >= outer.top - 1 &&
+              rect.bottom <= outer.bottom + 1 &&
+              rect.left >= outer.left - 1 &&
+              rect.right <= outer.right + 1
+            );
+          });
+      });
+      expect(fits).toBe(true);
       for (let i = 0; i < 2; i++) {
         await page.locator(".theme-toggle").click();
         expect(
