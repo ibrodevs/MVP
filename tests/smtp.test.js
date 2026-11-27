@@ -247,6 +247,9 @@ test("all email labels are localized, Arabic is RTL and internal details stay ou
       new RegExp('dir="' + (language === "ar" ? "rtl" : "ltr") + '"'),
     );
     assert.ok(client.text.includes("Asia/Dubai"));
+    assert.match(client.subject, /^\[PREVIEW TEST\]/);
+    assert.match(company.subject, /^\[PREVIEW TEST\]/);
+    assert.ok(client.text.includes("PREVIEW"));
     assert.ok(!client.text.includes(b.task_description));
     assert.ok(!company.html.includes("<script>"));
     if (language !== "en") {
