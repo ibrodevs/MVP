@@ -91,3 +91,61 @@ test("external calendar conflict after payment prevents automatic event creation
   );
   assert.equal(inserted, false);
 });
+
+test("Preview cleanup accepts Google cancellation tombstones and repeated cleanup does not delete twice", async () => {
+  const names = ["VERCEL_ENV", "VERCEL_TARGET_ENV", "DATABASE_URL"],
+    old = Object.fromEntries(names.map((k) => [k, process.env[k]]));
+  const booking = {
+    id: randomUUID(),
+    company_name: "BTE Preview E2E",
+    customer_email: "projects@bteglobal.ae",
+    payment_status: "paid",
+  };
+  booking.calendar_event_id = "bte" + booking.id.replace(/-/g, "");
+  let removed = false,
+    deletes = 0;
+  try {
+    Object.assign(process.env, {
+      VERCEL_ENV: "preview",
+      DATABASE_URL: "postgresql://test:test@localhost/test",
+    });
+    delete process.env.VERCEL_TARGET_ENV;
+    global.fetch = async (url, options) => {
+      if (url.includes("oauth2"))
+        return response({ access_token: "test", expires_in: 3600 });
+      if (options.method === "DELETE") {
+        removed = true;
+        deletes++;
+        return response({}, 204);
+      }
+      return response({
+        id: booking.calendar_event_id,
+        ...(removed
+          ? { status: "cancelled" }
+          : {
+              description: JSON.stringify({
+                booking_id: booking.id,
+                company: booking.company_name,
+              }),
+            }),
+      });
+    };
+    assert.deepEqual(await calendar.cleanupPreviewEvent(booking), {
+      deleted: true,
+    });
+    assert.deepEqual(await calendar.cleanupPreviewEvent(booking), {
+      deleted: true,
+    });
+    assert.equal(deletes, 1);
+    await assert.rejects(
+      calendar.cleanupPreviewEvent({
+        ...booking,
+        company_name: "Real customer",
+      }),
+    );
+  } finally {
+    for (const key of names)
+      if (old[key] === undefined) delete process.env[key];
+      else process.env[key] = old[key];
+  }
+});

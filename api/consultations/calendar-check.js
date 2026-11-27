@@ -28,7 +28,13 @@ module.exports = route(
           [bookingId],
         );
         if (!rows[0]) fail(404, "not_found");
-        return calendar.cleanupPreviewEvent(rows[0]);
+        const result = await calendar.cleanupPreviewEvent(rows[0]);
+        if (result.deleted)
+          await db().query(
+            "UPDATE bookings SET booking_status='cancelled',slot_held=false,calendar_event_id=NULL,updated_at=now() WHERE id=$1 AND company_name='BTE Preview E2E' AND customer_email='projects@bteglobal.ae' AND payment_status='paid'",
+            [bookingId],
+          );
+        return { ...result, slotReleased: result.deleted };
       }
       fail(400, "invalid");
     } catch (e) {
