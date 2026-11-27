@@ -17,6 +17,7 @@
     "migrate:preview": "node --env-file-if-exists=.env.preview.local scripts/migrate.js"
   },
   "dependencies": {
+    "@vercel/oidc": "^5.0.0",
     "luxon": "^3.7.2",
     "nodemailer": "^10.6.1",
     "pg": "^8.16.3"

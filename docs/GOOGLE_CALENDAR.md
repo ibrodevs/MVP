@@ -1,4 +1,18 @@
-# Corporate Google Calendar setup
+# Google Calendar authentication
+
+## Vercel Workload Identity Federation
+
+When GCP_WORKLOAD_IDENTITY_POOL_ID is present, the Calendar adapter uses WIF and does not fall back to private keys on an authentication failure. It obtains the request-scoped Vercel OIDC token through @vercel/oidc, exchanges it at Google STS and impersonates GCP_SERVICE_ACCOUNT_EMAIL using IAM Credentials. Only the short-lived impersonated token with Calendar scope is cached. Tokens and upstream credential error bodies are never logged.
+
+Required server variables: GCP_PROJECT_NUMBER, GCP_WORKLOAD_IDENTITY_POOL_ID, GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID, GCP_SERVICE_ACCOUNT_EMAIL, GOOGLE_CALENDAR_ID, CALENDAR_MODE=google. GCP_PROJECT_ID identifies the project for administration. Optional GCP_AUDIENCE requests a custom Vercel OIDC audience; otherwise the default team audience is used.
+
+The provider must trust the correct Vercel issuer/audience and restrict identities to this project and Preview environment. Grant the corresponding external principal roles/iam.workloadIdentityUser on the service account; enable STS, IAM Credentials and Calendar APIs. Calendar owner must share the target calendar with the service-account email with permission to make changes to events. No JSON service-account key is required. Do not broaden provider trust or modify Production during Preview testing.
+
+References: [Vercel GCP WIF](https://vercel.com/docs/oidc/gcp), [Google STS](https://cloud.google.com/iam/docs/reference/sts/rest/v1/TopLevel/token).
+
+Private POST /api/consultations/calendar-check requires Preview, isolated database and CRON_SECRET. Action verify with an ISO date reads FreeBusy and returns only authentication status and busy count. Action cleanup with bookingId can delete only a paid test booking's deterministic event when the stored and remote company markers both equal BTE Preview E2E and the recipient is projects@bteglobal.ae; it verifies deletion afterwards. No arbitrary calendar/event ID can be supplied. Owner consent is required before a live event test.
+
+## Legacy key-based setup
 
 1. Create/select the customer's Google Cloud project. Enable Google Calendar API.
 2. Create a dedicated service account. Create a JSON credential in the customer's secure environment. Store only its client_email and private_key in server environment variables; never add the JSON file to this repository.
@@ -14,4 +28,4 @@ On recovery, the server first checks its deterministic event ID, then FreeBusy b
 
 References: [FreeBusy](https://developers.google.com/workspace/calendar/api/v3/reference/freebusy/query), [Events insert and IDs](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert), [Service-account OAuth](https://developers.google.com/identity/protocols/oauth2/service-account).
 
-Prepared Calendar ID: 808bte@gmail.com. GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY and write permission are still required; no real Calendar access is claimed from the ID alone.
+Prepared Calendar ID: 808bte@gmail.com. With WIF, GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY are not required. Real access must still be verified using the deployed identity and the calendar sharing permissions.
