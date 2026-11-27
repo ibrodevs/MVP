@@ -110,3 +110,11 @@ Schedule checks now assert Monday-Friday 10:00-19:00, Asia/Dubai and UTC offset 
 Deployment dpl_2PvSuJGT4PU291FuFnVYNvEcjx25 / implementation 98f6a71905685e4f0d2b2d890acd1a43afb197ef was verified READY. At https://mvp-bi4xx7u4e-ibroits-projects.vercel.app, authenticated requests verified Dubai config, database-backed availability, one winner from two concurrent orders, same-ID retry, successful mock settlement, confirmed status, three completed outbox effects and idempotent duplicate payment. Server/config source probes returned 404 behind authenticated access. This is in addition to the 55 automated tests above.
 
 No real Calendar event, SMTP email or payment was sent. Production tables were still empty after the cloud smoke test. The CLI-created temporary automation token was revoked and verified invalid (302 to SSO); deployment protection remains enabled. See NEON.md for the exact boundaries and remaining credentials.
+
+## IONOS SMTP audit — 27 November 2026
+
+Node 24.22.3: npm run check passed; npm test **45/45**; npm run test:postgres **8/8** against the isolated Neon Preview branch; npm run test:e2e **14/14**; npm run build **24 allowlisted public assets**; npm audit **0 vulnerabilities**. Total **67 automated tests**. No production database or configuration was modified.
+
+Twelve SMTP tests cover required STARTTLS and trusted certificates, AUTH success/failure against an ephemeral local SMTP fixture, refusal to transmit credentials without STARTTLS or with an untrusted certificate, paid/confirmed/event gating, localized EN/RU/AR messages and Arabic RTL, safe HTML/ICS, one-recipient retry with stable Message-ID and correct notification timestamp, fixed-recipient diagnostics, Production/unauthorized guards, missing-password handling and sanitized failures. These fixtures do not represent IONOS delivery.
+
+A separate no-password network probe reached smtp.ionos.com:587, upgraded with STARTTLS, verified the certificate and negotiated TLS 1.3. It did not authenticate or send mail. SMTP_PASSWORD remains required for actual authentication and the agreed technical email to projects@bteglobal.ae; mailbox receipt must be confirmed separately from SMTP acceptance. Google Calendar authentication remains a prerequisite for the separate full live booking scenario.

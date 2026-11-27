@@ -67,3 +67,5 @@ Hobby-compatible configuration uses a daily cron fallback, not a minute cron. Pr
 ## Connected Neon database
 
 See [Neon setup and safety boundaries](docs/NEON.md). Production and schema-only Preview branches are provisioned and migrated. Local default points to Preview; production URLs are rejected for mock payment and destructive test setup. Vercel variables are scoped to Preview + feature/book-consultation. The application still uses pg; migrate through the direct URL.
+
+IONOS SMTP Preview setup, safe password entry and delivery verification: [docs/SMTP.md](docs/SMTP.md).

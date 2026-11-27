@@ -63,14 +63,27 @@ async function configure(apply = process.argv.includes("--apply")) {
     "BOOKING_WORK_END",
   ])
     if (env[key]) values[key] = env[key];
-  Object.assign(values, {
+  const existing = await api(
+    `/v9/projects/${target.projectId}/env?teamId=${target.teamId}`,
+  );
+  const defaults = {
     APP_BASE_URL:
       "https://mvp-git-feature-book-consultation-ibroits-projects.vercel.app",
     PAYMENT_MODE: "mock",
     CALENDAR_MODE: "mock",
     EMAIL_MODE: "mock",
     BOOKING_DEMO_SCHEDULE: "true",
-  });
+  };
+  for (const [key, value] of Object.entries(defaults))
+    if (
+      !existing.envs?.some(
+        (x) =>
+          x.key === key &&
+          x.gitBranch === target.branch &&
+          x.target?.includes("preview"),
+      )
+    )
+      values[key] = value;
   if (!env.CRON_SECRET && apply) {
     env.CRON_SECRET = randomBytes(32).toString("base64url");
     fs.writeFileSync(

@@ -41,6 +41,7 @@ const http = require("node:http"),
             "status",
             "mock-payment",
             "worker",
+            "smtp-check",
           ].includes(name)
         ) {
           res.writeHead(404);

@@ -60,3 +60,7 @@ Error status: 400 invalid, 401 worker auth, 403 origin, 404 order not found/no c
 GET config does not call PostgreSQL. It has a bounded per-instance 120/min/IP limiter plus CDN caching; optional CONFIG_RATE_LIMIT_REDIS_REST_URL/TOKEN supply atomic distributed counters independent of PostgreSQL. Configured Redis errors fail closed with 503. Without Redis/edge rules the cap is per instance, not a deployment-wide guarantee. Other endpoints retain PostgreSQL-backed limits.
 
 Mock payment is available only in explicit local/Preview mock mode. Production/unknown Vercel targets reject it with 404 before database access, even if PAYMENT_MODE=mock. Preview mock settlement attempts the outbox immediately because Vercel Cron does not run on Preview.
+
+## Private Preview SMTP diagnostics
+
+POST /api/consultations/smtp-check: Preview-only, isolated DB, CRON_SECRET bearer authentication, 3 requests/minute. JSON action verify/send and language en/ru/ar. Recipient is fixed to projects@bteglobal.ae; no booking or payment side effects. Missing settings and sanitized SMTP outcomes are returned without credentials. Production returns 404. See SMTP.md.

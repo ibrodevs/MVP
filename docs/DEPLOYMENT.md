@@ -54,7 +54,7 @@ For a Preview test against real Google/SMTP sandbox accounts, replace the two ad
 | GOOGLE_PRIVATE_KEY | PEM key, actual newlines or escaped `\n` |
 | EMAIL_MODE | `smtp` |
 | SMTP_HOST | Prepared: smtp.ionos.com |
-| SMTP_PORT | 587 STARTTLS by default; 465 implicit TLS |
+| SMTP_PORT | 587 only; mandatory STARTTLS, verified TLS >=1.2 |
 | SMTP_USER / SMTP_PASSWORD | projects@bteglobal.ae; password still required |
 | EMAIL_FROM | projects@bteglobal.ae; verify sender with SMTP provider |
 | BOOKING_NOTIFICATION_EMAIL | Defaults to projects@bteglobal.ae |
@@ -137,3 +137,5 @@ Official references: [Cron usage/pricing](https://vercel.com/docs/cron-jobs/usag
 ## Connected Neon profiles
 
 See NEON.md for actual branch IDs, ignored local files and deployment-scoped values. Production/test host guards are enforced before destructive test setup; mock mode rejects production URLs even in a Preview runtime. Migration files now have checksummed replay tracking. The default local profile is Preview; an explicit .env.production.local is available only for authorized production migrations/read-only verification.
+
+IONOS Preview setup and safe password entry: [SMTP.md](SMTP.md). The SMTP configuration script preserves existing Neon, Calendar and Production values.

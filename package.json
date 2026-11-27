@@ -23,10 +23,11 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.3.14",
+    "@neon/config": "^1.14.8",
+    "@neon/env": "^2.1.11",
     "@playwright/test": "^1.56.1",
     "lucide-static": "^0.468.0",
     "prettier": "^3.10.1",
-    "@neon/config": "^1.14.8",
-    "@neon/env": "^2.1.11"
+    "smtp-server": "^3.21.7"
   }
 }
