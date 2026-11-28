@@ -69,3 +69,5 @@ Hobby-compatible configuration uses a daily cron fallback, not a minute cron. Pr
 See [Neon setup and safety boundaries](docs/NEON.md). Production and schema-only Preview branches are provisioned and migrated. Local default points to Preview; production URLs are rejected for mock payment and destructive test setup. Preview variables remain scoped to feature/book-consultation; the approved website release adds separate Production runtime settings with payment disabled. The application still uses pg; migrate through the direct URL.
 
 IONOS SMTP Preview setup, safe password entry and delivery verification: [docs/SMTP.md](docs/SMTP.md).
+
+Published website and release checks: [docs/RELEASE_2026-11-28.md](docs/RELEASE_2026-11-28.md). Payment-team archive entry point: [docs/PAYMENT_HANDOFF_START_HERE.md](docs/PAYMENT_HANDOFF_START_HERE.md).

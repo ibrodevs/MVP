@@ -35,3 +35,27 @@ Prepared Calendar ID: 808bte@gmail.com. With WIF, GOOGLE_CLIENT_EMAIL and GOOGLE
 Owner consent was obtained to create one test event and delete it afterwards. Fresh Preview authenticated through WIF as bte-booking@bte-global-booking-516005.iam.gserviceaccount.com against calendar 808bte@gmail.com. FreeBusy succeeded before checkout (0 busy intervals). Browser checkout booked 30 November, 11:00–12:00 Asia/Dubai. Before mock settlement: no event and no outbox effects. After settlement: one private PREVIEW TEST event and two SMTP notifications; FreeBusy showed 1 busy interval. Repeated settlement and worker processing did not create another event or resend the completed notification jobs.
 
 Cleanup was subsequently verified on deployment dpl_9KgYSaMX13e2kvHgKqkp42kgN6Qr: remote event deletion confirmed, FreeBusy returned 0 busy intervals, the Preview test booking was cancelled and its slot released. No other calendar event was modified. See TEST_REPORT.md for exact deployment and booking identifiers.
+
+## Production identity for the approved website release
+
+The customer approved website publication on 28 November 2026. The provider condition was explicitly approved and saved as:
+
+```cel
+assertion.owner == 'ibroits-projects' && assertion.project == 'mvp' && assertion.environment in ['preview', 'production']
+```
+
+Issuer remains https://oidc.vercel.com/ibroits-projects, allowed audience remains https://vercel.com/ibroits-projects and google.subject maps to assertion.sub. Do not remove the owner/project restrictions or replace this condition with true.
+
+Provider acceptance and service-account impersonation are separate permissions. The service account needs roles/iam.workloadIdentityUser for the exact Production subject as well as the existing Preview subject. Add the Production binding without removing Preview:
+
+```sh
+gcloud iam service-accounts add-iam-policy-binding \
+  bte-booking@bte-global-booking-516005.iam.gserviceaccount.com \
+  --project=bte-global-booking-516005 \
+  --role=roles/iam.workloadIdentityUser \
+  --member='principal://iam.googleapis.com/projects/250111948032/locations/global/workloadIdentityPools/bte-vercel/subject/owner:ibroits-projects:project:mvp:environment:production'
+```
+
+An authorized project owner must approve any permission expansion. Validate Production with a read-only availability request; do not create test bookings or events in the production database. Real payment launch remains separately disabled and unapproved.
+
+For this release the owner executed the exact Production binding command in Cloud Shell. Its successful output was checked: both Preview and Production subjects are listed under roles/iam.workloadIdentityUser on the existing booking service account. No broader pool principal, Owner role, private key or change to the Calendar sharing was introduced.
