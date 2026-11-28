@@ -125,3 +125,35 @@ test("private Calendar diagnostics deny Production and unauthorized Preview befo
     Object.assign(process.env, old);
   }
 });
+
+test("WIF rejection logs only safe categories and never upstream credentials or descriptions", async () => {
+  const original = console.error,
+    logs = [];
+  console.error = (line) => logs.push(line);
+  try {
+    await assert.rejects(
+      exchange(undefined, {
+        env,
+        oidc: async () => "sensitive-oidc-fixture",
+        request: async () => ({
+          ok: false,
+          status: 400,
+          json: async () => ({
+            error: "invalid_grant",
+            error_description:
+              "Credential rejected by the attribute condition: sensitive-oidc-fixture",
+          }),
+        }),
+      }),
+      (error) => error.authReason === "attribute_condition_rejected",
+    );
+    assert.equal(logs.length, 1);
+    const result = JSON.parse(logs[0]);
+    assert.equal(result.stage, "sts");
+    assert.equal(result.upstreamStatus, 400);
+    assert.ok(!logs[0].includes("sensitive-oidc-fixture"));
+    assert.ok(!logs[0].includes("Credential rejected"));
+  } finally {
+    console.error = original;
+  }
+});
