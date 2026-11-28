@@ -3,7 +3,7 @@ window.BTE_I18N = {
     home: "Back to home",
     book: "Book a Consultation",
     eyebrow: "EXPERTISE, ON YOUR SCHEDULE",
-    title: "Clarity for your next<br>technology decision.",
+    title: "Clarity for your next <br>technology decision.",
     intro:
       "Book a focused session with our engineering team. Bring your challenge. Leave with a practical direction.",
     zone: "Monday–Friday · 10:00–19:00 · Dubai (GMT+4)",
@@ -108,7 +108,7 @@ window.BTE_I18N = {
     home: "На главную",
     book: "Записаться на консультацию",
     eyebrow: "ЭКСПЕРТИЗА В УДОБНОЕ ВРЕМЯ",
-    title: "Ясность для вашего<br>следующего IT-решения.",
+    title: "Ясность для вашего <br>следующего IT-решения.",
     intro:
       "Обсудите вашу задачу с нашей инженерной командой и определите практический путь её решения.",
     zone: "Понедельник–пятница · 10:00–19:00 · Дубай (GMT+4)",
@@ -211,7 +211,7 @@ window.BTE_I18N = {
     home: "العودة إلى الرئيسية",
     book: "احجز استشارة",
     eyebrow: "خبرة في الوقت المناسب لك",
-    title: "رؤية واضحة لقرارك<br>التقني القادم.",
+    title: "رؤية واضحة لقرارك <br>التقني القادم.",
     intro: "احجز جلسة مركزة مع فريقنا الهندسي. اطرح تحديك واحصل على توجه عملي.",
     zone: "الاثنين–الجمعة · 10:00–19:00 · دبي (GMT+4)",
     zoneName: "دبي · GMT+4",
