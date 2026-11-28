@@ -143,3 +143,11 @@ IONOS Preview setup and safe password entry: [SMTP.md](SMTP.md). The SMTP config
 ### Current WIF authentication
 
 With GCP_WORKLOAD_IDENTITY_POOL_ID configured, supply GCP_PROJECT_NUMBER, GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID and GCP_SERVICE_ACCOUNT_EMAIL. The adapter obtains request-scoped Vercel OIDC and impersonates the service account. GCP_AUDIENCE is optional for a custom provider audience. GOOGLE_CLIENT_EMAIL/GOOGLE_PRIVATE_KEY apply only to the legacy non-WIF path. The configured Preview WIF identity and SMTP password were tested against their real services; see GOOGLE_CALENDAR.md and SMTP.md.
+
+## Website publication authorization — 28 November 2026
+
+The customer approved publishing the current website changes. Deploy directly from feature/book-consultation without merging main. Keep PAYMENT_MODE=disabled and BOOKING_DEMO_SCHEDULE=false. Use the registered production Neon pooled URL (never the Preview URL), the prepared WIF identity, the IONOS server/account settings and a new Production CRON_SECRET. The existing non-branch Sensitive SMTP_PASSWORD is made available to both Preview and Production by updating its targets without reading its value. Preview branch-specific settings remain intact. This shared secret's future rotation should be coordinated across both environments.
+
+Build a Production candidate with `vercel deploy --prod --skip-domain`, verify its configuration/security and read-only availability before `vercel promote`. Keep the previous Production deployment ID for rollback. Do not create test orders, events or payments in Production. Real payment launch remains a separate task and approval.
+
+The payment-team archive includes tracked source, migrations, tests and English handoff documentation. It excludes local environment files, passwords, Vercel sessions, database contents, node_modules and browser traces. Start with PAYMENT_HANDOFF_START_HERE.md.

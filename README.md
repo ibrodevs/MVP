@@ -54,7 +54,7 @@ See [deployment](docs/DEPLOYMENT.md), [stack](docs/TECH_STACK.md), [Calendar](do
 
 ## Release boundaries
 
-Work is pushed only to feature/book-consultation for Preview; no production deployment or merge into main is authorized. The Dubai schedule is approved and Neon is connected. Customer must approve legal additions and commission/test the Ziina adapter before a future Production release. Live Preview WIF Calendar access and IONOS SMTP acceptance are verified in docs/TEST_REPORT.md; inbox receipt remains subject to mailbox-owner confirmation. Real Ziina remains unconnected. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
+Source changes remain in feature/book-consultation. On 28 November 2026 the customer authorized publication of these changes; Production is released directly from this branch without merging main. Real payments remain disabled until the Ziina adapter is delivered and approved. The Dubai schedule is approved and Neon is connected. Customer must approve legal additions and commission/test the Ziina adapter before a future Production release. Live Preview WIF Calendar access and IONOS SMTP acceptance are verified in docs/TEST_REPORT.md; inbox receipt remains subject to mailbox-owner confirmation. Real Ziina remains unconnected. SMTP cannot guarantee exactly-once delivery across a crash after acceptance; details and mitigation are documented in the payment handoff.
 
 ## Audited deployment and booking lifecycle
 
@@ -66,6 +66,6 @@ Hobby-compatible configuration uses a daily cron fallback, not a minute cron. Pr
 
 ## Connected Neon database
 
-See [Neon setup and safety boundaries](docs/NEON.md). Production and schema-only Preview branches are provisioned and migrated. Local default points to Preview; production URLs are rejected for mock payment and destructive test setup. Vercel variables are scoped to Preview + feature/book-consultation. The application still uses pg; migrate through the direct URL.
+See [Neon setup and safety boundaries](docs/NEON.md). Production and schema-only Preview branches are provisioned and migrated. Local default points to Preview; production URLs are rejected for mock payment and destructive test setup. Preview variables remain scoped to feature/book-consultation; the approved website release adds separate Production runtime settings with payment disabled. The application still uses pg; migrate through the direct URL.
 
 IONOS SMTP Preview setup, safe password entry and delivery verification: [docs/SMTP.md](docs/SMTP.md).

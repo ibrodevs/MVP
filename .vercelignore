@@ -12,3 +12,5 @@ playwright.config.js
 
 .neon
 neon.ts
+
+artifacts

@@ -64,7 +64,7 @@ SMTP has no universal idempotency mechanism: outbox locks and stable Message-ID 
 
 ## Hobby and Preview execution
 
-The committed cron runs once daily at 03:00 UTC (Hobby compatible). Vercel runs cron only for Production; Preview's mock-payment endpoint attempts `work()` after durable settlement, catches delivery failures without undoing payment, and can be recovered through the authenticated worker. Never rely on a daily cron for timely real-payment fulfilment: the future verified webhook must trigger background processing and an authenticated external scheduler should retry frequently, or minute cron may be enabled only after an approved plan upgrade. No plan upgrade or production deployment has been performed.
+The committed cron runs once daily at 03:00 UTC (Hobby compatible). Vercel runs cron only for Production; Preview's mock-payment endpoint attempts `work()` after durable settlement, catches delivery failures without undoing payment, and can be recovered through the authenticated worker. Never rely on a daily cron for timely real-payment fulfilment: the future verified webhook must trigger background processing and an authenticated external scheduler should retry frequently, or minute cron may be enabled only after an approved plan upgrade. No plan upgrade has been performed. The customer approved publication of the existing website on 28 November 2026 with Production payments disabled; this approval does not authorize a future live-provider release.
 
 ## Connected Neon safety boundary
 

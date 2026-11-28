@@ -1,9 +1,9 @@
-# Add multilingual consultation booking with a secure payment integration boundary
+# Multilingual consultation booking and payment-team handoff
 
-BTE Global previously had no way to reserve and pay for a timed consultation. This change adds a branded EN/RU/AR booking page, configurable server prices and availability, PostgreSQL interval reservations, a verified-payment service and durable Calendar/email effects. Existing site architecture, project enquiries and generated support.js are preserved.
+Adds the EN/RU/AR consultation UI, Dubai schedule, PostgreSQL reservations, verified-payment boundary, durable Calendar/email outbox and private Preview diagnostics. Existing homepage, project enquiries and support.js remain intact.
 
-Production checkout stays disabled until the Ziina team supplies and integrates its authenticated payment flow. Working hours require customer approval. Calendar and SMTP adapters are implemented; account-backed staging validation is still required. Proposed legal additions are separate from the published policies.
+Live Preview checks verified Neon, Google WIF FreeBusy/event creation and IONOS SMTP acceptance. The owner-approved test event was removed and its slot released. Inbox placement still requires mailbox-owner confirmation.
 
-Validation: 28 unit/adapter tests, 7 real PostgreSQL concurrency/runtime tests and 14 Playwright Chrome tests passed, including 320–1920px, RTL, themes, concurrent overlap rejection, expiry, settlement retries and mock end-to-end effects. npm audit reports zero known vulnerabilities. See TEST_REPORT.md for test boundaries and DEPLOYMENT.md / PAYMENT_INTEGRATION.md for the release gates. Push targets feature/book-consultation only; no production deploy or merge into main is authorized.
+Validation: 51 backend tests, 8 isolated Neon PostgreSQL tests and 14 Playwright tests, plus a separate live Preview browser checkout. Syntax/build passed; audit found zero vulnerabilities. See TEST_REPORT.md.
 
-Final audit fixes the actual Hobby cron build rejection, isolates public assets in generated public/, removes PostgreSQL from public config, enables explicit Preview mock checkout with NODE_ENV=production, introduces paid_pending_calendar and serializes recipient effects per booking. See AUDIT_2026-11-26.md and migrate through 002 before using an existing database.
+On 28 November 2026 the customer authorized publication. Production is deployed directly from feature/book-consultation; main is not merged. Production PAYMENT_MODE=disabled: real Ziina is not integrated and mock checkout remains rejected. The payment team starts with PAYMENT_HANDOFF_START_HERE.md and PAYMENT_INTEGRATION.md.
